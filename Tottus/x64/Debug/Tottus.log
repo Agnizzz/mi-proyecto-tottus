@@ -1,0 +1,14 @@
+﻿  Tottus.cpp
+C:\Users\Victor\Desktop\Tottus (1)\Tottus\Tabla.h(157,17): warning C4566: el carácter representado por el nombre de carácter universal '\u2191' no se puede representar en la página de códigos actual (1252)
+  (compilando archivo de origen "Tottus.cpp")
+  
+C:\Users\Victor\Desktop\Tottus (1)\Tottus\Tabla.h(157,17): warning C4566: el carácter representado por el nombre de carácter universal '\u2193' no se puede representar en la página de códigos actual (1252)
+  (compilando archivo de origen "Tottus.cpp")
+  
+C:\Users\Victor\Desktop\Tottus (1)\Tottus\Administrador.h(160,21): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+  (compilando archivo de origen "Tottus.cpp")
+  
+C:\Users\Victor\Desktop\Tottus (1)\Tottus\Matrices.h(497,1): warning C4715: 'Usuario': no todas las rutas de acceso de control devuelven un valor
+C:\Users\Victor\Desktop\Tottus (1)\Tottus\Matrices.h(866,1): warning C4715: 'Menu': no todas las rutas de acceso de control devuelven un valor
+C:\Users\Victor\Desktop\Tottus (1)\Tottus\Matrices.h(704,1): warning C4715: 'Administrador': no todas las rutas de acceso de control devuelven un valor
+  Tottus.vcxproj -> C:\Users\Victor\Desktop\Tottus (1)\x64\Debug\Tottus.exe
