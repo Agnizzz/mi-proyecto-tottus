@@ -146,6 +146,7 @@
     <ClInclude Include="Pilas.h" />
     <ClInclude Include="Producto.h" />
     <ClInclude Include="Tabla.h" />
+    <ClInclude Include="Usuario.h" />
     <ClInclude Include="Utilidades.h" />
   </ItemGroup>
   <ItemGroup>
