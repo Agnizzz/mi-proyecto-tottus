@@ -6,4 +6,10 @@
 
 ## ***Introducción***
 
----
+## ***Instrucciones***
+
+## ***Especificaciones***
+
+## ***Views***
+
+## ***Licencia***
