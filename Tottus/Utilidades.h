@@ -1,5 +1,6 @@
 #pragma once
 #include <windows.h>
+#include <iostream>
 
 enum ConsoleColor {
     Black = 0,
@@ -26,7 +27,7 @@ void SetTextColor(ConsoleColor color) {
         static_cast<WORD>(color));
 }
 
-inline void SetForegroundColor(ConsoleColor color) {
+void SetForegroundColor(ConsoleColor color) {
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(h, &csbi);
@@ -38,7 +39,7 @@ inline void SetForegroundColor(ConsoleColor color) {
     SetConsoleTextAttribute(h, attr);
 }
 
-inline void SetBackgroundColor(ConsoleColor color) {
+void SetBackgroundColor(ConsoleColor color) {
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(h, &csbi);
@@ -48,13 +49,13 @@ inline void SetBackgroundColor(ConsoleColor color) {
     SetConsoleTextAttribute(h, fgBits | bgBits);
 }
 
-inline int GetConsoleWidth() {
+int GetConsoleWidth() {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
     return csbi.srWindow.Right - csbi.srWindow.Left + 1;
 }
 
-inline int GetConsoleHeight() {
+int GetConsoleHeight() {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
     return csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
