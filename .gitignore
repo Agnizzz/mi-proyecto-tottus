@@ -1,6 +1,2 @@
 # Ignorar archivos de Visual Studio
 .vs/
-
-.x64/
-
-.Tottus/x64/

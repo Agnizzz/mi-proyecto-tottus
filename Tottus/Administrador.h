@@ -68,7 +68,7 @@ public:
         system("cls");
         const int FILAS = 27;
         const int COLUMNAS = 160;
-        int logo[FILAS][COLUMNAS] = {
+        int interfaz[FILAS][COLUMNAS] = {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -104,46 +104,46 @@ public:
         static int prevPosX = posicionX;
         for (int f = 0; f < FILAS; f++) {
             for (int c = 0; c < COLUMNAS; c++) {
-                if (logo[f][c] == 4) {
+                if (interfaz[f][c] == 4) {
                     SetForegroundColor(LightYellow);
                     SetCursorPosition(c, f);
                     cout << (char)220;
                     continue;
                 }
-                if (logo[f][c] == 6) {
+                if (interfaz[f][c] == 6) {
                     SetForegroundColor(Green);
                     SetCursorPosition(c, f);
                     cout << (char)220;
                     continue;
                 }
-                if (logo[f][c] == 8) {
+                if (interfaz[f][c] == 8) {
                     SetForegroundColor(LightGreen);
                     SetCursorPosition(c, f);
                     cout << (char)220;
                     continue;
                 }
-                if (logo[f][c] == 5) {
+                if (interfaz[f][c] == 5) {
                     SetForegroundColor(LightYellow);
                     SetCursorPosition(c, f);
                     cout << (char)223;
                     continue;
                 }
-                if (logo[f][c] == 7) {
+                if (interfaz[f][c] == 7) {
                     SetForegroundColor(Green);
                     SetCursorPosition(c, f);
                     cout << (char)223;
                     continue;
                 }
-                if (logo[f][c] == 9) {
+                if (interfaz[f][c] == 9) {
                     SetForegroundColor(LightGreen);
                     SetCursorPosition(c, f);
                     cout << (char)223;
                     continue;
                 }
-                if (logo[f][c] == 0) SetForegroundColor(Black);
-                else if (logo[f][c] == 1) SetForegroundColor(LightGreen);
-                else if (logo[f][c] == 2) SetForegroundColor(Green);
-                else if (logo[f][c] == 3) SetForegroundColor(LightYellow);
+                if (interfaz[f][c] == 0) SetForegroundColor(Black);
+                else if (interfaz[f][c] == 1) SetForegroundColor(LightGreen);
+                else if (interfaz[f][c] == 2) SetForegroundColor(Green);
+                else if (interfaz[f][c] == 3) SetForegroundColor(LightYellow);
                 else SetForegroundColor(Black);
 
                 SetCursorPosition(c, f);
@@ -172,22 +172,49 @@ public:
 
             SetCursorPosition(camposX, formularioY + 2);
             cout << "Usuario: ";
-            cin >> usuario;
+            // Leer usuario con soporte para ESC
+            usuario = "";
+            char ch;
+            while (true) {
+                ch = _getch();
+                if (ch == 27) { // 27 es el código ASCII para ESC
+                    return false; // Volver al menú principal
+                }
+                if (ch == 13) { // 13 es Enter
+                    break;
+                }
+                if (ch == 8) { // Backspace
+                    if (!usuario.empty()) {
+                        usuario.pop_back();
+                        cout << "\b \b";
+                    }
+                }
+                else if (ch >= 32 && ch <= 126) { // Caracteres imprimibles
+                    usuario.push_back(ch);
+                    cout << ch;
+                }
+            }
 
             SetCursorPosition(camposX, formularioY + 4);
-            cout << "Contrase¤a: ";
+            cout << "Contrase\xA4" << "a: ";
 
             // Ocultar la contraseña con asteriscos
-            char ch;
             contrasena = "";
-            while ((ch = _getch()) != 13) { // 13 es Enter
+            while (true) {
+                ch = _getch();
+                if (ch == 27) { // ESC
+                    return false; // Volver al menú principal
+                }
+                if (ch == 13) { // Enter
+                    break;
+                }
                 if (ch == 8) { // Backspace
                     if (!contrasena.empty()) {
                         contrasena.pop_back();
                         cout << "\b \b";
                     }
                 }
-                else {
+                else if (ch >= 32 && ch <= 126) {
                     contrasena.push_back(ch);
                     cout << "*";
                 }
@@ -202,7 +229,7 @@ public:
                     encontrado = true;
 
                     SetCursorPosition(camposX, formularioY + 6);
-                    cout << "­Bienvenido administrador " << adminActual.nombre << "!";
+                    cout << "\xAD" << "Bienvenido administrador " << adminActual.nombre << "!";
 					system("Pause>0");
                     //Sleep(1500);
                     return true;
@@ -212,7 +239,7 @@ public:
             if (!encontrado) {
                 intentos++;
                 SetCursorPosition(camposX, formularioY + 6);
-                cout << "Usuario o contrase¤a incorrectos. Intento " << intentos << " de " << MAX_INTENTOS;
+                cout << "Usuario o contrase\xA4" << "a incorrectos. Intento " << intentos << " de " << MAX_INTENTOS;
                 system("Pause>0");
                 //Sleep(1500);
 

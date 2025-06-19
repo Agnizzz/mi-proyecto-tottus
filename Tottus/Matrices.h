@@ -491,7 +491,7 @@ bool Usuario() {
         SetCursorPosition(48, 33); cout << "CARRITO";
         SetCursorPosition(77, 33); cout << "REGISTRO";
         SetCursorPosition(106, 33); cout << "SOPORTE";
-        SetCursorPosition(136, 33); cout << "SALIR";
+        SetCursorPosition(132, 33); cout << "CERRAR SESION";
         Sleep(50);
     }
 }
@@ -698,7 +698,7 @@ bool Administrador() {
         SetCursorPosition(48, 33); cout << "GESTION";
         SetCursorPosition(77, 33); cout << "REGISTRO";
         SetCursorPosition(106, 33); cout << "SOPORTE";
-        SetCursorPosition(136, 33); cout << "SALIR";
+        SetCursorPosition(132, 33); cout << "CERRAR SESION";
         Sleep(50);
     }
 }
@@ -864,6 +864,7 @@ bool Menu() {
         Sleep(50);
     }
 }
+
 
 void Pantalla_carga() {
     SetBackgroundColor(Black);

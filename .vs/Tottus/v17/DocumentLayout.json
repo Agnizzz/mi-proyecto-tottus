@@ -5,6 +5,22 @@
     {
       "AbsoluteMoniker": "D:0:0:{EC3F5AFE-E4FA-4E7B-B5CD-2BB619130AB9}|Tottus\\Tottus.vcxproj|C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Usuario.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{EC3F5AFE-E4FA-4E7B-B5CD-2BB619130AB9}|Tottus\\Tottus.vcxproj|solutionrelative:Tottus\\Usuario.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC3F5AFE-E4FA-4E7B-B5CD-2BB619130AB9}|Tottus\\Tottus.vcxproj|C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Usuarios.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{EC3F5AFE-E4FA-4E7B-B5CD-2BB619130AB9}|Tottus\\Tottus.vcxproj|solutionrelative:Tottus\\Usuarios.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC3F5AFE-E4FA-4E7B-B5CD-2BB619130AB9}|Tottus\\Tottus.vcxproj|C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Administradores.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{EC3F5AFE-E4FA-4E7B-B5CD-2BB619130AB9}|Tottus\\Tottus.vcxproj|solutionrelative:Tottus\\Administradores.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC3F5AFE-E4FA-4E7B-B5CD-2BB619130AB9}|Tottus\\Tottus.vcxproj|C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Matrices.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EC3F5AFE-E4FA-4E7B-B5CD-2BB619130AB9}|Tottus\\Tottus.vcxproj|solutionrelative:Tottus\\Matrices.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC3F5AFE-E4FA-4E7B-B5CD-2BB619130AB9}|Tottus\\Tottus.vcxproj|C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Administrador.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EC3F5AFE-E4FA-4E7B-B5CD-2BB619130AB9}|Tottus\\Tottus.vcxproj|solutionrelative:Tottus\\Administrador.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,13 +42,65 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Matrices.h",
+              "DocumentMoniker": "C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Matrices.h",
+              "RelativeDocumentMoniker": "Tottus\\Matrices.h",
+              "ToolTip": "C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Matrices.h",
+              "RelativeToolTip": "Tottus\\Matrices.h",
+              "ViewState": "AgIAACUCAAAAAAAAAAAAAPABAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-06-19T09:04:25.335Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Administradores.txt",
+              "DocumentMoniker": "C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Administradores.txt",
+              "RelativeDocumentMoniker": "Tottus\\Administradores.txt",
+              "ToolTip": "C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Administradores.txt",
+              "RelativeToolTip": "Tottus\\Administradores.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-06-19T08:47:06.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Administrador.h",
+              "DocumentMoniker": "C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Administrador.h",
+              "RelativeDocumentMoniker": "Tottus\\Administrador.h",
+              "ToolTip": "C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Administrador.h",
+              "RelativeToolTip": "Tottus\\Administrador.h",
+              "ViewState": "AgIAALEAAAAAAAAAAAAAANwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-06-19T08:47:04.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Usuarios.txt",
+              "DocumentMoniker": "C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Usuarios.txt",
+              "RelativeDocumentMoniker": "Tottus\\Usuarios.txt",
+              "ToolTip": "C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Usuarios.txt",
+              "RelativeToolTip": "Tottus\\Usuarios.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-06-19T08:47:07.878Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Usuario.h",
               "DocumentMoniker": "C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Usuario.h",
               "RelativeDocumentMoniker": "Tottus\\Usuario.h",
               "ToolTip": "C:\\Users\\adria\\mi-proyecto-tottus\\Tottus\\Usuario.h",
               "RelativeToolTip": "Tottus\\Usuario.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-06-16T04:21:23.165Z",
               "EditorCaption": ""
