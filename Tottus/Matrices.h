@@ -6,10 +6,13 @@
 #include "Producto.h"
 #include "Cliente.h"
 #include "Administrador.h"
+#include "Usuario.h"
 
 using namespace std;
 
 SistemaAdministradores* sistemaAdmins = new SistemaAdministradores();
+
+SistemaUsuarios* sistemaUsuarios = new SistemaUsuarios();
 
 CartadeReclamos* cartadeReclamo = new CartadeReclamos();
 
@@ -158,7 +161,6 @@ void Cliente() {
     system("pause>0");
 }
 
-
 void Registro() {
     SetBackgroundColor(Black);
     system("cls");
@@ -289,6 +291,7 @@ void Salir() {
     Sleep(2000);
     exit(0);
 }
+
 bool Usuario() {
     SetBackgroundColor(Black);
     system("cls");
@@ -826,10 +829,12 @@ bool Menu() {
                     }
                     return true;
                 }
-                else if (posicionX == POS_USUARIO) {
-                    Usuario();
-                    return true;
-                }
+				else if (posicionX == POS_USUARIO) {
+					if (sistemaUsuarios->SubMenuUsuario()) {
+						Usuario(); // Ejecuta la función Usuario() solo si la autenticación fue exitosa
+					}
+					return true;
+				}
             }
             if (prevPosX != posicionX) {
                 for (int f = 0; f < FILAS_OPCION; f++) {
@@ -864,7 +869,6 @@ bool Menu() {
         Sleep(50);
     }
 }
-
 
 void Pantalla_carga() {
     SetBackgroundColor(Black);
