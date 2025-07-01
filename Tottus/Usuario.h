@@ -53,9 +53,9 @@ private:
 			if (!getline(archivo, usuarios[cantidadUsuarios].nombre)) break;
 			if (!getline(archivo, usuarios[cantidadUsuarios].apellido_paterno)) break;
 			if (!getline(archivo, usuarios[cantidadUsuarios].apellido_materno)) break;
-			if (!getline(archivo, usuarios[cantidadUsuarios].usuario)) break;
 			if (!getline(archivo, usuarios[cantidadUsuarios].DNI)) break;
 			if (!getline(archivo, usuarios[cantidadUsuarios].celular)) break;
+			if (!getline(archivo, usuarios[cantidadUsuarios].usuario)) break;
 			if (!getline(archivo, usuarios[cantidadUsuarios].contrasena)) break;
 
 			cantidadUsuarios++;
@@ -413,41 +413,503 @@ public:
 		dibujarCampo(columnaDerechaX, posY + espacioVertical * 3, "Contrase¤a");
 
 		// Recopilar datos de la columna izquierda
-		SetCursorPosition(columnaIzquierdaX + 18, posY);
-		cin >> nuevoUsuario.nombre;
+		bool nombreValido = false;
+		while (!nombreValido) {
+			SetCursorPosition(columnaIzquierdaX + 18, posY);
+			// Limpiar la linea anterior si hubo error
+			for (int i = 0; i < 30; i++) cout << " ";
+			SetCursorPosition(columnaIzquierdaX + 18, posY);
 
-		SetCursorPosition(columnaIzquierdaX + 18, posY + espacioVertical);
-		cin >> nuevoUsuario.apellido_paterno;
+			nuevoUsuario.nombre = "";
+			char chn;
+			while (true) {
+				chn = _getch();
+				if (chn == 13) break;  // Enter
+				if (chn == 27) return false;  // ESC
+				if (chn == 224 || chn == 0) {  // Tecla especial
+					_getch();  // Consumir el siguiente byte sin hacer nada
+					continue;  // Ignorar la secuencia completa
+				}
+				if (chn == 8) {  // Backspace
+					if (!nuevoUsuario.nombre.empty()) {
+						nuevoUsuario.nombre.pop_back();
+						cout << "\b \b";
+					}
+				}
+				else if (chn == 32) {  // Permitir espacios para nombres compuestos
+					nuevoUsuario.nombre.push_back(chn);
+					cout << chn;
+				}
+				// Verificar si es una letra (mayuscula o minuscula)
+				else if ((chn >= 'A' && chn <= 'Z') || (chn >= 'a' && chn <= 'z')) {
+					nuevoUsuario.nombre.push_back(chn);
+					cout << chn;
+				}
+			}
 
-		SetCursorPosition(columnaIzquierdaX + 18, posY + espacioVertical * 2);
-		cin >> nuevoUsuario.apellido_materno;
-
-		SetCursorPosition(columnaIzquierdaX + 18, posY + espacioVertical * 3);
-		cin >> nuevoUsuario.usuario;
-
-		// Verificar si el usuario ya existe
-		for (int i = 0; i < cantidadUsuarios; i++) {
-			if (usuarios[i].usuario == nuevoUsuario.usuario) {
+			// Validar que no este vacio
+			if (nuevoUsuario.nombre.empty()) {
 				SetForegroundColor(Red);
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
-				cout << "El nombre de usuario ya existe. Intente con otro nombre.";
-				system("pause>0");
-				return false;
+				cout << "El nombre no puede estar vacio.";
+				_getch();  // Esperar tecla
+				// Limpiar mensaje de error
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				SetForegroundColor(BrightWhite);
+			}
+			else {
+				nombreValido = true;
+			}
+		}
+
+		bool apellidoPaternoValido = false;
+		while (!apellidoPaternoValido) {
+			SetCursorPosition(columnaIzquierdaX + 18, posY + espacioVertical);
+			for (int i = 0; i < 30; i++) cout << " ";
+			SetCursorPosition(columnaIzquierdaX + 18, posY + espacioVertical);
+
+			nuevoUsuario.apellido_paterno = "";
+			char chap;
+			while (true) {
+				chap = _getch();
+				if (chap == 13) break;  // Enter
+				if (chap == 27) return false;  // ESC
+				if (chap == 224 || chap == 0) {  // Tecla especial
+					_getch();  // Consumir el siguiente byte sin hacer nada
+					continue;  // Ignorar la secuencia completa
+				}
+				if (chap == 8) {  // Backspace
+					if (!nuevoUsuario.apellido_paterno.empty()) {
+						nuevoUsuario.apellido_paterno.pop_back();
+						cout << "\b \b";
+					}
+				}
+				else if (chap == 32) {  // Permitir espacios para apellido compuestos compuestos
+					nuevoUsuario.apellido_paterno.push_back(chap);
+					cout << chap;
+				}
+				// Verificar si es una letra (mayuscula o minuscula)
+				else if ((chap >= 'A' && chap<= 'Z') || (chap >= 'a' && chap <= 'z')) {
+					nuevoUsuario.apellido_paterno.push_back(chap);
+					cout << chap;
+				}
+			}
+
+			// Validar que no este vacio
+			if (nuevoUsuario.apellido_paterno.empty()) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "El apellido paterno no puede estar vacio.";
+				_getch();  // Esperar tecla
+				// Limpiar mensaje de error
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				SetForegroundColor(BrightWhite);
+			}
+			else {
+				apellidoPaternoValido = true;
+			}
+		}
+
+		bool apellidoMaternoValido = false;
+		while (!apellidoMaternoValido) {
+			SetCursorPosition(columnaIzquierdaX + 18, posY + espacioVertical * 2);
+			for (int i = 0; i < 30; i++) cout << " ";
+			SetCursorPosition(columnaIzquierdaX + 18, posY + espacioVertical * 2);
+			nuevoUsuario.apellido_materno = "";
+			char cham;
+			while (true) {
+				cham = _getch();
+				if (cham == 13) break;  // Enter
+				if (cham == 27) return false;  // ESC
+				if (cham == 224 || cham == 0) {  // Tecla especial
+					_getch();  // Consumir el siguiente byte sin hacer nada
+					continue;  // Ignorar la secuencia completa
+				}
+				if (cham == 8) {  // Backspace
+					if (!nuevoUsuario.apellido_materno.empty()) {
+						nuevoUsuario.apellido_materno.pop_back();
+						cout << "\b \b";
+					}
+				}
+				else if (cham == 32) {  // Permitir espacios para apellido compuestos compuestos
+					nuevoUsuario.apellido_materno.push_back(cham);
+					cout << cham;
+				}
+				// Verificar si es una letra (mayuscula o minuscula)
+				else if ((cham >= 'A' && cham <= 'Z') || (cham >= 'a' && cham <= 'z')) {
+					nuevoUsuario.apellido_materno.push_back(cham);
+					cout << cham;
+				}
+			}
+			// Validar que no este vacio
+			if (nuevoUsuario.apellido_materno.empty()) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "El apellido materno no puede estar vacio.";
+				_getch();  // Esperar tecla
+				// Limpiar mensaje de error
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				SetForegroundColor(BrightWhite);
+			}
+			else {
+				apellidoMaternoValido = true;
+			}
+		}
+
+		bool usuarioValido = false;
+		while (!usuarioValido) {
+			SetCursorPosition(columnaIzquierdaX + 18, posY + espacioVertical * 3);
+			for (int i = 0; i < 30; i++) cout << " ";
+			SetCursorPosition(columnaIzquierdaX + 18, posY + espacioVertical * 3);
+
+			string tempUsuario = "";
+			char chu;
+			while (true) {
+				chu = _getch();
+				if (chu == 13) break;  // Enter
+				if (chu == 27) return false;  // ESC
+				if (chu == 224 || chu == 0) {  // Tecla especial
+					_getch();  // Consumir el siguiente byte sin hacer nada
+					continue;  // Ignorar la secuencia completa
+				}
+				if (chu == 8) {  // Backspace
+					if (!tempUsuario.empty()) {
+						tempUsuario.pop_back();
+						cout << "\b \b";
+					}
+				}
+				else if (chu >= 32 && chu <= 126) {
+					tempUsuario.push_back(chu);
+					cout << chu;
+				}
+			}
+
+			// Validar que no este vacio
+			if (tempUsuario.empty()) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "El nombre de usuario no puede estar vacio";
+				_getch();
+				SetForegroundColor(BrightWhite);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				continue;
+			}
+
+			// Verificar si el usuario ya existe
+			bool usuarioExistente = false;
+			for (int i = 0; i < cantidadUsuarios; i++) {
+				if (usuarios[i].usuario == tempUsuario) {
+					SetForegroundColor(Red);
+					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+					cout << "El nombre de usuario ya existe. Intente con otro nombre";
+					_getch();
+					SetForegroundColor(BrightWhite);
+					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+					for (int i = 0; i < 80; i++) cout << " ";
+					usuarioExistente = true;
+					break;
+				}
+			}
+
+			if (!usuarioExistente) {
+				nuevoUsuario.usuario = tempUsuario;
+				usuarioValido = true;
 			}
 		}
 
 		// Recopilar datos de la columna derecha
-		SetCursorPosition(columnaDerechaX + 18, posY);
-		cin >> nuevoUsuario.DNI;
+		bool dniValido = false;
+		while (!dniValido) {
+			SetCursorPosition(columnaDerechaX + 18, posY);
+			for (int i = 0; i < 30; i++) cout << " ";
+			SetCursorPosition(columnaDerechaX + 18, posY);
 
-		SetCursorPosition(columnaDerechaX + 18, posY + espacioVertical);
-		cin >> nuevoUsuario.correo;
+			string tempDNI = "";
+			char chd;
+			while (true) {
+				chd = _getch();
+				if (chd == 13) break;  // Enter
+				if (chd == 27) return false;  // ESC
+				if (chd == 224 || chd == 0) {  // Tecla especial
+					_getch();  // Consumir el siguiente byte sin hacer nada
+					continue;  // Ignorar la secuencia completa
+				}
+				if (chd == 8) {  // Backspace
+					if (!tempDNI.empty()) {
+						tempDNI.pop_back();
+						cout << "\b \b";
+					}
+				}
+				// Solo permitir digitos y limitar a 8 caracteres
+				else if (chd >= '0' && chd <= '9' && tempDNI.length() < 8) {
+					tempDNI.push_back(chd);
+					cout << chd;
+				}
+			}
 
-		SetCursorPosition(columnaDerechaX + 18, posY + espacioVertical * 2);
-		cin >> nuevoUsuario.celular;
+			// Validar que tenga exactamente 8 dígitos
+			if (tempDNI.length() != 8) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "El DNI debe tener exactamente 8 digitos numericos";
+				_getch();
+				SetForegroundColor(BrightWhite);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				continue;
+			}
 
-		SetCursorPosition(columnaDerechaX + 18, posY + espacioVertical * 3);
-		cin >> nuevoUsuario.contrasena;
+			// Verificar si el DNI ya existe
+			bool dniExistente = false;
+			for (int i = 0; i < cantidadUsuarios; i++) {
+				if (usuarios[i].DNI == tempDNI) {
+					SetForegroundColor(Red);
+					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+					cout << "Este DNI ya esta registrado en el sistema";
+					_getch();
+					SetForegroundColor(BrightWhite);
+					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+					for (int i = 0; i < 80; i++) cout << " ";
+					dniExistente = true;
+					break;
+				}
+			}
+
+			if (!dniExistente) {
+				nuevoUsuario.DNI = tempDNI;
+				dniValido = true;
+			}
+		}
+
+		bool correoValido = false;
+		while (!correoValido) {
+			SetCursorPosition(columnaDerechaX + 18, posY + espacioVertical);
+			for (int i = 0; i < 30; i++) cout << " ";
+			SetCursorPosition(columnaDerechaX + 18, posY + espacioVertical);
+
+			string tempCorreo = "";
+			char chco;
+			while (true) {
+				chco = _getch();
+				if (chco == 13) break;  // Enter
+				if (chco == 27) return false;  // ESC
+				if (chco == 224 || chco == 0) {  // Tecla especial
+					_getch();  // Consumir el siguiente byte sin hacer nada
+					continue;  // Ignorar la secuencia completa
+				}
+				if (chco == 8) {  // Backspace
+					if (!tempCorreo.empty()) {
+						tempCorreo.pop_back();
+						cout << "\b \b";
+					}
+				}
+				// Permitir caracteres validos para un correo electronico
+				else if ((chco >= 'a' && chco <= 'z') ||
+					(chco >= 'A' && chco <= 'Z') ||
+					(chco >= '0' && chco <= '9') ||
+					chco == '@' || chco == '.' ||
+					chco == '_' || chco == '-') {
+					tempCorreo.push_back(chco);
+					cout << chco;
+				}
+			}
+
+			// Validar que no este vacio
+			if (tempCorreo.empty()) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "El correo electronico no puede estar vacio";
+				_getch();
+				SetForegroundColor(BrightWhite);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				continue;
+			}
+
+			// Validacion basica del formato de correo (debe contener @ y .)
+			if (tempCorreo.find('@') == string::npos || tempCorreo.find('.') == string::npos) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "Formato de correo electronico invalido";
+				_getch();
+				SetForegroundColor(BrightWhite);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				continue;
+			}
+
+			// Verificar si el correo ya existe
+			bool correoExistente = false;
+			for (int i = 0; i < cantidadUsuarios; i++) {
+				if (usuarios[i].correo == tempCorreo) {
+					SetForegroundColor(Red);
+					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+					cout << "Este correo electronico ya esta registrado en el sistema";
+					_getch();
+					SetForegroundColor(BrightWhite);
+					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+					for (int i = 0; i < 80; i++) cout << " ";
+					correoExistente = true;
+					break;
+				}
+			}
+
+			if (!correoExistente) {
+				nuevoUsuario.correo = tempCorreo;
+				correoValido = true;
+			}
+		}
+
+		bool celularValido = false;
+		while (!celularValido) {
+			SetCursorPosition(columnaDerechaX + 18, posY + espacioVertical * 2);
+			for (int i = 0; i < 30; i++) cout << " ";
+			SetCursorPosition(columnaDerechaX + 18, posY + espacioVertical * 2);
+
+			// Mostrar el prefijo +51 automaticamente
+			cout << "+51 ";
+
+			string tempCelular = "";
+			char chc;
+			while (true) {
+				chc = _getch();
+				if (chc == 13) break;  // Enter
+				if (chc == 27) return false;  // ESC
+				if (chc == 224 || chc == 0) {  // Tecla especial
+					_getch();  // Consumir el siguiente byte sin hacer nada
+					continue;  // Ignorar la secuencia completa
+				}
+				if (chc == 8) {  // Backspace
+					if (!tempCelular.empty()) {
+						tempCelular.pop_back();
+						cout << "\b \b";
+					}
+				}
+				// Solo permitir digitos y limitar a 9 caracteres
+				else if (chc >= '0' && chc <= '9' && tempCelular.length() < 9) {
+					tempCelular.push_back(chc);
+					cout << chc;
+				}
+			}
+
+			// Validar que tenga exactamente 9 digitos
+			if (tempCelular.length() != 9) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "El celular debe tener exactamente 9 digitos numericos";
+				_getch();
+				SetForegroundColor(BrightWhite);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				continue;
+			}
+
+			// Verificar si el celular ya existe
+			bool celularExistente = false;
+			for (int i = 0; i < cantidadUsuarios; i++) {
+				if (usuarios[i].celular == tempCelular) {
+					SetForegroundColor(Red);
+					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+					cout << "Este numero de celular ya esta registrado en el sistema";
+					_getch();
+					SetForegroundColor(BrightWhite);
+					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+					for (int i = 0; i < 80; i++) cout << " ";
+					celularExistente = true;
+					break;
+				}
+			}
+
+			if (!celularExistente) {
+				nuevoUsuario.celular = tempCelular;
+				celularValido = true;
+			}
+		}
+
+		bool contrasenaValida = false;
+		while (!contrasenaValida) {
+			SetCursorPosition(columnaDerechaX + 18, posY + espacioVertical * 3);
+			for (int i = 0; i < 30; i++) cout << " ";
+			SetCursorPosition(columnaDerechaX + 18, posY + espacioVertical * 3);
+
+			string tempContrasena = "";
+			char chp;
+			while (true) {
+				chp = _getch();
+				if (chp == 13) break;  // Enter
+				if (chp == 27) return false;  // ESC
+				if (chp == 224 || chp == 0) {  // Tecla especial
+					_getch();  // Consumir el siguiente byte sin hacer nada
+					continue;  // Ignorar la secuencia completa
+				}
+				if (chp == 8) {  // Backspace
+					if (!tempContrasena.empty()) {
+						tempContrasena.pop_back();
+						cout << "\b \b";
+					}
+				}
+				// Permitir caracteres validos para una contraseña
+				else if (chp >= 32 && chp <= 126) {  // Caracteres imprimibles ASCII
+					tempContrasena.push_back(chp);
+					cout << chp;  // Mostrar u ocultar la contraseña
+				}
+			}
+
+			// Validar que no este vacia
+			if (tempContrasena.empty()) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "La contrasena no puede estar vacia";
+				_getch();
+				SetForegroundColor(BrightWhite);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				continue;
+			}
+
+			// Validar longitud minima
+			if (tempContrasena.length() < 6) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "La contrasena debe tener al menos 6 caracteres";
+				_getch();
+				SetForegroundColor(BrightWhite);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				continue;
+			}
+
+			// Validación integrada de todos los requisitos de contraseña
+			bool tieneNumero = false, tieneMayuscula = false, tieneCaracterEspecial = false;
+
+			for (char c : tempContrasena) {
+				if (c >= '0' && c <= '9')
+					tieneNumero = true;
+				else if (c >= 'A' && c <= 'Z')
+					tieneMayuscula = true;
+				else if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9')))
+					tieneCaracterEspecial = true;
+			}
+
+			if (!tieneNumero || !tieneMayuscula || !tieneCaracterEspecial) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 35, posY + espacioVertical * 4);
+				cout << "La contrasena debe tener al menos un numero, una mayuscula y un caracter especial";
+				_getch();
+				SetForegroundColor(BrightWhite);
+				SetCursorPosition(centroX - 35, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				continue;
+			}
+
+			// Si pasa todas las validaciones
+			nuevoUsuario.contrasena = tempContrasena;
+			contrasenaValida = true;
+		}
 
 		// Guardar el nuevo usuario
 		usuarios[cantidadUsuarios++] = nuevoUsuario;
