@@ -241,8 +241,8 @@ public:
 
 					SetCursorPosition(camposX, formularioY + 6);
 					cout << "\xAD" << "Bienvenido " << userActual.nombre << " " << userActual.apellido_paterno << "!";
-					system("Pause>0");
-					//Sleep(1500);
+					//system("Pause>0");
+					Sleep(1500);
 					return true;
 				}
 			}
@@ -459,9 +459,9 @@ public:
 			archivo << nuevoUsuario.nombre << endl;
 			archivo << nuevoUsuario.apellido_paterno << endl;
 			archivo << nuevoUsuario.apellido_materno << endl;
-			archivo << nuevoUsuario.usuario << endl;
 			archivo << nuevoUsuario.DNI << endl;
 			archivo << nuevoUsuario.celular << endl;
+			archivo << nuevoUsuario.usuario << endl;
 			archivo << nuevoUsuario.contrasena << endl;
 			archivo << endl; // Añadir una línea vacía entre usuarios
 			archivo.close();

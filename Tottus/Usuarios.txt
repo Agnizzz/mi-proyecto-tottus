@@ -2,18 +2,18 @@
 # Nombre
 # Apellido Paterno
 # Apellido Materno
-# Usuario
 # DNI
 # Telefono
+# Usuario
 # Contrasena
 
 adriangromero1880@gmail.com
 Adrian Rogers
 Gomez
 Romero
-Matador_Rojo
 75089033
 975752843
+Matador_Rojo
 Patitofeo123&
 
 

@@ -230,8 +230,8 @@ public:
 
                     SetCursorPosition(camposX, formularioY + 6);
                     cout << "\xAD" << "Bienvenido administrador " << adminActual.nombre << "!";
-					system("Pause>0");
-                    //Sleep(1500);
+					//system("Pause>0");
+                    Sleep(1500);
                     return true;
                 }
             }
