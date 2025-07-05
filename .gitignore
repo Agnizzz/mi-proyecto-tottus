@@ -2,3 +2,10 @@
 .vs/
 .x64/
 .Tottus/x64/
+*.ilk
+*.log
+*.obj
+*.tlog
+*.idb
+*.pdb
+*.exe
