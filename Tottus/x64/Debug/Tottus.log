@@ -14,14 +14,14 @@ C:\Users\adria\mi-proyecto-tottus\Tottus\Usuario.h(170,15): warning C4267: 'inic
 C:\Users\adria\mi-proyecto-tottus\Tottus\Usuario.h(385,29): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
   (compilando archivo de origen "Tottus.cpp")
   
-C:\Users\adria\mi-proyecto-tottus\Tottus\Interfaz.h(873,15): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\adria\mi-proyecto-tottus\Tottus\Interfaz.h(1395,15): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
   (compilando archivo de origen "Tottus.cpp")
   
-C:\Users\adria\mi-proyecto-tottus\Tottus\Interfaz.h(1107,15): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\adria\mi-proyecto-tottus\Tottus\Interfaz.h(1629,15): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
   (compilando archivo de origen "Tottus.cpp")
   
-C:\Users\adria\mi-proyecto-tottus\Tottus\Interfaz.h(1332,1): warning C4715: 'Menu': no todas las rutas de acceso de control devuelven un valor
-C:\Users\adria\mi-proyecto-tottus\Tottus\Interfaz.h(1164,1): warning C4715: 'Administrador': no todas las rutas de acceso de control devuelven un valor
-C:\Users\adria\mi-proyecto-tottus\Tottus\Interfaz.h(930,1): warning C4715: 'Usuario': no todas las rutas de acceso de control devuelven un valor
+C:\Users\adria\mi-proyecto-tottus\Tottus\Interfaz.h(1686,1): warning C4715: 'Administrador': no todas las rutas de acceso de control devuelven un valor
+C:\Users\adria\mi-proyecto-tottus\Tottus\Interfaz.h(1854,1): warning C4715: 'Menu': no todas las rutas de acceso de control devuelven un valor
+C:\Users\adria\mi-proyecto-tottus\Tottus\Interfaz.h(1452,1): warning C4715: 'Usuario': no todas las rutas de acceso de control devuelven un valor
 C:\Users\adria\mi-proyecto-tottus\Tottus\Usuario.h(1159,1): warning C4715: 'SistemaUsuarios::SubMenuUsuario': no todas las rutas de acceso de control devuelven un valor
   Tottus.vcxproj -> C:\Users\adria\mi-proyecto-tottus\x64\Debug\Tottus.exe

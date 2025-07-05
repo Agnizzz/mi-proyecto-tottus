@@ -1,6 +1,8 @@
 #pragma once
 #include <windows.h>
 #include <iostream>
+#include <iomanip>
+#include <conio.h>
 
 enum ConsoleColor {
     Black = 0,
@@ -99,4 +101,32 @@ void SetConsoleOutputUtf8(bool enable) {
     else {
         SetConsoleOutputCP(originalCP != 0 ? originalCP : GetACP());
     }
+}
+
+void setColor(int textColor, int bgColor) {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, (bgColor << 4) | textColor);
+}
+// Valores de retorno:
+enum AccionTecla { NINGUNA, SELECCIONAR, CANCELAR };
+
+AccionTecla navegarConFlechas(int& seleccion, int maxSeleccion) {
+	int key = _getch();
+	if (key == 224) {
+		key = _getch();
+		if (key == 72 && seleccion > 0) {
+			seleccion--;
+		}
+		else if (key == 80 && seleccion < maxSeleccion - 1) {
+			seleccion++;
+		}
+	}
+	else if (key == 13) {
+		return SELECCIONAR;
+	}
+	else if (key == 27) {
+		return CANCELAR;
+	}
+
+    return NINGUNA;
 }
