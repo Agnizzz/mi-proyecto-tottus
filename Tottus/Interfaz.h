@@ -8,12 +8,16 @@
 #include "Administrador.h"
 #include "Usuario.h"
 #include "FuncAdmin.h"
+#include "GrafoTiendas.h"
+#include "GrafosProveedores.h"
 
 using namespace std;
 
 SistemaAdministradores* sistemaAdmins = new SistemaAdministradores();
 
 SistemaUsuarios* sistemaUsuarios = new SistemaUsuarios();
+TottusGrafo tottus;
+ProveedoresGrafo proveedoresGrafo;
 
 void Tienda() {
 	SetBackgroundColor(Black);
@@ -512,7 +516,7 @@ void SoporteUsuario() {
         }
 		// Variables para la navegación del menú
 		int seleccion = 0;
-		int maxSeleccion = 4; // 4 opciones, de 0 a 3
+		int maxSeleccion = 5; // 4 opciones, de 0 a 3
 		AccionTecla accion = NINGUNA;
 		// Ciclo de navegación del menú
 		while (true) {
@@ -561,9 +565,19 @@ void SoporteUsuario() {
 			else {
 				cout << "  - Ver Preguntas Frecuentes  ";
 			}
-			// Opción 0: Volver al Menu Principal
+			// Opción 4: Ver Distancia entre tiendas
 			SetCursorPosition(35, posicionY + FILAS + 10);
 			if (seleccion == 3) {
+				setColor(0, 15);
+				cout << "> - Ver Distancia entre tiendas <";
+				setColor(15, 0);
+			}
+			else {
+				cout << "  - Ver Distancia entre tiendas  ";
+			}
+			// Opción 0: Volver al Menu Principal
+			SetCursorPosition(35, posicionY + FILAS + 12);
+			if (seleccion == 4) {
 				setColor(0, 15);
 				cout << "> - Volver al Menu Principal <";
 				setColor(15, 0);
@@ -597,7 +611,13 @@ void SoporteUsuario() {
 				// Tu código aquí
 				break;
 			}
-			case 3: { // Volver al Menu Principal
+			case 3: { // Ver Distancia entre tiendas
+				// Muestra un mapa interactivo con las ubicaciones de todas las tiendas, permitiendo al cliente ver la distancia entre ellas y su ubicación actual
+				// Tu código aquí
+				tottus.ejecutarDemo();
+				break;
+			}
+			case 4: { // Volver al Menu Principal
 				SetCursorPosition(35, posicionY + FILAS + 12);
 				cout << "VOLVIENDO AL MENU PRINCIPAL..." << endl;
 				Sleep(500);
@@ -732,6 +752,7 @@ void Producto() {
 			    // a. Agregar Nuevo Proveedor // b. Modificar Datos de Proveedor // c. Eliminar Proveedor // d. Listar Todos los Proveedores // 0. Volver al menú anterior
 				// Tu código aquí
 				//ACA MEJOR CREARE UN GRAFO // DE PROVEEDORES PARA QUE SEA MAS FACIL 
+				proveedoresGrafo.ejecutarDemo();
 				break;
 			}
 			case 3: { // Consultar Inventario General
@@ -1117,6 +1138,7 @@ void SoporteAdministrador() {
 			else {
 				cout << "  - Ver Estadisticas de Soporte  ";
 			}
+
 			// Opción 0: Volver al Panel de Administracion
 			SetCursorPosition(35, posicionY + FILAS + 10);
 			if (seleccion == 4) {

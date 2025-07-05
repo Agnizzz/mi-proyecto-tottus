@@ -212,4 +212,6 @@ public:
     }
 };
 
+
+
 #endif // TOTTUS_GRAFO_H

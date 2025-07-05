@@ -92,7 +92,10 @@
     <ClInclude Include="Grafos.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="ImplemetacionGrafos.h">
+    <ClInclude Include="GrafoTiendas.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="GrafosProveedores.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
