@@ -855,6 +855,8 @@ void Gestion() {
 			    // a.Buscar y Modificar Cuenta // b.Eliminar Cuenta // c.Listar Todas las Cuentas // 0. Volver al menú anterior
 				// Tu código aquí
 				//CUANDO TOCO USARIO TOCO ESTO PORQUE LAS DEMÁS OPCIONES SE PUEDEN USAR CON ARBOLES AVL
+				ManejoUsuariosDeAdmin();
+				system("cls");
 				break;
 			}
 			case 1: { // Gestion de Promociones

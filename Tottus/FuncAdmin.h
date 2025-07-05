@@ -572,3 +572,43 @@ void menuRegistroAdmin() {
 
     } while (opcion != 6);  // ⬅️ CAMBIÉ A 6 porque ahora hay más opciones
 }
+
+//NUEVO METODO
+void ManejoUsuariosDeAdmin() {
+    // Creamos el objeto principal de nuestro sistema.
+    SistemaUsuarios sistema;
+
+    char opcion;
+    bool continuar = true;
+
+    // Creamos un bucle para el menú de opciones.
+    while (continuar) {
+        system("cls");
+        std::cout << "===== MENU PRINCIPAL DE PRUEBA =====" << std::endl;
+        std::cout << "1. Listar todos los usuarios (ordenados)" << std::endl;
+        std::cout << "2. Buscar usuarios por nombre" << std::endl;
+        std::cout << "3. Salir" << std::endl;
+        std::cout << "====================================" << std::endl;
+        std::cout << "\nSeleccione una opcion: ";
+        std::cin >> opcion;
+
+        switch (opcion) {
+        case '1':
+            // Llama a la función para mostrar la lista ordenada.
+            sistema.mostrarUsuariosOrdenados();
+            break;
+        case '2':
+            // Llama a la función para buscar por nombre.
+            sistema.buscarUsuariosPorNombre();
+            break;
+        case '3':
+            continuar = false;
+            std::cout << "Saliendo del programa..." << std::endl;
+            break;
+        default:
+            std::cout << "Opcion no valida. Intente de nuevo." << std::endl;
+            system("pause>0");
+            break;
+        }
+    }
+}

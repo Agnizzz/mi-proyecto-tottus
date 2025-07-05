@@ -5,6 +5,8 @@
 #include <conio.h>
 #include <limits>
 
+#include"ArbolAVL.h"
+
 #include "Administrador.h"
 #include "Utilidades.h"
 
@@ -30,6 +32,15 @@ private:
 	int cantidadUsuarios;
 	User userActual;
 	bool sesionIniciada;
+
+	// Pon esta función en tu archivo .h o .cpp
+	static void imprimirUsuario(User u) {
+		cout << "DNI: " << u.DNI << " | Usuario: " << u.usuario
+			<< " | Nombre: " << u.nombre << " " << u.apellido_paterno << endl;
+	}
+	// ESTRUCTURA PRINCIPAL: Usamos árboles para velocidad y flexibilidad.
+	ArbolAVL<User>* arbolPorDNI;
+	ArbolAVL<User>* arbolPorUsuario;
 
 	// Método para cargar los usuarios desde un archivo
 	void cargarUsuarios() {
@@ -58,6 +69,9 @@ private:
 			if (!getline(archivo, usuarios[cantidadUsuarios].usuario)) break;
 			if (!getline(archivo, usuarios[cantidadUsuarios].contrasena)) break;
 
+
+			arbolPorDNI->insertar(usuarios[cantidadUsuarios]);
+			arbolPorUsuario->insertar(usuarios[cantidadUsuarios]);
 			cantidadUsuarios++;
 
 			if (cantidadUsuarios >= MAX_USERS) break;
@@ -70,6 +84,19 @@ public:
 	SistemaUsuarios() {
 		cantidadUsuarios = 0;
 		sesionIniciada = false;
+		// Inicializar árboles AVL con diferentes comparadores(LAMBDA)
+		arbolPorDNI = new ArbolAVL<User>([](User a, User b) {
+			if (a.DNI < b.DNI) return -1;
+			if (a.DNI > b.DNI) return 1;
+			return 0;
+			}, imprimirUsuario);
+
+		arbolPorUsuario = new ArbolAVL<User>([](User a, User b) {
+			if (a.usuario < b.usuario) return -1;
+			if (a.usuario > b.usuario) return 1;
+			return 0;
+			}, imprimirUsuario);
+
 		cargarUsuarios();
 	}
 
@@ -576,6 +603,7 @@ public:
 		}
 
 		bool usuarioValido = false;
+
 		while (!usuarioValido) {
 			SetCursorPosition(columnaIzquierdaX + 18, posY + espacioVertical * 3);
 			for (int i = 0; i < 30; i++) cout << " ";
@@ -583,14 +611,18 @@ public:
 
 			string tempUsuario = "";
 			char chu;
+
 			while (true) {
 				chu = _getch();
+
 				if (chu == 13) break;  // Enter
 				if (chu == 27) return false;  // ESC
+
 				if (chu == 224 || chu == 0) {  // Tecla especial
-					_getch();  // Consumir el siguiente byte sin hacer nada
-					continue;  // Ignorar la secuencia completa
+					_getch(); // Consumir
+					continue;
 				}
+
 				if (chu == 8) {  // Backspace
 					if (!tempUsuario.empty()) {
 						tempUsuario.pop_back();
@@ -603,11 +635,11 @@ public:
 				}
 			}
 
-			// Validar que no este vacio
+			// Validar que no esté vacío
 			if (tempUsuario.empty()) {
 				SetForegroundColor(Red);
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
-				cout << "El nombre de usuario no puede estar vacio";
+				cout << "El nombre de usuario no puede estar vacío";
 				_getch();
 				SetForegroundColor(BrightWhite);
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
@@ -615,29 +647,27 @@ public:
 				continue;
 			}
 
-			// Verificar si el usuario ya existe
-			bool usuarioExistente = false;
-			for (int i = 0; i < cantidadUsuarios; i++) {
-				if (usuarios[i].usuario == tempUsuario) {
-					SetForegroundColor(Red);
-					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
-					cout << "El nombre de usuario ya existe. Intente con otro nombre";
-					_getch();
-					SetForegroundColor(BrightWhite);
-					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
-					for (int i = 0; i < 80; i++) cout << " ";
-					usuarioExistente = true;
-					break;
-				}
-			}
+			// ================= CAMBIO PARA USAR ÁRBOL AVL ====================
+			User claveBusquedaUsuario;
+			claveBusquedaUsuario.usuario = tempUsuario;
 
-			if (!usuarioExistente) {
-				nuevoUsuario.usuario = tempUsuario;
-				usuarioValido = true;
+			if (arbolPorUsuario->buscar(claveBusquedaUsuario)) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "El nombre de usuario ya existe. Intente con otro nombre";
+				_getch();
+				SetForegroundColor(BrightWhite);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				continue;
 			}
+			// ================================================================
+
+			// Si llegó aquí, es válido
+			nuevoUsuario.usuario = tempUsuario;
+			usuarioValido = true;
 		}
 
-		// Recopilar datos de la columna derecha
 		bool dniValido = false;
 		while (!dniValido) {
 			SetCursorPosition(columnaDerechaX + 18, posY);
@@ -650,9 +680,9 @@ public:
 				chd = _getch();
 				if (chd == 13) break;  // Enter
 				if (chd == 27) return false;  // ESC
-				if (chd == 224 || chd == 0) {  // Tecla especial
-					_getch();  // Consumir el siguiente byte sin hacer nada
-					continue;  // Ignorar la secuencia completa
+				if (chd == 224 || chd == 0) {
+					_getch();  // Tecla especial, consumir siguiente byte
+					continue;
 				}
 				if (chd == 8) {  // Backspace
 					if (!tempDNI.empty()) {
@@ -660,18 +690,17 @@ public:
 						cout << "\b \b";
 					}
 				}
-				// Solo permitir digitos y limitar a 8 caracteres
 				else if (chd >= '0' && chd <= '9' && tempDNI.length() < 8) {
 					tempDNI.push_back(chd);
 					cout << chd;
 				}
 			}
 
-			// Validar que tenga exactamente 8 dígitos
+			// Validar longitud exacta de 8 dígitos
 			if (tempDNI.length() != 8) {
 				SetForegroundColor(Red);
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
-				cout << "El DNI debe tener exactamente 8 digitos numericos";
+				cout << "El DNI debe tener exactamente 8 dígitos numéricos";
 				_getch();
 				SetForegroundColor(BrightWhite);
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
@@ -679,26 +708,25 @@ public:
 				continue;
 			}
 
-			// Verificar si el DNI ya existe
-			bool dniExistente = false;
-			for (int i = 0; i < cantidadUsuarios; i++) {
-				if (usuarios[i].DNI == tempDNI) {
-					SetForegroundColor(Red);
-					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
-					cout << "Este DNI ya esta registrado en el sistema";
-					_getch();
-					SetForegroundColor(BrightWhite);
-					SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
-					for (int i = 0; i < 80; i++) cout << " ";
-					dniExistente = true;
-					break;
-				}
-			}
+			// ======================= CAMBIO CON ÁRBOL AVL =======================
+			User claveBusquedaDNI;
+			claveBusquedaDNI.DNI = tempDNI;
 
-			if (!dniExistente) {
-				nuevoUsuario.DNI = tempDNI;
-				dniValido = true;
+			if (arbolPorDNI->buscar(claveBusquedaDNI)) {
+				SetForegroundColor(Red);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				cout << "Este DNI ya está registrado en el sistema";
+				_getch();
+				SetForegroundColor(BrightWhite);
+				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
+				for (int i = 0; i < 80; i++) cout << " ";
+				continue;
 			}
+			// ====================================================================
+
+			// Si todo es correcto
+			nuevoUsuario.DNI = tempDNI;
+			dniValido = true;
 		}
 
 		bool correoValido = false;
@@ -926,7 +954,9 @@ public:
 			nuevoUsuario.contrasena = tempContrasena;
 			contrasenaValida = true;
 		}
-
+		//// CAMBIO IMPORTANTE: No olvides insertar el nuevo usuario también en el árbol
+		// para que la próxima verificación de DNI funcione.
+		arbolPorUsuario->insertar(nuevoUsuario);
 		// Guardar el nuevo usuario
 		usuarios[cantidadUsuarios++] = nuevoUsuario;
 
@@ -1156,6 +1186,67 @@ public:
 			SetCursorPosition(104, 33); cout << "REGISTRARSE";
 			Sleep(50);
 		}
+	}
+	// Añade esta función a la sección 'public' de tu clase SistemaUsuarios
+	void mostrarUsuariosOrdenados() {
+		system("cls");
+		cout << "=== LISTADO DE USUARIOS REGISTRADOS ===" << endl;
+		cout << "Seleccione el orden para mostrar:" << endl;
+		cout << "1. Ordenar por DNI" << endl;
+		cout << "2. Ordenar por Nombre de Usuario" << endl;
+		cout << "\nSeleccione una opcion: ";
+
+		char opcion;
+		cin >> opcion;
+
+		cout << "\n--- LISTA DE USUARIOS ---\n" << endl;
+
+		switch (opcion) {
+		case '1':
+			// Recorremos el árbol ordenado por DNI
+			arbolPorDNI->inOrden();
+			break;
+		case '2':
+			// Recorremos el árbol ordenado por nombre de usuario
+			arbolPorUsuario->inOrden();
+			break;
+		default:
+			cout << "Opcion no valida." << endl;
+			break;
+		}
+		cout << "\n-------------------------\n" << endl;
+		system("pause>0");
+	}
+
+	// Añade esta función a la sección 'public' de tu clase SistemaUsuarios
+	void buscarUsuariosPorNombre() {
+		system("cls");
+		string nombreBusqueda;
+		cout << "Ingrese el nombre a buscar: ";
+		cin.ignore();
+		getline(cin, nombreBusqueda);
+
+		cout << "\n--- USUARIOS ENCONTRADOS ---\n" << endl;
+
+		// Usaremos un contador para saber si se encontró al menos un resultado
+		int contadorResultados = 0;
+
+		// Definimos la función que se ejecutará por cada coincidencia encontrada
+		auto imprimirCoincidencia = [&](User usuarioEncontrado) {
+			imprimirUsuario(usuarioEncontrado); // Usamos la función global que ya tenías
+			contadorResultados++;
+			};
+
+		// Llamamos a la nueva función del árbol y le pasamos nuestra función para imprimir
+		arbolPorUsuario->buscarYProcesarCoincidencias(nombreBusqueda, imprimirCoincidencia);
+
+		// Comprobamos si se encontró algo
+		if (contadorResultados == 0) {
+			cout << "No se encontraron usuarios con el nombre '" << nombreBusqueda << "'." << endl;
+		}
+
+		cout << "\n---------------------------\n" << endl;
+		system("pause>0");
 	}
 };
 
