@@ -7,6 +7,7 @@
 #include "Cliente.h"
 #include "Administrador.h"
 #include "Usuario.h"
+#include "FuncAdmin.h"
 
 using namespace std;
 
@@ -679,21 +680,31 @@ void Producto() {
 			case 0: { // Gestion de Productos
 			    // a. Agregar Nuevo Producto // b. Buscar y Modificar Producto // c. Eliminar Producto // d. Ordenar Producto // e. Listar Todos los Productos // 0. Volver al menú anterior
 				// Tu código aquí
+
+				gestionarCategoriasAdminCase0();
+				system("cls");
 				break;
 			}
 			case 1: { // Gestion de Categorias
 			    // a. Agregar Nueva Categoría // b. Modificar Nombre de Categoría // c. Eliminar Categoría // d. Listar Todas las Categorías // 0. Volver al menú anterior
 				// Tu código aquí
+				//ACA NO SÉ COMO COLOCARLO LA VERDAD
 				break;
 			}
 			case 2: { // Gestion de Proveedores
 			    // a. Agregar Nuevo Proveedor // b. Modificar Datos de Proveedor // c. Eliminar Proveedor // d. Listar Todos los Proveedores // 0. Volver al menú anterior
 				// Tu código aquí
+				//ACA MEJOR CREARE UN GAFO // DE PROVEEDORES PARA QUE SEA MAS FACIL 
 				break;
 			}
 			case 3: { // Consultar Inventario General
 			    // a. Ver Inventario Completo (Listar todos los productos con su stock) // b. Ver Productos con Bajo Stock (ej. menos de 10 unidades) // c. Ver Productos sin Stock (Agotados) // 0. Volver al menú anterior
 				// Tu código aquí
+				//ACA DEJO ESTO POR EL MOMENTO PORQUE AUN NO TOCO LO DE USUARIO ASI QUE NO PUEDO REPONER AUN PARA VER SI FUNCIONA
+				
+				gestionarCategorias();
+				
+				system("cls");
 				break;
 			}
 			case 4: { // Volver al Panel de Administracion
@@ -806,6 +817,7 @@ void Gestion() {
 			case 0: { // Gestion de Cuentas de Usuario
 			    // a.Buscar y Modificar Cuenta // b.Eliminar Cuenta // c.Listar Todas las Cuentas // 0. Volver al menú anterior
 				// Tu código aquí
+				//CUANDO TOCO USARIO TOCO ESTO PORQUE LAS DEMÁS OPCIONES SE PUEDEN USAR CON ARBOLES AVL
 				break;
 			}
 			case 1: { // Gestion de Promociones
@@ -816,6 +828,7 @@ void Gestion() {
 			case 2: { // Generar Reportes del Sistema
 			    // a. Reporte de Usuarios // b. Reporte de Actividad de Promociones // c. Reporte Resumido de Inventario // 0. Volver al menú anterior
 				// Tu código aquí
+				
 				break;
 			}
 			case 3: { // Volver al Panel de Administracion
@@ -949,17 +962,22 @@ void RegistroAdministrador() {
 			case 1: { // Listar Ultimas Boletas Generadas
 				// Al seleccionar esta opción, el sistema muestra una lista paginada de las últimas N transacciones
 				// Tu código aquí
+				verBoletasDelDia();
+				system("cls");
 				break;
 			}
 			case 2: { // Gestion de Boletas Pendientes
 				// Al entrar, se listan todas las boletas que requieren una acción administrativa para continuar su ciclo de vida.
 				// El administrador puede seleccionar una boleta y actualizar su estado, lo que movería la boleta fuera de esta lista de pendientes.
 				// Tu código aquí
+				procesarPedidos();
+				system("cls");
 				break;
 			}
 			case 3: { // Generar Reportes de Ventas
 				// a. Reporte de Ventas Totales por Período // b. Reporte de Productos Más Vendidos(Top N) // c.Reporte de Ventas por Categoría de Producto // d. Reporte de Rendimiento de Clientes // 0. Volver
 				// Tu código aquí
+				
 				break;
 			}
 			case 4: { // Volver al Panel de Administracion

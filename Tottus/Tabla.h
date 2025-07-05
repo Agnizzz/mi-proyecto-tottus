@@ -9,81 +9,81 @@
 
 using namespace std;
 
+//colocar variables globales seleccion y cantidad de que se muestre en la tabla
+const int seleccionado = 0;
+const int cantidad = 10;
+
+
+//encabezado
+void printHeader() {
+    // system("cls");
+    setColor(15, 4); cout << "                              SUPERMERCADO VIRTUAL                                                   \n";
+    setColor(0, 14); cout << "                               LISTA DE PRODUCTOS                                                    \n";
+    setColor(0, 7);
+    cout << left << setw(15) << "ID"
+        << setw(45) << "Producto"
+        << setw(10) << "Unidad"
+        << setw(10) << "Precio"
+        << setw(11) << " Oferta " 
+	    << setw(10) << "Stock" << endl;
+
+    setColor(15, 0);
+}
+
 void mostrarTablaProductos(const Lista<Categoria>& productos) {
+
     const int productosPorPagina = 10;
     int pagina = 0;
+    int seleccionado = 0;
     int totalProductos = productos.getTam();
     int totalPaginas = (totalProductos + productosPorPagina - 1) / productosPorPagina;
 
-    // | ID(15) | Producto(50) | Unidad(8) | Precio(8) | Oferta(8) |
-    // Bordes: 1 + 15 + 1 + 50 + 1 + 8 + 1 + 8 + 1 + 8 + 1 = 102
-    const int anchoTabla = 1 + 15 + 1 + 50 + 1 + 8 + 1 + 8 + 1 + 8 + 1; // = 102
-
     while (true) {
         system("cls");
-        int anchoConsola = GetConsoleWidth();
-        int posX = (anchoConsola - anchoTabla) / 2;
-        int y = 2;
-
-        // Encabezado alineado con setw y alineación
-        SetCursorPosition(posX, y++);
-        cout << "+---------------+--------------------------------------------------+--------+--------+--------+";
-        SetCursorPosition(posX, y++);
-        cout << "| " << setw(13) << left << "ID"
-            << " | " << setw(48) << left << "Producto"
-            << " | " << setw(6) << left << "Unidad"
-            << " | " << setw(6) << right << "Precio"
-            << " | " << setw(6) << right << "Oferta"
-            << " |";
-        SetCursorPosition(posX, y++);
-        cout << "+---------------+--------------------------------------------------+--------+--------+--------+";
+        printHeader(); // Encabezado bonito
 
         int inicio = pagina * productosPorPagina;
         int fin = min(inicio + productosPorPagina, totalProductos);
+
         for (int i = inicio; i < fin; ++i) {
             const Categoria& prod = productos.getValor(i);
-            SetCursorPosition(posX, y++);
-            cout << "| " << setw(13) << left << prod.getID().substr(0, 13)
-                << " | " << setw(48) << left << prod.getNombre().substr(0, 48)
-                << " | " << setw(6) << left << prod.getUnidadMedida().substr(0, 6)
-                << " | " << setw(6) << right << fixed << setprecision(2) << prod.getPrecioUnitario()
-                << " | ";
+
+            if (i == seleccionado) setColor(0, 15); // Resaltado si está seleccionado
+            else setColor(15, 0); // Normal
+
+            cout << left << setw(15) << prod.getID().substr(0, 13)
+                << setw(45) << prod.getNombre().substr(0, 44)
+                << setw(10) << prod.getUnidadMedida().substr(0, 9)
+                << "S/." << setw(8) << fixed << setprecision(2) << prod.getPrecioUnitario()
+                << setw(10);
+
             if (prod.getPrecioDescuento() > 0.0)
-                cout << setw(6) << right << fixed << setprecision(2) << prod.getPrecioDescuento();
+                cout << fixed << setprecision(2) << prod.getPrecioDescuento();
             else
-                cout << "      ";
-            cout << " |";
-        }
-        // Rellena filas vacías si hay menos de 10 productos en la página
-        for (int i = fin; i < inicio + productosPorPagina; ++i) {
-            SetCursorPosition(posX, y++);
-            cout << "| " << setw(13) << left << ""
-                << " | " << setw(48) << left << ""
-                << " | " << setw(6) << left << ""
-                << " | " << setw(6) << right << ""
-                << " | " << setw(6) << right << ""
-                << " |";
+                cout << "";
+            cout << setw(10) << prod.getStock(); // <-- Aquí agregas el stock
+
+            cout << endl;
         }
 
-        SetCursorPosition(posX, y++);
-        cout << "+---------------+--------------------------------------------------+--------+--------+--------+";
-
-        // Paginación y controles
-        SetCursorPosition(posX, y++);
-        cout << "Página " << (pagina + 1) << " de " << totalPaginas;
-        SetCursorPosition(posX, y++);
-        cout << "[<-] Anterior   [->] Siguiente   [ESC] Salir";
+        setColor(15, 0); // Restaurar color normal
+        cout << "\n[<-] Anterior  [->] Siguiente  [ESC] Salir\n";
 
         int key = _getch();
-        if (key == 27) {
-            system("cls"); // Limpia la consola antes de salir
-            break; // ESC
-        }
+        if (key == 27) break; // ESC
         if (key == 224) {
             key = _getch();
-            if (key == 75 && pagina > 0) pagina--;
-            else if (key == 77 && pagina < totalPaginas - 1) pagina++;
+            if (key == 72 && seleccionado > 0) seleccionado--; // Flecha arriba
+            else if (key == 80 && seleccionado < totalProductos - 1) seleccionado++; // Flecha abajo
+            else if (key == 75 && pagina > 0) pagina--; // Flecha izquierda
+            else if (key == 77 && pagina < totalPaginas - 1) pagina++; // Flecha derecha
         }
+
+        // Asegura que el resaltado esté dentro del rango de la página actual
+        if (seleccionado < pagina * productosPorPagina)
+            seleccionado = pagina * productosPorPagina;
+        if (seleccionado >= fin)
+            seleccionado = fin - 1;
     }
 }
 
@@ -94,91 +94,54 @@ int seleccionarProductoEnTabla(const Lista<Categoria>& productos) {
     int totalPaginas = (totalProductos + productosPorPagina - 1) / productosPorPagina;
     int seleccion = 0;
 
-    // | ID(15) | Producto(50) | Unidad(8) | Precio(8) | Oferta(8) |
-    const int anchoTabla = 1 + 15 + 1 + 50 + 1 + 8 + 1 + 8 + 1 + 8 + 1; // = 102
-
     while (true) {
         system("cls");
-        int anchoConsola = GetConsoleWidth();
-        int posX = (anchoConsola - anchoTabla) / 2;
-        int y = 2;
-
-        // Encabezado
-        SetCursorPosition(posX, y++);
-        cout << "+---------------+--------------------------------------------------+--------+--------+--------+";
-        SetCursorPosition(posX, y++);
-        cout << "| " << setw(13) << left << "ID"
-            << " | " << setw(48) << left << "Producto"
-            << " | " << setw(6) << left << "Unidad"
-            << " | " << setw(6) << right << "Precio"
-            << " | " << setw(6) << right << "Oferta"
-            << " |";
-        SetCursorPosition(posX, y++);
-        cout << "+---------------+--------------------------------------------------+--------+--------+--------+";
+        printHeader();
 
         int inicio = pagina * productosPorPagina;
         int fin = min(inicio + productosPorPagina, totalProductos);
         for (int i = inicio; i < fin; ++i) {
-            SetCursorPosition(posX, y++);
-            if (i == seleccion)
-                cout << "->";
-            else
-                cout << "  ";
             const Categoria& prod = productos.getValor(i);
-            cout << "| " << setw(13) << left << prod.getID().substr(0, 13)
-                << " | " << setw(48) << left << prod.getNombre().substr(0, 48)
-                << " | " << setw(6) << left << prod.getUnidadMedida().substr(0, 6)
-                << " | " << setw(6) << right << fixed << setprecision(2) << prod.getPrecioUnitario()
-                << " | ";
+            if (i == seleccion) setColor(0, 15); // Resalta la fila seleccionada
+            else setColor(15, 0);
+
+            cout << left << setw(15) << prod.getID().substr(0, 13)
+                << setw(45) << prod.getNombre().substr(0, 44)
+                << setw(10) << prod.getUnidadMedida().substr(0, 9)
+                << "S/." << setw(8) << fixed << setprecision(2) << prod.getPrecioUnitario()
+                << setw(10);
             if (prod.getPrecioDescuento() > 0.0)
-                cout << setw(6) << right << fixed << setprecision(2) << prod.getPrecioDescuento();
+                cout << fixed << setprecision(2) << prod.getPrecioDescuento();
             else
-                cout << "      ";
-            cout << " |";
-        }
-        // Rellenar filas vacías
-        for (int i = fin; i < inicio + productosPorPagina; ++i) {
-            SetCursorPosition(posX, y++);
-            cout << "  | " << setw(13) << left << ""
-                << " | " << setw(48) << left << ""
-                << " | " << setw(6) << left << ""
-                << " | " << setw(6) << right << ""
-                << " | " << setw(6) << right << ""
-                << " |";
+                cout << "";
+            cout << endl;
         }
 
-        SetCursorPosition(posX, y++);
-        cout << "+---------------+--------------------------------------------------+--------+--------+--------+";
-
-        // Paginación y controles
-        SetCursorPosition(posX, y++);
-        cout << "Página " << (pagina + 1) << " de " << totalPaginas;
-        SetCursorPosition(posX, y++);
-        cout << "[↑/↓] Mover  [<-] Anterior  [->] Siguiente  [Enter] Seleccionar  [ESC] Cancelar";
+        setColor(15, 0);
+        cout << "\n[] Mover  [<-] Anterior  [->] Siguiente  [Enter] Seleccionar  [ESC] Cancelar";
 
         int key = _getch();
-        if (key == 27) { // ESC
-            system("cls");
+        if (key == 27) {
+            cout << "Cancelado por el usuario con ESC" << endl;
+            system("pause");
             return -1;
-        }
-        if (key == 13) { // Enter
-            system("cls");
-            return seleccion;
-        }
+        }       // ESC
+        if (key == 13) return seleccion; // Enter
         if (key == 224) {
             key = _getch();
             if (key == 72 && seleccion > 0) seleccion--; // Flecha arriba
             else if (key == 80 && seleccion < totalProductos - 1) seleccion++; // Flecha abajo
-            else if (key == 75 && pagina > 0) { // Flecha izquierda
+            else if (key == 75 && pagina > 0) {
                 pagina--;
                 seleccion = pagina * productosPorPagina;
             }
-            else if (key == 77 && pagina < totalPaginas - 1) { // Flecha derecha
+            else if (key == 77 && pagina < totalPaginas - 1) {
                 pagina++;
                 seleccion = pagina * productosPorPagina;
             }
         }
-        // Ajustar selección si cambia de página
+
+        // Ajustar selección si se sale de rango
         if (seleccion < pagina * productosPorPagina)
             seleccion = pagina * productosPorPagina;
         if (seleccion >= min((pagina + 1) * productosPorPagina, totalProductos))

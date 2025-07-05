@@ -131,6 +131,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Administrador.h" />
+    <ClInclude Include="ArbolBB.h" />
+    <ClInclude Include="Boleta.h" />
+    <ClInclude Include="FuncAdmin.h" />
+    <ClInclude Include="MetOrg.h" />
     <ClInclude Include="Soporte.h" />
     <ClInclude Include="Catalogo.h" />
     <ClInclude Include="CategoriaGeneral.h" />

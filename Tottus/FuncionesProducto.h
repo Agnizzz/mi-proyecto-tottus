@@ -4,6 +4,7 @@
 #include <iostream>
 #include "CategoriasEstructura.h"
 
+//AGREGADO
 using namespace std;
 
 struct ProductoArchivo {
@@ -49,21 +50,21 @@ void agregarProducto(const ProductoArchivo& producto) {
 // Agregar producto
 void agregarProductoInteractivo() {
     // 1. Categoría principal
-	system("cls");
+    system("cls");
     int idxCat = mostrarOpciones(categoriasPrincipales, numCategoriasPrincipales, "Categorias:");
     string idPrincipal = to_string(idxCat + 1);
 
     // 2. Subcategoría
     const string* subcats = subcategoriasPorCategoria[idxCat];
     int numSubcats = numSubcategoriasPorCategoria[idxCat];
-	system("cls");
+    system("cls");
     int idxSub = mostrarOpciones(subcats, numSubcats, "Subcategorias:");
     string secundaria = subcats[idxSub];
 
     // 3. Terciaria
     const string* tercs = terciariasPorSubcategoria[idxCat][idxSub];
     int numTercs = numTerciariasPorSubcategoria[idxCat][idxSub];
-	system("cls");
+    system("cls");
     int idxTer = mostrarOpciones(tercs, numTercs, "Opciones:");
     string terciaria = tercs[idxTer];
 

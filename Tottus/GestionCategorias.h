@@ -1,14 +1,24 @@
 #pragma once
 #include <iostream>
+#include <windows.h>
+#include <iomanip>
+#include <conio.h>
 #include "Catalogo.h"
 #include "CategoriasEstructura.h"
 #include "Tabla.h"
+#include "Colas.h"
+#include "Boleta.h"
 
 using namespace std;
 
 Catalogo catalogo;
 
+//accedemos a  la lista.h para agregar un producto
+Lista<Categoria*>* productosSeleccionados = new Lista<Categoria*>();
+Cola<Boleta*> colaDePedidos;
+
 Categoria gestionarCategorias(bool modoSeleccion = false) {
+
 	system("cls");
 	cout << "\n\t\t\t------ CATEGORIAS ------" << endl;
 	int nCat = sizeof(categoriasPrincipales) / sizeof(categoriasPrincipales[0]);
@@ -56,11 +66,39 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 
 					if (modoSeleccion) {
 						int idx = seleccionarProductoEnTabla(productos);
+
 						if (idx != -1) {
 							const Categoria& seleccionado = productos.getValor(idx);
-							// Aquí puedes hacer lo que necesites con el producto seleccionado
-							// Por ejemplo, devolverlo, agregarlo a una lista, etc.
-							cout << "\nProducto seleccionado: " << seleccionado.getNombre() << endl;
+							// Pedir cantidad al usuario
+							int cantidad;
+							cout << "\nIngrese la cantidad que desea comprar: ";
+							cin >> cantidad;
+
+							//validar si hay suficiente stock antes de agregar
+							if (cantidad <= 0 || cantidad > seleccionado.getCantidad()) {
+								cout << "Cantidad no válida. Stock disponible: " << seleccionado.getCantidad() << endl;
+								system("pause>0");
+								return Categoria(); // Retorna un objeto vacío si la cantidad es inválida
+							}
+							// Asegurarse de que la cantidad sea positiva
+							if (cantidad <= 0) {
+								cout << "Cantidad debe ser mayor a 0." << endl;
+								system("pause>0");
+								return Categoria(); // Retorna un objeto vacío si la cantidad es inválida
+							}
+
+							// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+							Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+							seleccionadoConCantidad->setCantidad(cantidad); // Asegúrate de tener este método
+
+							productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+							cout << "Producto agregado correctamente" << endl;
+							////ahora restar stock de categoria original
+							//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegúrate de que este método exista
+							////comprobando si resta stock
+							//cout << "Stock actualizado. Stock restante: " << seleccionadoConCantidad->getCantidad() << endl;
+					
+
 							system("pause>0");
 						}
 					}
@@ -99,9 +137,17 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 						int idx = seleccionarProductoEnTabla(productos);
 						if (idx != -1) {
 							const Categoria& seleccionado = productos.getValor(idx);
-							// Aquí puedes hacer lo que necesites con el producto seleccionado
-							// Por ejemplo, devolverlo, agregarlo a una lista, etc.
-							cout << "\nProducto seleccionado: " << seleccionado.getNombre() << endl;
+							// Pedir cantidad al usuario
+							int cantidad;
+							cout << "\nIngrese la cantidad que desea comprar: ";
+							cin >> cantidad;
+
+							// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+							Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+							seleccionadoConCantidad->setCantidad(cantidad); // Asegúrate de tener este método
+
+							productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+							cout << "Producto agregado correctamente" << endl;
 							system("pause>0");
 						}
 					}
@@ -140,9 +186,18 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 						int idx = seleccionarProductoEnTabla(productos);
 						if (idx != -1) {
 							const Categoria& seleccionado = productos.getValor(idx);
-							// Aquí puedes hacer lo que necesites con el producto seleccionado
-							// Por ejemplo, devolverlo, agregarlo a una lista, etc.
-							cout << "\nProducto seleccionado: " << seleccionado.getNombre() << endl;
+							// Pedir cantidad al usuario
+							int cantidad;
+							cout << "\nIngrese la cantidad que desea comprar: ";
+							cin >> cantidad;
+
+							// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+							Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+							seleccionadoConCantidad->setCantidad(cantidad); // Asegúrate de tener este método
+
+							productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+							cout << "Producto agregado correctamente" << endl;
+
 							system("pause>0");
 						}
 					}
@@ -181,9 +236,18 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 						int idx = seleccionarProductoEnTabla(productos);
 						if (idx != -1) {
 							const Categoria& seleccionado = productos.getValor(idx);
-							// Aquí puedes hacer lo que necesites con el producto seleccionado
-							// Por ejemplo, devolverlo, agregarlo a una lista, etc.
-							cout << "\nProducto seleccionado: " << seleccionado.getNombre() << endl;
+							// Pedir cantidad al usuario
+							int cantidad;
+							cout << "\nIngrese la cantidad que desea comprar: ";
+							cin >> cantidad;
+
+							// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+							Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+							seleccionadoConCantidad->setCantidad(cantidad); // Asegúrate de tener este método
+
+							productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+							cout << "Producto agregado correctamente" << endl;
+
 							system("pause>0");
 						}
 					}
@@ -222,9 +286,18 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 						int idx = seleccionarProductoEnTabla(productos);
 						if (idx != -1) {
 							const Categoria& seleccionado = productos.getValor(idx);
-							// Aquí puedes hacer lo que necesites con el producto seleccionado
-							// Por ejemplo, devolverlo, agregarlo a una lista, etc.
-							cout << "\nProducto seleccionado: " << seleccionado.getNombre() << endl;
+							// Pedir cantidad al usuario
+							int cantidad;
+							cout << "\nIngrese la cantidad que desea comprar: ";
+							cin >> cantidad;
+
+							// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+							Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+							seleccionadoConCantidad->setCantidad(cantidad); // Asegúrate de tener este método
+
+							productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+							cout << "Producto agregado correctamente" << endl;
+
 							system("pause>0");
 						}
 					}
@@ -306,6 +379,7 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 		cout << "\t\tOpción invalida\n";
 		system("pause");
 	}
+
 	return Categoria();
 	//char pausa = _getch(); // Captura el valor devuelto
 }

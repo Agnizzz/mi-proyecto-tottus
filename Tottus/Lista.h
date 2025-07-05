@@ -1,7 +1,8 @@
 #pragma once
 #include "Nodo.h"
-#include <functional>
 #include <iostream>
+#include <functional>
+#include <iomanip>
 
 using namespace std;
 
@@ -10,118 +11,85 @@ typedef unsigned int uint;
 template <class T>
 class Lista {
 private:
-    Nodo<T>* nodo;
-    typedef function<int(T, T)> Comp;
     Nodo<T>* ini;
-    uint lon; // número de elementos en la lista
+    uint lon;
+
 public:
-    Lista() : ini(nullptr), lon(0) { nodo = new Nodo<T>(); }
+    Lista() : ini(nullptr), lon(0) {}
     ~Lista() {
-        Nodo<T>* current = ini;
-        while (current != nullptr) {
-            Nodo<T>* next = current->get_Sgte();
-            delete current;
-            current = next;
-        }
-        lon = 0;
+        vaciarLista();
     }
-    Lista(Nodo<T>* pNodo) {
-        nodo = pNodo;
-    };
-    uint longitud();
-    bool esVacia();
+
+    // Operaciones básicas
+    bool esVacia() const { return lon == 0; }
+    int getTam() const { return static_cast<int>(lon); }
+
+    uint longitud() const;
     void agregaInicial(T elem);
-    void agregaPos(T elem, uint pos);
     void agregaFinal(T elem);
-    void modificarInicial(T elem);
-    void modificarPos(T elem, uint pos);
-    void modificarFinal(T elem);
+    void agregaPos(T elem, uint pos);
     void eliminaInicial();
-    void eliminaPos(uint pos);
     void eliminaFinal();
-    T obtenerInicial();
+    void eliminaPos(uint pos);
+
+    //agregamos limpiar
+    void limpiar();
+
+
+    // ? Métodos de acceso corregidos
     T obtenerPos(uint pos) const;
-    T obtenerFinal();
-    T buscar(T elem);
+    T& obtenerReferencia(uint pos);
 
-    // Métodos solicitados
-    int getTam() const;
-    T getValor(int pos) const;
+    // ? Método específico para obtener punteros de forma segura
+    T obtenerPuntero(uint pos) const;
 
-    // Método para mostrar la lista
-    void mostrar() const {
-        Nodo<T>* aux = ini;
-        int i = 1;
-        while (aux != nullptr) {
-            // Si T es Categoria, puedes usar getNombre()
-            cout << "\t\t\t" << i << ". " << aux->get_Elem().getNombre() << endl;
-            aux = aux->get_Sgte();
-            ++i;
-        }
-        if (i == 1) {
-            cout << "\t\t\t(No hay productos en esta categoría)" << endl;
-        }
-    }
+    void setValor(int pos, T nuevoValor);
 
-    void agregar(T pNodo);
-    T cabeza(void);
-    Lista* resto(void);
-    T suma(T i);
-    int size();
-    void borrar(void);
-    void borrar_last();
-    void concat(Lista<T>* l1);
-    Lista<T>* copy(void);
-    void tomar(int n);
-    void addOrdenado(T d);
-    bool esta(T d);
-    void borrarDato(T d);
+    // Funciones adicionales
     void reemplazarPos(uint pos, T nuevoElem);
-    void reemplazarPos1(uint pos, T nuevoElem);
     T buscarProducto(std::function<bool(T)> criterio);
-    void vaciarLista() {
-        while (!esVacia()) {
-            eliminaPos(0);
-        }
-    }
+    void vaciarLista();
+
+    // Acceso por índice
+    T getValor(int pos) const { return obtenerPos(pos); }
+
+    // Mostrar lista
+    void mostrar() const;
 };
 
-template <class T>
-uint Lista<T>::longitud() {
-    return lon;
-}
-template <class T>
-bool Lista<T>::esVacia() {
-    return lon == 0;
-}
+// Agrega al inicio
 template <class T>
 void Lista<T>::agregaInicial(T elem) {
     Nodo<T>* nuevo = new Nodo<T>(elem);
-    if (ini == nullptr) {
-        ini = nuevo;
-    }
-    else {
-        nuevo->set_Sgte(ini);
-        ini = nuevo;
-    }
+    nuevo->set_Sgte(ini);
+    ini = nuevo;
     lon++;
 }
+
+// Agrega al final
 template <class T>
-T Lista<T>::buscar(T elem) {
+void Lista<T>::agregaFinal(T elem) {
+    if (esVacia()) {
+        agregaInicial(elem);
+        return;
+    }
+
     Nodo<T>* aux = ini;
-    while (aux != nullptr) {
-        if (aux->get_Elem() == elem) {
-            return aux->get_Elem();
-        }
+    while (aux->get_Sgte() != nullptr) {
         aux = aux->get_Sgte();
     }
-    return T();
+    aux->set_Sgte(new Nodo<T>(elem));
+    lon++;
 }
+
+// Agrega en posición
 template <class T>
 void Lista<T>::agregaPos(T elem, uint pos) {
-    if (pos > lon) return;
     if (pos == 0) {
         agregaInicial(elem);
+    }
+    else if (pos >= lon) {
+        agregaFinal(elem);
     }
     else {
         Nodo<T>* aux = ini;
@@ -134,254 +102,128 @@ void Lista<T>::agregaPos(T elem, uint pos) {
         lon++;
     }
 }
-template <class T>
-void Lista<T>::agregaFinal(T elem) {
-    agregaPos(elem, lon);
-}
-template <class T>
-void Lista<T>::eliminaInicial() {
-    if (lon > 0) {
-        Nodo<T>* aux = ini;
-        ini = ini->get_Sgte();
-        delete aux;
-        lon--;
-    }
-}
+
+// Eliminar por posición
 template <class T>
 void Lista<T>::eliminaPos(uint pos) {
     if (pos >= lon) return;
     if (pos == 0) {
         eliminaInicial();
-    }
-    else {
-        Nodo<T>* aux = ini;
-        for (uint i = 0; i < pos - 1; i++) {
-            aux = aux->get_Sgte();
-        }
-        Nodo<T>* temp = aux->get_Sgte();
-        aux->set_Sgte(temp->get_Sgte());
-        delete temp;
-        lon--;
-    }
-}
-template <class T>
-void Lista<T>::eliminaFinal() {
-    if (lon == 0) return;
-    eliminaPos(lon - 1);
-}
-template <class T>
-void Lista<T>::modificarInicial(T elem) {
-    if (lon > 0) {
-        ini->set_Elem(elem);
-    }
-}
-template <class T>
-void Lista<T>::modificarPos(T elem, uint pos) {
-    if (pos < lon) {
-        Nodo<T>* aux = ini;
-        for (uint i = 0; i < pos; i++) {
-            aux = aux->get_Sgte();
-        }
-        aux->set_Elem(elem);
-    }
-}
-template <class T>
-void Lista<T>::modificarFinal(T elem) {
-    modificarPos(elem, lon - 1);
-}
-template <class T>
-T Lista<T>::obtenerInicial() {
-    return obtenerPos(0);
-}
-template <class T>
-T Lista<T>::obtenerPos(uint pos) const{
-    if (pos < lon) {
-        Nodo<T>* aux = ini;
-        for (uint i = 0; i < pos; i++) {
-            aux = aux->get_Sgte();
-        }
-        return aux->get_Elem();
-    }
-    else {
-        return T();
-    }
-}
-template <class T>
-T Lista<T>::obtenerFinal() {
-    return obtenerPos(lon - 1);
-}
-template <class T>
-void Lista<T>::agregar(T d) {
-    Nodo<T>* nuevo = new Nodo<T>(d);
-    nuevo->set_Sgte(nodo);
-    nodo = nuevo;
-}
-template <class T>
-T Lista<T>::cabeza(void) {
-    return nodo->get_Elem();
-}
-template <class T>
-Lista<T>* Lista<T>::resto(void) {
-    Lista<T>* l = new Lista<T>();
-    l->nodo = nodo->get_Sgte();
-    return l;
-}
-template <class T>
-T Lista<T>::suma(T i) {
-    Nodo<T>* aux = nodo;
-    T sum = i;
-    while (aux != nullptr) {
-        sum += aux->get_Elem();
-        aux = aux->get_Sgte();
-    }
-    return sum;
-}
-template <class T>
-int Lista<T>::size() {
-    Nodo<T>* aux = nodo;
-    int cont = 0;
-    while (aux != nullptr) {
-        cont++;
-        aux = aux->get_Sgte();
-    }
-    return cont;
-}
-template <class T>
-void Lista<T>::borrar(void) {
-    if (nodo != nullptr) {
-        Nodo<T>* temp = nodo;
-        nodo = nodo->get_Sgte();
-        delete temp;
-    }
-}
-template <class T>
-void Lista<T>::borrar_last() {
-    if (nodo == nullptr) return;
-    if (nodo->get_Sgte() == nullptr) {
-        delete nodo;
-        nodo = nullptr;
-    }
-    else {
-        Nodo<T>* aux = nodo;
-        while (aux->get_Sgte()->get_Sgte() != nullptr) {
-            aux = aux->get_Sgte();
-        }
-        delete aux->get_Sgte();
-        aux->set_Sgte(nullptr);
-    }
-}
-template <class T>
-void Lista<T>::concat(Lista<T>* l1) {
-    Nodo<T>* aux = l1->nodo;
-    while (aux != nullptr) {
-        this->agregar(aux->get_Elem());
-        aux = aux->get_Sgte();
-    }
-}
-template <class T>
-Lista<T>* Lista<T>::copy(void) {
-    Lista<T>* nueva = new Lista<T>();
-    Nodo<T>* aux = nodo;
-    Nodo<T>* ant = nullptr;
-    while (aux != nullptr) {
-        Nodo<T>* nuevo = new Nodo<T>(aux->get_Elem());
-        if (ant == nullptr) {
-            nueva->nodo = nuevo;
-        }
-        else {
-            ant->set_Sgte(nuevo);
-        }
-        ant = nuevo;
-        aux = aux->get_Sgte();
-    }
-    return nueva;
-}
-template <class T>
-void Lista<T>::tomar(int n) {
-    Nodo<T>* aux = nodo;
-    int cont = 1;
-    while (aux != nullptr && cont < n) {
-        aux = aux->get_Sgte();
-        cont++;
-    }
-    if (aux != nullptr && aux->get_Sgte() != nullptr) {
-        Nodo<T>* temp = aux->get_Sgte();
-        aux->set_Sgte(nullptr);
-        while (temp != nullptr) {
-            Nodo<T>* borrar = temp;
-            temp = temp->get_Sgte();
-            delete borrar;
-        }
-    }
-}
-template <class T>
-void Lista<T>::addOrdenado(T d) {
-    Nodo<T>* nuevo = new Nodo<T>(d);
-    if (nodo == nullptr || nodo->get_Elem() >= d) {
-        nuevo->set_Sgte(nodo);
-        nodo = nuevo;
-    }
-    else {
-        Nodo<T>* aux = nodo;
-        while (aux->get_Sgte() != nullptr && aux->get_Sgte()->get_Elem() < d) {
-            aux = aux->get_Sgte();
-        }
-        nuevo->set_Sgte(aux->get_Sgte());
-        aux->set_Sgte(nuevo);
-    }
-}
-template <class T>
-bool Lista<T>::esta(T d) {
-    Nodo<T>* aux = nodo;
-    while (aux != nullptr) {
-        if (aux->get_Elem() == d) {
-            return true;
-        }
-        aux = aux->get_Sgte();
-    }
-    return false;
-}
-template <class T>
-void Lista<T>::borrarDato(T d) {
-    if (nodo == nullptr) return;
-    if (nodo->get_Elem() == d) {
-        Nodo<T>* temp = nodo;
-        nodo = nodo->get_Sgte();
-        delete temp;
         return;
     }
-    Nodo<T>* aux = nodo;
-    while (aux->get_Sgte() != nullptr) {
-        if (aux->get_Sgte()->get_Elem() == d) {
-            Nodo<T>* temp = aux->get_Sgte();
-            aux->set_Sgte(temp->get_Sgte());
-            delete temp;
-            return;
+
+    Nodo<T>* aux = ini;
+    for (uint i = 0; i < pos - 1; i++) {
+        aux = aux->get_Sgte();
+    }
+    Nodo<T>* temp = aux->get_Sgte();
+    aux->set_Sgte(temp->get_Sgte());
+    delete temp;
+    lon--;
+}
+
+template <class T>
+void Lista<T>::eliminaInicial() {
+    if (ini == nullptr) return;
+    Nodo<T>* temp = ini;
+    ini = ini->get_Sgte();
+    delete temp;
+    lon--;
+}
+
+template <class T>
+void Lista<T>::eliminaFinal() {
+    eliminaPos(lon - 1);
+}
+
+// ? Obtener por posición - versión segura
+template <class T>
+T Lista<T>::obtenerPos(uint pos) const {
+    if (pos >= lon || ini == nullptr) {
+        // Para punteros, devolver nullptr
+        if constexpr (std::is_pointer_v<T>) {
+            return nullptr;
+        }
+        // Para otros tipos, lanzar excepción
+        throw out_of_range("Índice fuera de rango");
+    }
+
+    Nodo<T>* aux = ini;
+    for (uint i = 0; i < pos; ++i) {
+        if (aux == nullptr) {
+            if constexpr (std::is_pointer_v<T>) {
+                return nullptr;
+            }
+            throw out_of_range("Nodo nulo encontrado");
         }
         aux = aux->get_Sgte();
     }
+
+    if (aux == nullptr) {
+        if constexpr (std::is_pointer_v<T>) {
+            return nullptr;
+        }
+        throw out_of_range("Nodo nulo en posición solicitada");
+    }
+
+    return aux->get_Elem();
 }
+
+// ? Obtener referencia - versión segura
+template <class T>
+T& Lista<T>::obtenerReferencia(uint pos) {
+    if (pos >= lon || ini == nullptr) {
+        throw out_of_range("Índice fuera de rango");
+    }
+
+    Nodo<T>* aux = ini;
+    for (uint i = 0; i < pos; ++i) {
+        if (aux == nullptr) {
+            throw out_of_range("Nodo nulo encontrado");
+        }
+        aux = aux->get_Sgte();
+    }
+
+    if (aux == nullptr) {
+        throw out_of_range("Nodo nulo en posicion solicitada");
+    }
+
+    return aux->get_Elem();
+}
+
+// ? Método específico para obtener punteros de forma segura
+template <class T>
+T Lista<T>::obtenerPuntero(uint pos) const {
+    static_assert(std::is_pointer_v<T>, "Este metodo solo funciona con tipos puntero");
+
+    if (pos >= lon || ini == nullptr) {
+        return nullptr;
+    }
+
+    Nodo<T>* aux = ini;
+    for (uint i = 0; i < pos; ++i) {
+        if (aux == nullptr) {
+            return nullptr;
+        }
+        aux = aux->get_Sgte();
+    }
+
+    return (aux != nullptr) ? aux->get_Elem() : nullptr;
+}
+
+// Reemplazar por posición
 template <class T>
 void Lista<T>::reemplazarPos(uint pos, T nuevoElem) {
-    if (pos < lon) {
-        Nodo<T>* aux = ini;
-        for (uint i = 0; i < pos; ++i) {
-            aux = aux->get_Sgte();
-        }
-        aux->set_Elem(nuevoElem);
+    if (pos >= lon) return;
+    Nodo<T>* aux = ini;
+    for (uint i = 0; i < pos; ++i) {
+        aux = aux->get_Sgte();
     }
+    aux->set_Elem(nuevoElem);
 }
+
+// Buscar por función lambda
 template <class T>
-void Lista<T>::reemplazarPos1(uint pos, T nuevoElem) {
-    if (pos < lon) {
-        Nodo<T>* aux = ini;
-        for (uint i = 0; i < pos; ++i) {
-            aux = aux->get_Sgte();
-        }
-        aux->set_Elem(nuevoElem);
-    }
-}
-template <typename T>
 T Lista<T>::buscarProducto(std::function<bool(T)> criterio) {
     Nodo<T>* aux = ini;
     while (aux != nullptr) {
@@ -390,16 +232,64 @@ T Lista<T>::buscarProducto(std::function<bool(T)> criterio) {
         }
         aux = aux->get_Sgte();
     }
-    return T();
+    return T(); // Default
 }
 
-// Implementación de los métodos solicitados
+// Vaciar lista
 template <class T>
-int Lista<T>::getTam() const {
-    return static_cast<int>(lon);
+void Lista<T>::vaciarLista() {
+    while (!esVacia()) {
+        eliminaInicial();
+    }
 }
 
 template <class T>
-T Lista<T>::getValor(int pos) const {
-    return obtenerPos(static_cast<uint>(pos));
+uint Lista<T>::longitud() const {
+    return lon;
+}
+
+// Mostrar lista
+template <class T>
+void Lista<T>::mostrar() const {
+    Nodo<T>* aux = ini;
+    int i = 1;
+    while (aux != nullptr) {
+        T elem = aux->get_Elem();
+        if constexpr (std::is_pointer_v<T>) {
+            if (elem != nullptr) {
+                cout << "\t\t\t" << i << ". " << elem->getNombre() << endl;
+            }
+            else {
+                cout << "\t\t\t" << i << ". (Producto nulo)" << endl;
+            }
+        }
+        else {
+            cout << "\t\t\t" << i << ". " << elem.getNombre() << endl;
+        }
+        aux = aux->get_Sgte();
+        ++i;
+    }
+    if (i == 1) {
+        cout << "\t\t\t(No hay productos en esta categoria)" << endl;
+    }
+}
+
+template <class T>
+void Lista<T>::setValor(int pos, T nuevoValor) {
+    if (pos < 0 || pos >= (int)lon) return;
+
+    Nodo<T>* actual = ini;
+    for (int i = 0; i < pos && actual != nullptr; ++i) {
+        actual = actual->get_Sgte();
+    }
+
+    if (actual != nullptr) {
+        actual->set_Elem(nuevoValor);
+    }
+}
+template <class T>
+void Lista<T>::limpiar() {
+    vaciarLista();
+    ini = nullptr;
+    lon = 0;
 }
