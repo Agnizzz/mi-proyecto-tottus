@@ -1087,3 +1087,169 @@ void procesarCompra() {
 		}
 	}
 
+	// --- FUNCIÓN AUXILIAR PARA LIMPIAR ESPACIOS Y CARACTERES INVISIBLES ---
+	string trim(const string& str) {
+		const string whitespace = " \t\n\r\f\v";
+		size_t first = str.find_first_not_of(whitespace);
+		if (string::npos == first) {
+			return "";
+		}
+		size_t last = str.find_last_not_of(whitespace);
+		return str.substr(first, (last - first + 1));
+	}
+
+	// --- FUNCIÓN AUXILIAR PARA VALIDAR Y CONVERTIR PRECIO ---
+	bool convertirPrecio(const string& precioStr, double& precio) {
+		string precioLimpio = trim(precioStr);
+
+		// Reemplazar comas por puntos si es necesario
+		for (char& c : precioLimpio) {
+			if (c == ',') {
+				c = '.';
+			}
+		}
+
+		// Verificar que solo contenga dígitos, punto y posiblemente un signo negativo
+		bool puntoEncontrado = false;
+		for (size_t i = 0; i < precioLimpio.length(); i++) {
+			char c = precioLimpio[i];
+			if (c == '.') {
+				if (puntoEncontrado) return false; // Más de un punto
+				puntoEncontrado = true;
+			}
+			else if (c == '-' && i == 0) {
+				// Permitir signo negativo al inicio
+				continue;
+			}
+			else if (!isdigit(c)) {
+				return false; // Carácter no válido
+			}
+		}
+
+		if (precioLimpio.empty() || precioLimpio == "." || precioLimpio == "-") {
+			return false;
+		}
+
+		try {
+			precio = stod(precioLimpio);
+			return true;
+		}
+		catch (const std::exception&) {
+			return false;
+		}
+	}
+
+	// --- FUNCIÓN PRINCIPAL CORREGIDA ---
+	void cargarBoletasDesdeArchivo() {
+		ifstream archivo("Boletas.txt");
+		if (!archivo.is_open()) {
+			cout << "ADVERTENCIA: No se encontró 'Boletas.txt'." << endl;
+			return;
+		}
+
+		string linea;
+		Boleta* boletaActual = nullptr;
+		int numeroDeLinea = 0;
+
+		while (getline(archivo, linea)) {
+			numeroDeLinea++;
+			linea = trim(linea);
+
+			if (linea.empty()) {
+				continue;
+			}
+
+			try {
+				if (linea.rfind("N° Boleta: ", 0) == 0) {
+					// Procesar boleta anterior si existe
+					if (boletaActual != nullptr) {
+						boletaActual->calcularTotal();
+						listaBoletas.agregaFinal(boletaActual);
+						tablaBoletas.insertar(boletaActual);
+					}
+
+					// Crear nueva boleta
+					int numero = stoi(linea.substr(linea.find(": ") + 2));
+					getline(archivo, linea); numeroDeLinea++;
+
+					size_t posDNI = linea.find(" (DNI: ");
+					string nombre = linea.substr(linea.find(": ") + 2, posDNI - (linea.find(": ") + 2));
+					string dni = linea.substr(posDNI + 7, 8);
+
+					getline(archivo, linea); numeroDeLinea++; // Línea de fecha
+					boletaActual = new Boleta(nombre, dni, numero);
+				}
+				else if (boletaActual != nullptr && isdigit(linea[0]) && linea.find(" - Cantidad: ") != string::npos) {
+					// Procesar línea de producto
+					string nombreProducto, cantidadStr, precioStr;
+
+					// Extraer nombre del producto
+					size_t inicioNombre = linea.find(". ") + 2;
+					size_t finNombre = linea.find(" - Cantidad:");
+					nombreProducto = linea.substr(inicioNombre, finNombre - inicioNombre);
+
+					// Extraer cantidad
+					size_t inicioCantidad = linea.find(": ", finNombre) + 2;
+					size_t finCantidad = linea.find(" - Precio:", inicioCantidad);
+					cantidadStr = linea.substr(inicioCantidad, finCantidad - inicioCantidad);
+					int cantidad = stoi(trim(cantidadStr));
+
+					// Extraer precio con mejor validación
+					size_t posS = linea.find("S/. ");
+					if (posS == string::npos) {
+						cout << "ERROR: No se encontró 'S/. ' en línea " << numeroDeLinea << endl;
+						cout << "Línea completa: " << linea << endl;
+						continue;
+					}
+
+					size_t inicioPrecio = posS + 4; // Después de "S/. "
+					size_t finPrecio = linea.find(" ", inicioPrecio);
+					if (finPrecio == string::npos) {
+						precioStr = linea.substr(inicioPrecio);
+					}
+					else {
+						precioStr = linea.substr(inicioPrecio, finPrecio - inicioPrecio);
+					}
+
+					// Validar y convertir precio
+					double precio;
+					if (!convertirPrecio(precioStr, precio)) {
+						cout << "ERROR: Precio inválido en línea " << numeroDeLinea
+							<< ". Precio encontrado: '" << precioStr << "'" << endl;
+						cout << "Línea completa: " << linea << endl;
+						continue; // Saltar este producto pero continuar con la boleta
+					}
+
+					// Crear y agregar producto
+					Categoria* producto = new Categoria();
+					producto->setNombre(nombreProducto);
+					producto->setCantidad(cantidad);
+					producto->setPrecioUnitario(precio);
+					producto->setPrecioDescuento(0.0);
+					boletaActual->agregarProducto(producto);
+				}
+			}
+			catch (const std::exception& e) {
+				cout << "ERROR: Se ignoró la línea " << numeroDeLinea
+					<< " por formato inválido. Motivo: " << e.what() << endl;
+				cout << "Línea problemática: " << linea << endl;
+
+				// Solo eliminar boleta si el error fue al crearla
+				if (linea.rfind("N° Boleta: ", 0) == 0 && boletaActual != nullptr) {
+					delete boletaActual;
+					boletaActual = nullptr;
+				}
+			}
+		}
+
+		// Procesar última boleta
+		if (boletaActual != nullptr) {
+			boletaActual->calcularTotal();
+			listaBoletas.agregaFinal(boletaActual);
+			tablaBoletas.insertar(boletaActual);
+		}
+
+		//cout << "\nINFO: Carga de historial finalizada. Se cargaron "
+			//<< listaBoletas.longitud() << " boletas." << endl;
+		archivo.close();
+	}

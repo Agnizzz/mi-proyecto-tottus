@@ -5,6 +5,7 @@
 using namespace std;
 
 int main() {
+	cargarBoletasDesdeArchivo();
 	SetConsoleSize(160, 41);
 	SetCursorVisible(false);
 
