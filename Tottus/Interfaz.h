@@ -694,7 +694,7 @@ void Producto() {
 			case 2: { // Gestion de Proveedores
 			    // a. Agregar Nuevo Proveedor // b. Modificar Datos de Proveedor // c. Eliminar Proveedor // d. Listar Todos los Proveedores // 0. Volver al menú anterior
 				// Tu código aquí
-				//ACA MEJOR CREARE UN GAFO // DE PROVEEDORES PARA QUE SEA MAS FACIL 
+				//ACA MEJOR CREARE UN GRAFO // DE PROVEEDORES PARA QUE SEA MAS FACIL 
 				break;
 			}
 			case 3: { // Consultar Inventario General
@@ -957,6 +957,7 @@ void RegistroAdministrador() {
 				// e. Por Estado de la Boleta(Ej : Pagada, Anulada, Pendiente)
 				// 0. Volver
 				// Tu código aquí
+				menuRegistroAdmin();
 				break;
 			}
 			case 1: { // Listar Ultimas Boletas Generadas

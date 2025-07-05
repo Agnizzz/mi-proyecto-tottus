@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 #include <iostream>
 #include <conio.h>
 #include <chrono> 
@@ -12,7 +12,7 @@ using namespace std;
 
 
 
-// ¡rboles para indexar productos por diferentes atributos.
+// √Årboles para indexar productos por diferentes atributos.
 ArbolBinarioBusqueda<Categoria*> arbolPorId;
 ArbolBinarioBusqueda<Categoria*> arbolPorNombre;
 ArbolBinarioBusqueda<Categoria*> arbolPorPrecio;
@@ -22,10 +22,10 @@ Lista<Categoria*> copiasDeProductos;
 
 
 
-// Bandera para asegurar que los ·rboles se construyan una sola vez.
+// Bandera para asegurar que los √°rboles se construyan una sola vez.
 bool arbolesDeBusquedaInicializados = false;
 
-// Funciones de comparaciÛn (lambdas), no cambian.
+// Funciones de comparaci√≥n (lambdas), no cambian.
 auto comparadorPorId = [](const Categoria* a, const Categoria* b) {
     if (a->getID() < b->getID()) return -1;
     if (a->getID() > b->getID()) return 1;
@@ -45,7 +45,7 @@ auto comparadorPorPrecio = [](const Categoria* a, const Categoria* b) {
     };
 
 
-// FunciÛn para poblar los ·rboles de b˙squeda desde el cat·logo principal.
+// Funci√≥n para poblar los √°rboles de b√∫squeda desde el cat√°logo principal.
 void inicializarArbolesDeBusqueda() {
     if (arbolesDeBusquedaInicializados) {
         return;
@@ -62,7 +62,7 @@ void inicializarArbolesDeBusqueda() {
 
                         Categoria* copiaProducto = new Categoria(productoOriginal);
 
-                        // CAMBIO: Usamos el mÈtodo de tu lista (ej. agregaFinal) en lugar de push_back.
+                        // CAMBIO: Usamos el m√©todo de tu lista (ej. agregaFinal) en lugar de push_back.
                         copiasDeProductos.agregaFinal(copiaProducto);
 
                         arbolPorId.insertar(copiaProducto, comparadorPorId);
@@ -80,22 +80,22 @@ void inicializarArbolesDeBusqueda() {
     cout << "\nArboles de busqueda han sido inicializados." << endl;
 }
 
-// FunciÛn para limpiar las copias de productos creadas din·micamente.
+// Funci√≥n para limpiar las copias de productos creadas din√°micamente.
 void limpiarRecursosDeBusqueda() {
     // CAMBIO: Iteramos sobre la Lista en lugar del vector.
     for (int i = 0; i < copiasDeProductos.longitud(); i++) {
-        // Usamos el mÈtodo para obtener el elemento (ej. obtenerPos o getValor).
-        // Nota: Aseg˙rate de que el mÈtodo devuelva un Categoria*.
+        // Usamos el m√©todo para obtener el elemento (ej. obtenerPos o getValor).
+        // Nota: Aseg√∫rate de que el m√©todo devuelva un Categoria*.
         Categoria* ptr = copiasDeProductos.obtenerPos(i);
         delete ptr;
     }
-    // Opcional: Si tu lista tiene un mÈtodo para limpiarse, ll·malo aquÌ.
+    // Opcional: Si tu lista tiene un m√©todo para limpiarse, ll√°malo aqu√≠.
     // ej. copiasDeProductos.limpiar();
-    copiasDeProductos.limpiar(); // Aseg˙rate de que este mÈtodo exista en tu clase Lista.
+    copiasDeProductos.limpiar(); // Aseg√∫rate de que este m√©todo exista en tu clase Lista.
 }
 
 
-// FunciÛn principal para la b˙squeda de productos del administrador con navegaciÛn por flechas
+// Funci√≥n principal para la b√∫squeda de productos del administrador con navegaci√≥n por flechas
 void buscarProductoAdmin() {
     system("cls");
 
@@ -111,10 +111,10 @@ void buscarProductoAdmin() {
         cout << "\n\n\t\t\t------ BUSCAR PRODUCTO EN CATALOGO ------" << endl;
         cout << "\n\t\t\tUse las flechas para navegar y Enter para seleccionar:\n" << endl;
 
-        // OpciÛn 1: Buscar por ID
+        // Opci√≥n 1: Buscar por ID
         cout << "\t\t\t";
         if (seleccion == 0) {
-            setColor(0, 14); // Fondo amarillo, texto negro para opciÛn seleccionada
+            setColor(0, 14); // Fondo amarillo, texto negro para opci√≥n seleccionada
             cout << "> 1. Buscar por ID <";
             setColor(15, 0); // Volver a colores normales
         }
@@ -123,7 +123,7 @@ void buscarProductoAdmin() {
         }
         cout << endl;
 
-        // OpciÛn 2: Buscar por Nombre
+        // Opci√≥n 2: Buscar por Nombre
         cout << "\t\t\t";
         if (seleccion == 1) {
             setColor(0, 14);
@@ -135,7 +135,7 @@ void buscarProductoAdmin() {
         }
         cout << endl;
 
-        // OpciÛn 3: Buscar por Precio
+        // Opci√≥n 3: Buscar por Precio
         cout << "\t\t\t";
         if (seleccion == 2) {
             setColor(0, 14);
@@ -147,7 +147,7 @@ void buscarProductoAdmin() {
         }
         cout << endl;
 
-        // OpciÛn 4: Volver al men˙ anterior
+        // Opci√≥n 4: Volver al men√∫ anterior
         cout << "\t\t\t";
         if (seleccion == 3) {
             setColor(0, 14);
@@ -168,7 +168,7 @@ void buscarProductoAdmin() {
         return;
     }
 
-    // Procesar la selecciÛn
+    // Procesar la selecci√≥n
     NodoArbol<Categoria*>* resultado = nullptr;
     Categoria claveBusqueda;
 
@@ -204,7 +204,7 @@ void buscarProductoAdmin() {
         resultado = arbolPorPrecio.buscar(&claveBusqueda, comparadorPorPrecio);
         break;
     }
-    case 3: // Volver al men˙ anterior
+    case 3: // Volver al men√∫ anterior
         return;
     }
 
@@ -222,13 +222,13 @@ void buscarProductoAdmin() {
     cout << "\n\t\t\tPresione cualquier tecla para continuar...";
     system("pause>0");
 }
-//FUNCION PARA REVISAR LA VENTAS DEL DÕA
+//FUNCION PARA REVISAR LA VENTAS DEL D√çA
 void revisarVentasDelDia() {
     system("cls");
     cout << "\n\n\t\t\t------ REPORTE DE VENTAS DEL DIA ------" << endl;
 
     // --- 1. OBTENER LA FECHA DE HOY ---
-    // Replicamos la lÛgica de tu clase Boleta para obtener la fecha en el formato correcto "d/m/aaaa"
+    // Replicamos la l√≥gica de tu clase Boleta para obtener la fecha en el formato correcto "d/m/aaaa"
     time_t now = chrono::system_clock::to_time_t(chrono::system_clock::now());
     struct tm timeinfo;
     localtime_s(&timeinfo, &now);
@@ -243,7 +243,7 @@ void revisarVentasDelDia() {
     double totalVentasDia = 0.0;
     int cantidadVentasDia = 0;
 
-    // Suponemos que tu clase Lista tiene los mÈtodos longitud() y obtenerPos()
+    // Suponemos que tu clase Lista tiene los m√©todos longitud() y obtenerPos()
     if (listaBoletas.esVacia()) {
         cout << "\n\t\tNo hay ventas registradas en el sistema." << endl;
     }
@@ -256,7 +256,7 @@ void revisarVentasDelDia() {
         for (int i = 0; i < listaBoletas.longitud(); i++) {
             Boleta* boletaActual = listaBoletas.obtenerPos(i);
 
-            // Usamos el nuevo mÈtodo getFecha() que acabamos de aÒadir
+            // Usamos el nuevo m√©todo getFecha() que acabamos de a√±adir
             if (boletaActual != nullptr && boletaActual->getFecha() == fechaHoy) {
                 double totalBoleta = boletaActual->getTotal();
                 cout << left << setw(15) << "\t\t" + to_string(boletaActual->getNumeroBoleta())
@@ -301,9 +301,9 @@ void procesarPedidos() {
             cout << "\n\t\tTotal de pedidos en cola: " << colaDePedidos.size() << endl;
             colaDePedidos.mostrarTodos();
 
-            // MOSTRAR EL PR”XIMO A PROCESAR
+            // MOSTRAR EL PR√ìXIMO A PROCESAR
             Boleta* proximoPedido = colaDePedidos.frente();
-            cout << "\n\t\t>>> PR”XIMO PEDIDO A PROCESAR <<<" << endl;
+            cout << "\n\t\t>>> PR√ìXIMO PEDIDO A PROCESAR <<<" << endl;
             cout << "\t\t---------------------------------" << endl;
             cout << "\t\tBoleta Nro: " << proximoPedido->getNumeroBoleta() << endl;
             cout << "\t\tCliente: " << proximoPedido->getCliente() << endl;
@@ -312,7 +312,7 @@ void procesarPedidos() {
             cout << "\t\t---------------------------------" << endl;
 
             cout << "\n\t\t1. Procesar y Despachar Pedido (Desencolar)";
-            cout << "\n\t\t2. Ver detalles del prÛximo pedido";
+            cout << "\n\t\t2. Ver detalles del pr√≥ximo pedido";
             cout << "\n\t\t0. Volver al Menu Principal";
             cout << "\n\n\t\tSeleccione una opcion: ";
             cin >> opcion;
@@ -335,7 +335,7 @@ void procesarPedidos() {
             case 0:
                 break;
             default:
-                cout << "\n\t\t>> OpciÛn inv·lida." << endl;
+                cout << "\n\t\t>> Opci√≥n inv√°lida." << endl;
                 system("pause>0");
             }
         }
@@ -351,9 +351,9 @@ void gestionarCategoriasAdminCase0() {
     cout << "\n\t\t\t2. Agregar producto\n";
     cout << "\n\t\t\t3. Editar producto\n";
     cout << "\n\t\t\t4. Eliminar producto\n";
-    cout << "\n\t\t\t5. Buscar Producto\n"; // <-- NUEVA OPCI”N
+    cout << "\n\t\t\t5. Buscar Producto\n"; // <-- NUEVA OPCI√ìN
     //cout << "\n\t\t\t6. Revisar Ventas del Dia (Nuevo)\n"; //Nuevo
-    //cout << "\n\t\t\t7. Procesar Pedidos Pendientes (Nuevo)\n"; // <-- NUEVA OPCI”N
+    //cout << "\n\t\t\t7. Procesar Pedidos Pendientes (Nuevo)\n"; // <-- NUEVA OPCI√ìN
     cout << "\n\t\t\t0. Regresar al menu principal\n";
     cout << "\n\t\t\tSeleccione una opcion: ";
     cin >> opcion;
@@ -365,25 +365,25 @@ void gestionarCategoriasAdminCase0() {
         agregarProductoInteractivo(); // <-- MODIFICADO PARA AGREGAR PRODUCTO
         break;
     case 3:
-        // LÛgica para editar categorÌa
+        // L√≥gica para editar categor√≠a
         editarProductoPorID(); // <-- MODIFICADO PARA EDITAR PRODUCTO
         break;
     case 4:
-        // LÛgica para eliminar categorÌa
+        // L√≥gica para eliminar categor√≠a
         eliminarProductoPorID(); // <-- MODIFICADO PARA ELIMINAR PRODUCTO
         break;
     case 5: // <-- NUEVO CASE
         buscarProductoAdmin();
         break;
     //case 6: // <-- NUEVO CASE
-	//    revisarVentasDelDia(); // Nuevo este es para revisar las ventas del dÌa
+	//    revisarVentasDelDia(); // Nuevo este es para revisar las ventas del d√≠a
     //    break;
     //case 7: // <-- NUEVO CASE
 	//    procesarPedidos(); // Nuevo este es para procesar pedidos pendientes
     //    break;
     case 0:
         system("cls");
-		return; // Salir del men˙ de gestiÛn de categorÌas
+		return; // Salir del men√∫ de gesti√≥n de categor√≠as
         break;
     default:
         cout << "\t\t\tOpcion invalida. Presione una tecla para continuar...";
@@ -395,17 +395,17 @@ void gestionarCategoriasAdminCase0() {
 //funcion para ver un reporte de los productos mas vendidos
 void verProductosMasVendidos() {
 	system("cls");
-	cout << "\n\n\t\t\t------ PRODUCTOS M¡S VENDIDOS ------" << endl;
-	// AquÌ deberÌas implementar la lÛgica para calcular los productos m·s vendidos.
-	// Por ejemplo, podrÌas usar un mapa o un arreglo para contar las ventas de cada producto.
-	// SimulaciÛn de productos m·s vendidos (esto deberÌa ser din·mico en una implementaciÛn real)
+	cout << "\n\n\t\t\t------ PRODUCTOS M√ÅS VENDIDOS ------" << endl;
+	// Aqu√≠ deber√≠as implementar la l√≥gica para calcular los productos m√°s vendidos.
+	// Por ejemplo, podr√≠as usar un mapa o un arreglo para contar las ventas de cada producto.
+	// Simulaci√≥n de productos m√°s vendidos (esto deber√≠a ser din√°mico en una implementaci√≥n real)
 	cout << "\n\t\tProducto A - 150 unidades vendidas" << endl;
 	cout << "\t\tProducto B - 120 unidades vendidas" << endl;
 	cout << "\t\tProducto C - 100 unidades vendidas" << endl;
 	cout << "\n\n";
 	system("pause>0");
 }
-//funcion para solo ver las boletas del dÌa
+//funcion para solo ver las boletas del d√≠a
 void verBoletasDelDia() {
 	system("cls");
 	cout << "\n\n\t\t\t------ BOLETAS DEL DIA ------" << endl;
@@ -447,10 +447,10 @@ void verBoletasDelDia() {
 void GenerarReporteDeVentasRegistro() {
     //primero limpio
 	system("cls");
-    //hago un menu de reportes del dia con opciones de revisar ventas del dÌa
+    //hago un menu de reportes del dia con opciones de revisar ventas del d√≠a
 	cout << "\n\n\t\t\t------ REPORTE DE VENTAS DEL DIA ------" << endl;
-	cout << "\n\t\t\t1. Ver ventas del dÌa\n";
-	cout << "\n\t\t\t2. ver reporte de Productos M·s Vendidos\n";
+	cout << "\n\t\t\t1. Ver ventas del d√≠a\n";
+	cout << "\n\t\t\t2. ver reporte de Productos M√°s Vendidos\n";
 	cout << "\n\t\t\t0. Regresar al menu principal\n";
 	cout << "\n\t\t\tSeleccione una opcion: ";
 
@@ -461,10 +461,10 @@ void GenerarReporteDeVentasRegistro() {
 		revisarVentasDelDia();
 		break;
 	case 2:
-        verProductosMasVendidos(); // Llamamos a la funciÛn para ver productos m·s vendidos
+        verProductosMasVendidos(); // Llamamos a la funci√≥n para ver productos m√°s vendidos
 		break;
 	case 0:
-		return; // Regresar al men˙ principal
+		return; // Regresar al men√∫ principal
 	default:
 		cout << "\t\t\tOpcion invalida. Presione una tecla para continuar...";
 		system("pause>0");
@@ -472,5 +472,102 @@ void GenerarReporteDeVentasRegistro() {
 	}
 }
 
+//funcion para busqueda de boletas con menu
+void BusquedaBoletas() {
+    system("cls");
+    cout << "\n\t\t\t------ BUSQUEDA DE BOLETAS ------" << endl;
+    cout << "\n\t\t\t1. Buscar por numero de boleta\n";
+    cout << "\n\t\t\t2. Buscar por rango de precio\n";
+    cout << "\n\t\t\t3. Volver al menu anterior\n";
+    cout << "\n\t\t\tSeleccione una opcion: ";
+    int opcion;
+    cin >> opcion;
+    switch (opcion) {
+    case 1: {
+        int numeroBoleta;
+        cout << "\nIngrese el numero de boleta a buscar: ";
+        cin >> numeroBoleta;
+        Boleta::buscarPorNumero(listaBoletas, numeroBoleta);
+        break;
+    }
+    case 2: {
+        double min, max;
+        cout << "\nIngrese el precio minimo: ";
+        cin >> min;
+        cout << "Ingrese el precio maximo: ";
+        cin >> max;
+        Boleta::buscarPorRangoPrecio(listaBoletas, min, max);
+        break;
+    }
+    case 3:
+        return; // Volver al men√∫ anterior
+    default:
+        cout << "\nOpcion invalida." << endl;
+        break;
+    }
+    system("pause>0");
+}
+
+void menuRegistroAdmin() {
+    int opcion;
+
+    do {
+        system("cls");
+        cout << "\n\t===== ADMIN-BOLETAS =====\n";
+        cout << "1. Buscar  boletas por DNI\n";
+        cout << "2. Buscar boleta especifica\n";           // ‚¨ÖÔ∏è NUEVA OPCI√ìN
+        cout << "3. Mostrar todas las boletas\n";          // ‚¨ÖÔ∏è NUEVA OPCI√ìN
+        cout << "4. Eliminar boleta\n";                // ‚¨ÖÔ∏è NUEVA OPCI√ìN
+        cout << "5. Ordenar boletas\n"; // ‚¨ÖÔ∏è NUEVA OPCI√ìN
+        cout << "6. Salir\n";
+        cout << "\n\t\t0. Cerrar Sesion" << endl;
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+
+        switch (opcion) {
+        case 0: // Cerrar sesi√≥n
+            sistemaUsuarios->cerrarSesion();
+            cout << "\n\t\t\tCerrando sesion...\n";
+            system("pause");
+            productosSeleccionados->limpiar();  // Limpia el carrito del usuario anterior
+            return; // Salir del men√∫ de registro
 
 
+        case 1: {
+            system("cls");
+            string dniBuscar = sistemaUsuarios->getUsuarioActual().DNI;
+            cout << "\nBuscando boletas para DNI: " << dniBuscar << "\n";
+            tablaBoletas.buscarPorDNI(dniBuscar);
+            system("pause");
+            break;
+        }
+
+        case 2:
+            buscarBoletaEspecifica();
+            break;
+
+        case 3:
+            system("cls");
+            cout << "\n=== TODAS LAS BOLETAS ===" << endl;
+            tablaBoletas.mostrarTodas();
+            system("pause");
+            break;
+
+        case 4:
+            eliminarBoleta();
+            break;
+        case 5:
+            ordenarBoletasAvanzado();
+            break;
+
+        case 6:
+            cout << "Saliendo del menu...\n";
+            break;
+
+        default:
+            cout << "Opcion no valida.\n";
+            system("pause");
+        }
+
+    } while (opcion != 6);  // ‚¨ÖÔ∏è CAMBI√â A 6 porque ahora hay m√°s opciones
+}

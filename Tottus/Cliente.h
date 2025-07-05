@@ -762,7 +762,9 @@ void mostrarEstadisticasTabla() {
 }
 
 // Menu de registro (MEJORADO)
-void menuRegistro() {
+
+//menu de cliente
+void menuRegistroCliente() {
 	int opcion;
 
 	do {
@@ -825,6 +827,8 @@ void menuRegistro() {
 
 	} while (opcion != 6);  // ⬅️ CAMBIÉ A 6 porque ahora hay más opciones
 }
+
+
 
 // Función auxiliar para verificar si una boleta existe (NUEVA)
 bool existeBoleta(const string& dni, int numeroBoleta) {
