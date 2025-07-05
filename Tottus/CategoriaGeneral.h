@@ -93,10 +93,12 @@ public:
     //mostrar
     void mostrarResumen() const {
         double precioAplicado = (precioDescuento > 0.0) ? precioDescuento : precioUnitario;
+        double total = precioAplicado * cantidad;
+
         cout << left << setw(15) << id
             << setw(30) << nombre
             << setw(10) << unidadMedida
             << "x" << setw(3) << cantidad
-            << " -> S/." << fixed << setprecision(2) << precioFinal << endl;
+            << " -> S/." << fixed << setprecision(2) << total << endl;
     }
 };

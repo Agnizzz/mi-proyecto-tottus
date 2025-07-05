@@ -68,6 +68,44 @@ void verCarrito() {
 	system("pause>0");
 	system("pause>0");
 }
+//funcion de modificar cantidad de un producto seleccionado en mi carrito
+void modificarCantidad() {
+	system("cls");
+	cout << "\n\t\t\t-- Modificar Cantidad --" << endl;
+	if (productosSeleccionados->esVacia()) {
+		cout << "\n\t\t\tNo hay productos en el carrito." << endl;
+	}
+	else {
+		cout << "\n\t\t\tProductos en el carrito:" << endl;
+		for (int i = 0; i < productosSeleccionados->longitud(); i++) {
+			Categoria* producto = productosSeleccionados->getValor(i);
+			cout << "\t\t\t" << (i + 1) << ". " << producto->getNombre() << " - Cantidad: " << producto->getCantidad() << endl;
+		}
+		int opcion;
+		cout << "\n\t\t\tSeleccione el producto a modificar (0 para cancelar): ";
+		cin >> opcion;
+		if (opcion > 0 && opcion <= productosSeleccionados->longitud()) {
+			int nuevaCantidad;
+			cout << "\n\t\t\tIngrese la nueva cantidad: ";
+			cin >> nuevaCantidad;
+			if (nuevaCantidad > 0) {
+				productosSeleccionados->getValor(opcion - 1)->setCantidad(nuevaCantidad);
+				cout << "\n\t\t\tCantidad modificada correctamente." << endl;
+			}
+			else {
+				cout << "\n\t\t\tLa cantidad debe ser mayor a cero." << endl;
+			}
+		}
+		else if (opcion == 0) {
+			cout << "\n\t\t\tOperación cancelada." << endl;
+		}
+		else {
+			cout << "\n\t\t\tOpción invalida." << endl;
+		}
+	}
+	system("pause>0");
+}
+
 void eliminarProducto() {
 	system("cls");
 	cout << "\n\t\t\t-- Eliminar Producto --" << endl;
@@ -116,9 +154,7 @@ void verOfertas() {
 	}
 	system("pause>0");
 }
-void procesarCompra() {
 
-}
 
 Categoria** convertirAArreglo(Lista<Categoria*>* lista, int& n) {
 	n = lista->longitud();
@@ -770,12 +806,10 @@ void menuRegistroCliente() {
 	do {
 		system("cls");
 		cout << "\n\t===== MENU CLIENTE =====\n";
-		cout << "1. Generar boleta de compra\n";
-		cout << "2. Buscar mis boletas por DNI\n";
-		cout << "3. Buscar boleta especifica\n";           // ⬅️ NUEVA OPCIÓN
-		cout << "4. Mostrar todas las boletas\n";          // ⬅️ NUEVA OPCIÓN
-		cout << "5. Ver estadisticas del sistema\n";       // ⬅️ NUEVA OPCIÓN
-		cout << "6. Salir\n";
+		cout << "1. Buscar mis boletas por DNI\n";
+		cout << "2. Buscar boleta especifica\n";           // ⬅️ NUEVA OPCIÓN
+		cout << "3. Mostrar todas las boletas\n";          // ⬅️ NUEVA OPCIÓN
+		cout << "4. Salir\n";
 		cout << "\n\t\t0. Cerrar Sesion" << endl;
 		cout << "Seleccione una opcion: ";
 		cin >> opcion;
@@ -787,12 +821,9 @@ void menuRegistroCliente() {
 			system("pause");
 			productosSeleccionados->limpiar();  // Limpia el carrito del usuario anterior
 			return; // Salir del menú de registro
+;
 
-		case 1:
-			generarBoleta(); // Usa carrito y usuarioActual
-			break;
-
-		case 2: {
+		case 1: {
 			system("cls");
 			string dniBuscar = sistemaUsuarios->getUsuarioActual().DNI;
 			cout << "\nBuscando boletas para DNI: " << dniBuscar << "\n";
@@ -801,22 +832,18 @@ void menuRegistroCliente() {
 			break;
 		}
 
-		case 3:
+		case 2:
 			buscarBoletaEspecifica();
 			break;
 
-		case 4:
+		case 3:
 			system("cls");
 			cout << "\n=== TODAS LAS BOLETAS ===" << endl;
 			tablaBoletas.mostrarTodas();
 			system("pause");
 			break;
 
-		case 5:
-			mostrarEstadisticasTabla();
-			break;
-
-		case 6:
+		case 4:
 			cout << "Saliendo del menu...\n";
 			break;
 
@@ -873,56 +900,6 @@ void limpiarTablaBoletas() {
 	system("pause");
 }
 
-//aca va el menu
-void menuCarrito() {
-	system("cls");
-	cout << "\n\n\t\t\t------ MENU CARRITO ------" << endl;
-	cout << "\n\t\t\t1. Comprar\n";
-	cout << "\n\t\t\t2. Ver carrito\n";
-	cout << "\n\t\t\t3. Eliminar producto\n";
-	cout << "\n\t\t\t4. Ver ofertas\n";
-	cout << "\n\t\t\t5. Procesar compra\n";
-	cout << "\n\t\t\t6. Buscar producto\n";
-	cout << "\n\t\t\t7. Ordenar productos\n";
-	cout << "\n\t\t\t0. Salir\n";
-	cout << "\n\t\t\tSeleccione una opcion: ";
-	int opcion;
-	cin >> opcion;
-
-	if (opcion < 0 || opcion > 7) {
-		cout << "\t\t\tOpcion invalida. Presione una tecla para continuar...";
-		system("pause>0");
-		system("cls");
-		return;
-	}
-
-	switch (opcion) {
-	case 0:
-		cout << "\n\t\t\tSALIENDO DEL SISTEMA..." << endl;
-		break;
-	case 1:
-		comprar();
-		break;
-	case 2:
-		verCarrito();
-		break;
-	case 3:
-		eliminarProducto();
-		break;
-	case 4:
-		verOfertas();
-		break;
-	case 5:
-		procesarCompra();
-		break;
-	case 6:
-		buscarProducto();
-		break;
-	case 7:
-		ordenarProductosAvanzado();
-		break;
-	}
-}
 
 //uso de generador database
 void generarProductosDePrueba(Lista<Categoria*>& productos) {
@@ -940,3 +917,173 @@ void generarProductosDePrueba(Lista<Categoria*>& productos) {
 		productos.agregaFinal(p);
 	}
 }
+
+void procesarCompra() {
+	// 1. VERIFICAR SI EL CARRITO ESTÁ VACÍO
+	if (productosSeleccionados->esVacia()) {
+		std::cout << "El carrito está vacío. No se puede procesar la compra.\n";
+		return;
+	}
+
+	// 2. MOSTRAR RESUMEN FINAL DE LA COMPRA
+	std::cout << "\n========== RESUMEN DE COMPRA ==========\n";
+	double total = 0.0;
+	for (int i = 0; i < productosSeleccionados->longitud(); ++i) {
+		Categoria* item = productosSeleccionados->getValor(i);
+		if (item) {
+			double subtotal = item->getCantidad() * item->getPrecioUnitario();
+			std::cout << item->getNombre() << " x" << item->getCantidad()
+				<< " - S/. " << std::fixed << std::setprecision(2) << item->getPrecioUnitario()
+				<< " c/u = S/. " << subtotal << std::endl;
+			total += subtotal;
+		}
+	}
+	std::cout << "----------------------------------------\n";
+	std::cout << "TOTAL A PAGAR: S/. " << std::fixed << std::setprecision(2) << total << std::endl;
+	std::cout << "========================================\n\n";
+
+	// 3. PEDIR CONFIRMACIÓN FINAL
+	char confirmar;
+	do {
+		std::cout << "¿Confirma la compra? (S/N): ";
+		std::cin >> confirmar;
+		confirmar = tolower(confirmar);
+
+		if (confirmar == 'n') {
+			std::cout << "Compra cancelada.\n";
+			return; // Sale de la función si el usuario cancela
+		}
+		if (confirmar != 's') {
+			std::cout << "Opción no válida. Ingrese 'S' para confirmar o 'N' para cancelar.\n";
+		}
+	} while (confirmar != 's');
+
+	// 4. SIMULAR ELECCIÓN DE MÉTODO DE PAGO
+	int metodoPago;
+	do {
+		std::cout << "\nSeleccione método de pago:\n";
+		std::cout << "1. Tarjeta de Credito\n";
+		std::cout << "2. Tarjeta de Debito\n";
+		std::cout << "3. Yape / Plin\n";
+		std::cout << "Opción: ";
+		std::cin >> metodoPago;
+
+		if (std::cin.fail() || metodoPago < 1 || metodoPago > 3) {
+			std::cout << "Método de pago no válido. Intente nuevamente.\n";
+			std::cin.clear(); // Limpia el estado de error de cin
+			std::cin.ignore(10000, '\n'); // Descarta la entrada incorrecta
+		}
+	} while (metodoPago < 1 || metodoPago > 4);
+
+	std::string metodos[] = { "", "Tarjeta de Crédito", "Tarjeta de Débito", "Efectivo", "Yape / Plin" };
+	std::cout << "Método de pago seleccionado: " << metodos[metodoPago] << std::endl;
+
+	/// Simular procesamiento de pago
+	cout << "\nProcesando pago... ¡Pago aprobado!\n";
+
+	// 5. ACTUALIZAR STOCK DE PRODUCTOS
+	// ¡IMPORTANTE! Esto debe hacerse ANTES de generar la boleta, porque la boleta vacía el carrito.
+	std::cout << "Actualizando inventario...\n";
+	for (int i = 0; i < productosSeleccionados->longitud(); ++i) {
+		Categoria* itemCarrito = productosSeleccionados->getValor(i);
+		// Aquí debes buscar el producto en tu estructura de inventario principal y actualizarlo.
+		// Por ejemplo, si tienes un árbol de productos:
+		// Producto* productoEnInventario = arbolDeProductos->buscar(itemCarrito->getNombre());
+		// if (productoEnInventario) {
+		//     productoEnInventario->setStock(productoEnInventario->getStock() - itemCarrito->getCantidad());
+		//     std::cout << " -> Stock de '" << productoEnInventario->getNombre() << "' actualizado.\n";
+		// }
+	}
+	std::cout << "Inventario actualizado correctamente.\n\n";
+
+
+	// 6. GENERAR LA BOLETA (esto también vaciará el carrito)
+	generarBoleta();
+	//FALTA LIMPIAR
+
+	std::cout << "\n========================================\n";
+	std::cout << "¡PROCESO DE COMPRA FINALIZADO EXITOSAMENTE!\n";
+	std::cout << "========================================\n";
+}
+
+
+	void confirmacioncase3() {
+		if (productosSeleccionados->esVacia()) {
+			std::cout << "\nEl carrito de compras ya está vacío.\n";
+			return;
+		}
+
+		char confirmacion;
+		do {
+			std::cout << "\n¿Está seguro de que desea eliminar todos los productos de su carrito? (S/N): ";
+			std::cin >> confirmacion;
+			confirmacion = tolower(confirmacion); // Convertir a minúscula
+
+			if (confirmacion == 's') {
+				productosSeleccionados->limpiar(); // Llama a la función para vaciar la lista
+				std::cout << "\n>> Su carrito de compras ha sido vaciado.\n";
+				break; // Sale del bucle de confirmación
+			}
+			else if (confirmacion == 'n') {
+				std::cout << "\nOperación cancelada. Sus productos siguen en el carrito.\n";
+				break; // Sale del bucle de confirmación
+			}
+			else {
+				std::cout << "Opción no válida. Por favor, ingrese 'S' o 'N'.\n";
+				// Limpiar el buffer de entrada por si el usuario ingresó más de un carácter
+				std::cin.ignore(10000, '\n');
+			}
+		} while (true); // El bucle se repite hasta que se ingrese 's' o 'n'
+	}
+
+	//aca va el menu
+	void menuCarrito() {
+		system("cls");
+		cout << "\n\n\t\t\t------ MENU CARRITO ------" << endl;
+		cout << "\n\t\t\t1. Comprar\n";
+		cout << "\n\t\t\t2. Ver carrito\n";
+		cout << "\n\t\t\t3. Eliminar producto\n";
+		cout << "\n\t\t\t4. Ver ofertas\n";
+		cout << "\n\t\t\t5. Procesar compra\n";
+		cout << "\n\t\t\t6. Buscar producto\n";
+		cout << "\n\t\t\t7. Ordenar productos\n";
+		cout << "\n\t\t\t0. Salir\n";
+		cout << "\n\t\t\tSeleccione una opcion: ";
+		int opcion;
+		cin >> opcion;
+
+		if (opcion < 0 || opcion > 7) {
+			cout << "\t\t\tOpcion invalida. Presione una tecla para continuar...";
+			system("pause>0");
+			system("cls");
+			return;
+		}
+
+		switch (opcion) {
+		case 0:
+			cout << "\n\t\t\tSALIENDO DEL SISTEMA..." << endl;
+			break;
+		case 1:
+			comprar();
+			break;
+		case 2:
+			verCarrito();
+			break;
+		case 3:
+			eliminarProducto();
+			break;
+		case 4:
+			verOfertas();
+			break;
+		case 5:
+			procesarCompra();
+			break;
+		case 6:
+			buscarProducto();
+			break;
+		case 7:
+			ordenarProductosAvanzado();
+			break;
+		}
+	}
+

@@ -120,11 +120,15 @@ void Tienda() {
 			case 0: { // Ver Catalogo por Categorías
 				// Muestra una lista de las categorías de productos para que el cliente elija
 				// Tu código aquí
+				gestionarCategorias(true);
+				system("cls");
 			break;
 			}
 			case 1: { // Buscar un Producto
 				// a. Buscar producto por ID // b. Buscar producto por nombre // c. Buscar producto por rango de precio // 0. Volver al menú anterior
 				// Tu código aquí
+				buscarProductoAdmin();
+				system("cls");
 			break;
 			}
 			case 2: { // Ver Promociones Vigentes
@@ -179,6 +183,7 @@ void Carrito() {
 		int maxSeleccion = 6; // 6 opciones, de 0 a 5
 		AccionTecla accion = NINGUNA;
         /*== Mi Carrito de Compras ==
+		
 			
 			-----------------------------------------------------------------------
 			ID  | Producto                  | Cant. | P. Unit. | Subtotal
@@ -198,6 +203,8 @@ void Carrito() {
 			0. Volver al Menú Principal
 
 			Seleccione una opción:*/
+		//FALTAN MEJORAS
+		verCarrito();
 		// Ciclo de navegación del menú
         while (true) {
             // Reiniciar acción
@@ -282,11 +289,14 @@ void Carrito() {
 			case 0: { // Modificar Cantidad de un producto
 				// Pide el ID del producto y la nueva cantidad deseada
 				// Tu código aquí
+				modificarCantidad();
+				system("cls");
 				break;
 			}
 			case 1: { // Eliminar un producto del carrito
 				// Pide el ID del producto a retirar del carrito
 				// Tu código aquí
+				eliminarProducto();
 				break;
 			}
 			case 2: { // Proceder al Pago / Finalizar Compra
@@ -294,6 +304,28 @@ void Carrito() {
 				// Se simula la elección de un método de pago
 				// Al confirmar, el sistema procesa la compra : se genera la boleta, se actualiza el stock de los productos, y se vacía el carrito
 				// Tu código aquí
+				char selection;
+
+				do {
+					cout << "¿Desea realizar la compra? (Si/No): ";
+					cin >> selection;
+					selection = tolower(selection); // convierte a minúscula para facilitar comparación
+
+					if (selection == 's') {
+						procesarCompra(); // Función que realiza la compra
+						cout << "Compra realizada exitosamente.\n";
+						break;
+					}
+					else if (selection == 'n') {
+						cout << "Compra cancelada.\n";
+						break;
+					}
+					else {
+						cout << "Opción no válida. Por favor, ingrese 'S' o 'N'.\n";
+					}
+
+				} while (true);
+				system("cls");
 				break;
 			}
 			case 3: { // Vaciar Carrito
@@ -301,11 +333,15 @@ void Carrito() {
 				//¿Está seguro de que desea eliminar todos los productos de su carrito ? (S / N) :
 				//Si se confirma, el carrito se vacía y se muestra el mensaje : "Su carrito de compras ha sido vaciado."
 				// Tu código aquí
+				// Primero, verifica si el carrito ya está vacío para no hacer una operación innecesaria.
+				confirmacioncase3();
+				system("cls");
 				break;
 			}
 			case 4: { // Seguir Comprando
 				// Al seleccionar esa opción, la aplicación lo saca de la vista del carrito y lo lleva directamente al menú principal del módulo TIENDA
 				// Tu código aquí
+				return; // Salir de la función para volver al menú principal
 				break;
 			}
 			case 5: { // Volver al Menu Principal
@@ -418,6 +454,7 @@ void RegistroUsuario() {
 			case 0: { // Ver Catalogo por Categorías
 			    // Muestra la última boleta generada por el usuario, con detalles de los productos comprados, cantidades y precios
 				// Tu código aquí
+				menuRegistroCliente();
 				break;
 			}
 			case 1: { // Ver Lista Completa de Mis Boletas

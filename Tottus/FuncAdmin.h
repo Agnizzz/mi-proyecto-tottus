@@ -210,6 +210,7 @@ void buscarProductoAdmin() {
 
     // Mostrar resultado
     system("cls");
+ 
     if (resultado != nullptr) {
         cout << "\n\t\t\t--- Producto Encontrado ---" << endl;
         resultado->dato->mostrarResumen();
