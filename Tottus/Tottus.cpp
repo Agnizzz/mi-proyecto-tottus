@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Utilidades.h"
-#include "Matrices.h"
+#include "Interfaz.h"
 
 using namespace std;
 

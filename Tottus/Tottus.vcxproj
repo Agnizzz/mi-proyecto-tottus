@@ -141,7 +141,7 @@
     <ClInclude Include="GestionCategorias.h" />
     <ClInclude Include="IDpropio.h" />
     <ClInclude Include="Lista.h" />
-    <ClInclude Include="Matrices.h" />
+    <ClInclude Include="Interfaz.h" />
     <ClInclude Include="Nodo.h" />
     <ClInclude Include="Pilas.h" />
     <ClInclude Include="Producto.h" />

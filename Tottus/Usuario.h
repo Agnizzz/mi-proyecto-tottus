@@ -447,11 +447,16 @@ public:
 				}
 			}
 
-			// Validar que no este vacio
+			// Eliminar espacios al final
+			while (!nuevoUsuario.nombre.empty() && nuevoUsuario.nombre.back() == ' ') {
+				nuevoUsuario.nombre.pop_back();
+			}
+
+			// Validar que no este vacio después de eliminar espacios
 			if (nuevoUsuario.nombre.empty()) {
 				SetForegroundColor(Red);
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
-				cout << "El nombre no puede estar vacio.";
+				cout << "El nombre no puede estar vacio o consistir solo de espacios.";
 				_getch();  // Esperar tecla
 				// Limpiar mensaje de error
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
@@ -490,17 +495,22 @@ public:
 					cout << chap;
 				}
 				// Verificar si es una letra (mayuscula o minuscula)
-				else if ((chap >= 'A' && chap<= 'Z') || (chap >= 'a' && chap <= 'z')) {
+				else if ((chap >= 'A' && chap <= 'Z') || (chap >= 'a' && chap <= 'z')) {
 					nuevoUsuario.apellido_paterno.push_back(chap);
 					cout << chap;
 				}
 			}
 
-			// Validar que no este vacio
+			// Eliminar espacios al final
+			while (!nuevoUsuario.apellido_paterno.empty() && nuevoUsuario.apellido_paterno.back() == ' ') {
+				nuevoUsuario.apellido_paterno.pop_back();
+			}
+
+			// Validar que no este vacio después de eliminar espacios
 			if (nuevoUsuario.apellido_paterno.empty()) {
 				SetForegroundColor(Red);
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
-				cout << "El apellido paterno no puede estar vacio.";
+				cout << "El apellido paterno no puede estar vacio o consistir solo de espacios.";
 				_getch();  // Esperar tecla
 				// Limpiar mensaje de error
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
@@ -543,11 +553,17 @@ public:
 					cout << cham;
 				}
 			}
-			// Validar que no este vacio
+
+			// Eliminar espacios al final
+			while (!nuevoUsuario.apellido_materno.empty() && nuevoUsuario.apellido_materno.back() == ' ') {
+				nuevoUsuario.apellido_materno.pop_back();
+			}
+
+			// Validar que no este vacio después de eliminar espacios
 			if (nuevoUsuario.apellido_materno.empty()) {
 				SetForegroundColor(Red);
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
-				cout << "El apellido materno no puede estar vacio.";
+				cout << "El apellido materno no puede estar vacio o consistir solo de espacios.";
 				_getch();  // Esperar tecla
 				// Limpiar mensaje de error
 				SetCursorPosition(centroX - 25, posY + espacioVertical * 4);
@@ -581,7 +597,7 @@ public:
 						cout << "\b \b";
 					}
 				}
-				else if (chu >= 32 && chu <= 126) {
+				else if (chu >= 33 && chu <= 126) {
 					tempUsuario.push_back(chu);
 					cout << chu;
 				}
@@ -852,10 +868,10 @@ public:
 						cout << "\b \b";
 					}
 				}
-				// Permitir caracteres validos para una contraseña
-				else if (chp >= 32 && chp <= 126) {  // Caracteres imprimibles ASCII
+				// Permitir caracteres válidos para una contraseña, EXCEPTO espacios
+				else if (chp >= 33 && chp <= 126) {  // Caracteres imprimibles ASCII sin espacios (32)
 					tempContrasena.push_back(chp);
-					cout << chp;  // Mostrar u ocultar la contraseña
+					cout << chp;  // Mostrar asterisco para ocultar la contraseña
 				}
 			}
 
