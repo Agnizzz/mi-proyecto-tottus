@@ -1,7 +1,6 @@
 # Ignorar archivos de Visual Studio
 .vs/
 .x64/
-.Tottus/x64/
 *.ilk
 *.log
 *.obj
@@ -9,3 +8,4 @@
 *.idb
 *.pdb
 *.exe
+*.recipe
