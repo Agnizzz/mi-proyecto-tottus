@@ -745,7 +745,10 @@ void Producto() {
 			case 1: { // Gestion de Categorias
 			    // a. Agregar Nueva Categoría // b. Modificar Nombre de Categoría // c. Eliminar Categoría // d. Listar Todas las Categorías // 0. Volver al menú anterior
 				// Tu código aquí
+				
+
 				//ACA NO SÉ COMO COLOCARLO LA VERDAD
+				//NO SÉ COMO AGREGAR CATEGORIAS
 				break;
 			}
 			case 2: { // Gestion de Proveedores
@@ -753,6 +756,7 @@ void Producto() {
 				// Tu código aquí
 				//ACA MEJOR CREARE UN GRAFO // DE PROVEEDORES PARA QUE SEA MAS FACIL 
 				proveedoresGrafo.ejecutarDemo();
+				system("cls");
 				break;
 			}
 			case 3: { // Consultar Inventario General

@@ -128,5 +128,8 @@ public:
     }
 
     // Puedes agregar más métodos según lo necesites
-
+     // Obtener productos por secundaria y terciaria SIN CONST
+    Lista<Categoria>& getPorCategoria(int idPrincipal, const string& secundaria, const string& terciaria) {
+        return productos.at(idPrincipal).at(secundaria).at(terciaria);
+    }
 };

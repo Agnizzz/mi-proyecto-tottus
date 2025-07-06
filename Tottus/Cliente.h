@@ -66,7 +66,6 @@ void verCarrito() {
 
 	cout << endl;
 	system("pause>0");
-	system("pause>0");
 }
 //funcion de modificar cantidad de un producto seleccionado en mi carrito
 void modificarCantidad() {

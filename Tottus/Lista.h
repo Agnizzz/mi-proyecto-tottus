@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 #include "Nodo.h"
 #include <iostream>
 #include <functional>
@@ -20,7 +20,7 @@ public:
         vaciarLista();
     }
 
-    // Operaciones b·sicas
+    // Operaciones b√°sicas
     bool esVacia() const { return lon == 0; }
     int getTam() const { return static_cast<int>(lon); }
 
@@ -36,11 +36,11 @@ public:
     void limpiar();
 
 
-    // ? MÈtodos de acceso corregidos
+    // ? M√©todos de acceso corregidos
     T obtenerPos(uint pos) const;
     T& obtenerReferencia(uint pos);
 
-    // ? MÈtodo especÌfico para obtener punteros de forma segura
+    // ? M√©todo espec√≠fico para obtener punteros de forma segura
     T obtenerPuntero(uint pos) const;
 
     void setValor(int pos, T nuevoValor);
@@ -50,8 +50,13 @@ public:
     T buscarProducto(std::function<bool(T)> criterio);
     void vaciarLista();
 
-    // Acceso por Ìndice
+    // Acceso por √≠ndice
     T getValor(int pos) const { return obtenerPos(pos); }
+
+    // Versi√≥n modificable AGREGADO NUEVO
+    T& getValor(int pos) {
+        return obtenerReferencia(pos); // ‚úÖ devuelve referencia real
+    }
 
     // Mostrar lista
     void mostrar() const;
@@ -82,7 +87,7 @@ void Lista<T>::agregaFinal(T elem) {
     lon++;
 }
 
-// Agrega en posiciÛn
+// Agrega en posici√≥n
 template <class T>
 void Lista<T>::agregaPos(T elem, uint pos) {
     if (pos == 0) {
@@ -103,7 +108,7 @@ void Lista<T>::agregaPos(T elem, uint pos) {
     }
 }
 
-// Eliminar por posiciÛn
+// Eliminar por posici√≥n
 template <class T>
 void Lista<T>::eliminaPos(uint pos) {
     if (pos >= lon) return;
@@ -136,7 +141,7 @@ void Lista<T>::eliminaFinal() {
     eliminaPos(lon - 1);
 }
 
-// ? Obtener por posiciÛn - versiÛn segura
+// ? Obtener por posici√≥n - versi√≥n segura
 template <class T>
 T Lista<T>::obtenerPos(uint pos) const {
     if (pos >= lon || ini == nullptr) {
@@ -144,8 +149,8 @@ T Lista<T>::obtenerPos(uint pos) const {
         if constexpr (std::is_pointer_v<T>) {
             return nullptr;
         }
-        // Para otros tipos, lanzar excepciÛn
-        throw out_of_range("Õndice fuera de rango");
+        // Para otros tipos, lanzar excepci√≥n
+        throw out_of_range("√çndice fuera de rango");
     }
 
     Nodo<T>* aux = ini;
@@ -163,17 +168,17 @@ T Lista<T>::obtenerPos(uint pos) const {
         if constexpr (std::is_pointer_v<T>) {
             return nullptr;
         }
-        throw out_of_range("Nodo nulo en posiciÛn solicitada");
+        throw out_of_range("Nodo nulo en posici√≥n solicitada");
     }
 
     return aux->get_Elem();
 }
 
-// ? Obtener referencia - versiÛn segura
+// ? Obtener referencia - versi√≥n segura
 template <class T>
 T& Lista<T>::obtenerReferencia(uint pos) {
     if (pos >= lon || ini == nullptr) {
-        throw out_of_range("Õndice fuera de rango");
+        throw out_of_range("√çndice fuera de rango");
     }
 
     Nodo<T>* aux = ini;
@@ -191,7 +196,7 @@ T& Lista<T>::obtenerReferencia(uint pos) {
     return aux->get_Elem();
 }
 
-// ? MÈtodo especÌfico para obtener punteros de forma segura
+// ? M√©todo espec√≠fico para obtener punteros de forma segura
 template <class T>
 T Lista<T>::obtenerPuntero(uint pos) const {
     static_assert(std::is_pointer_v<T>, "Este metodo solo funciona con tipos puntero");
@@ -211,7 +216,7 @@ T Lista<T>::obtenerPuntero(uint pos) const {
     return (aux != nullptr) ? aux->get_Elem() : nullptr;
 }
 
-// Reemplazar por posiciÛn
+// Reemplazar por posici√≥n
 template <class T>
 void Lista<T>::reemplazarPos(uint pos, T nuevoElem) {
     if (pos >= lon) return;
@@ -222,7 +227,7 @@ void Lista<T>::reemplazarPos(uint pos, T nuevoElem) {
     aux->set_Elem(nuevoElem);
 }
 
-// Buscar por funciÛn lambda
+// Buscar por funci√≥n lambda
 template <class T>
 T Lista<T>::buscarProducto(std::function<bool(T)> criterio) {
     Nodo<T>* aux = ini;

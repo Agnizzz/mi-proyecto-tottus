@@ -22,3 +22,15 @@ Fecha:   5/7/2025
 Total a pagar: S/. 15.84
 ==============================
 
+==============================
+         BOLETA DE VENTA     
+==============================
+N° Boleta: 1002
+Cliente: Victor Manuel Alberca (DNI: 72969215)
+Fecha:   5/7/2025
+------------------------------
+ 1. Paisana Arroz Integral - Cantidad: 10 - Precio: S/. 7.90 (-20%) ? S/. 6.32 | Ahorraste: S/. 15.80
+------------------------------
+Total a pagar: S/. 63.20
+==============================
+

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include <windows.h>
 #include <iomanip>
@@ -62,42 +62,42 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 				string nombreTerciaria = terciariasArroz[tercopcion - 1];
 				cout << "\n\t\t\t-- Productos de Arroz " << nombreTerciaria << " --" << endl;
 				try {
-					const Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Arroz", nombreTerciaria);
+					 Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Arroz", nombreTerciaria);
 
 					if (modoSeleccion) {
 						int idx = seleccionarProductoEnTabla(productos);
 
 						if (idx != -1) {
-							const Categoria& seleccionado = productos.getValor(idx);
+							Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
 							// Pedir cantidad al usuario
 							int cantidad;
 							cout << "\nIngrese la cantidad que desea comprar: ";
 							cin >> cantidad;
 
 							//validar si hay suficiente stock antes de agregar
-							if (cantidad <= 0 || cantidad > seleccionado.getCantidad()) {
-								cout << "Cantidad no v�lida. Stock disponible: " << seleccionado.getCantidad() << endl;
+							if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+								cout << "Cantidad no válida. Stock disponible: " << seleccionado.getStock() << endl;
 								system("pause>0");
-								return Categoria(); // Retorna un objeto vac�o si la cantidad es inv�lida
+								return Categoria();
 							}
 							// Asegurarse de que la cantidad sea positiva
 							if (cantidad <= 0) {
 								cout << "Cantidad debe ser mayor a 0." << endl;
 								system("pause>0");
-								return Categoria(); // Retorna un objeto vac�o si la cantidad es inv�lida
+								return Categoria(); // Retorna un objeto vacío si la cantidad es inválida
 							}
 
 							// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
 							Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-							seleccionadoConCantidad->setCantidad(cantidad); // Aseg�rate de tener este m�todo
+							seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+							seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
 							productosSeleccionados->agregaInicial(seleccionadoConCantidad);
 							cout << "Producto agregado correctamente" << endl;
 							////ahora restar stock de categoria original
-							//seleccionadoConCantidad->actualizarStock(-cantidad); // Aseg�rate de que este m�todo exista
+							//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegúrate de que este método exista
 							////comprobando si resta stock
-							//cout << "Stock actualizado. Stock restante: " << seleccionadoConCantidad->getCantidad() << endl;
-					
+							cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
 							system("pause>0");
 						}
@@ -108,7 +108,7 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 					}
 				}
 				catch (const out_of_range&) {
-					cout << "\t\t\tNo hay productos en esta categor�a." << endl;
+					cout << "\t\t\tNo hay productos en esta categoría." << endl;
 					system("pause>0");
 				}
 			}
@@ -132,22 +132,40 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 				string nombreTerciaria = terciariasConservas[tercopcion - 1];
 				cout << "\n\t\t\t-- Productos de Conservas " << nombreTerciaria << " --" << endl;
 				try {
-					const Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Conservas", nombreTerciaria);
+					 Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Conservas", nombreTerciaria);
 					if (modoSeleccion) {
 						int idx = seleccionarProductoEnTabla(productos);
 						if (idx != -1) {
-							const Categoria& seleccionado = productos.getValor(idx);
+							Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
 							// Pedir cantidad al usuario
 							int cantidad;
 							cout << "\nIngrese la cantidad que desea comprar: ";
 							cin >> cantidad;
 
+							//validar si hay suficiente stock antes de agregar
+							if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+								cout << "Cantidad no válida. Stock disponible: " << seleccionado.getStock() << endl;
+								system("pause>0");
+								return Categoria();
+							}
+							// Asegurarse de que la cantidad sea positiva
+							if (cantidad <= 0) {
+								cout << "Cantidad debe ser mayor a 0." << endl;
+								system("pause>0");
+								return Categoria(); // Retorna un objeto vacío si la cantidad es inválida
+							}
+
 							// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
 							Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-							seleccionadoConCantidad->setCantidad(cantidad); // Aseg�rate de tener este m�todo
+							seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+							seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
 							productosSeleccionados->agregaInicial(seleccionadoConCantidad);
 							cout << "Producto agregado correctamente" << endl;
+							////ahora restar stock de categoria original
+							//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegúrate de que este método exista
+							////comprobando si resta stock
+							cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 							system("pause>0");
 						}
 					}
@@ -157,7 +175,7 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 					}
 				}
 				catch (const out_of_range&) {
-					cout << "\t\t\tNo hay productos en esta categor�a." << endl;
+					cout << "\t\t\tNo hay productos en esta categoría." << endl;
 					system("pause>0");
 				}
 			}
@@ -181,22 +199,40 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 				string nombreTerciaria = terciariasAceite[tercopcion - 1];
 				cout << "\n\t\t\t-- Productos de Aceite " << nombreTerciaria << " --" << endl;
 				try {
-					const Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Aceite", nombreTerciaria);
+					 Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Aceite", nombreTerciaria);
 					if (modoSeleccion) {
 						int idx = seleccionarProductoEnTabla(productos);
 						if (idx != -1) {
-							const Categoria& seleccionado = productos.getValor(idx);
+							Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
 							// Pedir cantidad al usuario
 							int cantidad;
 							cout << "\nIngrese la cantidad que desea comprar: ";
 							cin >> cantidad;
 
+							//validar si hay suficiente stock antes de agregar
+							if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+								cout << "Cantidad no válida. Stock disponible: " << seleccionado.getStock() << endl;
+								system("pause>0");
+								return Categoria();
+							}
+							// Asegurarse de que la cantidad sea positiva
+							if (cantidad <= 0) {
+								cout << "Cantidad debe ser mayor a 0." << endl;
+								system("pause>0");
+								return Categoria(); // Retorna un objeto vacío si la cantidad es inválida
+							}
+
 							// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
 							Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-							seleccionadoConCantidad->setCantidad(cantidad); // Aseg�rate de tener este m�todo
+							seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+							seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
 							productosSeleccionados->agregaInicial(seleccionadoConCantidad);
 							cout << "Producto agregado correctamente" << endl;
+							////ahora restar stock de categoria original
+							//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegúrate de que este método exista
+							////comprobando si resta stock
+							cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
 							system("pause>0");
 						}
@@ -207,7 +243,7 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 					}
 				}
 				catch (const out_of_range&) {
-					cout << "\t\t\tNo hay productos en esta categor�a." << endl;
+					cout << "\t\t\tNo hay productos en esta categoría." << endl;
 					system("pause>0");
 				}
 			}
@@ -231,22 +267,40 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 				string nombreTerciaria = terciariasPasta[tercopcion - 1];
 				cout << "\n\t\t\t-- Productos de Pasta " << nombreTerciaria << " --" << endl;
 				try {
-					const Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Pasta", nombreTerciaria);
+					 Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Pasta", nombreTerciaria);
 					if (modoSeleccion) {
 						int idx = seleccionarProductoEnTabla(productos);
 						if (idx != -1) {
-							const Categoria& seleccionado = productos.getValor(idx);
+							Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
 							// Pedir cantidad al usuario
 							int cantidad;
 							cout << "\nIngrese la cantidad que desea comprar: ";
 							cin >> cantidad;
 
+							//validar si hay suficiente stock antes de agregar
+							if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+								cout << "Cantidad no válida. Stock disponible: " << seleccionado.getStock() << endl;
+								system("pause>0");
+								return Categoria();
+							}
+							// Asegurarse de que la cantidad sea positiva
+							if (cantidad <= 0) {
+								cout << "Cantidad debe ser mayor a 0." << endl;
+								system("pause>0");
+								return Categoria(); // Retorna un objeto vacío si la cantidad es inválida
+							}
+
 							// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
 							Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-							seleccionadoConCantidad->setCantidad(cantidad); // Aseg�rate de tener este m�todo
+							seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+							seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
 							productosSeleccionados->agregaInicial(seleccionadoConCantidad);
 							cout << "Producto agregado correctamente" << endl;
+							////ahora restar stock de categoria original
+							//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegúrate de que este método exista
+							////comprobando si resta stock
+							cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
 							system("pause>0");
 						}
@@ -257,7 +311,7 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 					}
 				}
 				catch (const out_of_range&) {
-					cout << "\t\t\tNo hay productos en esta categor�a." << endl;
+					cout << "\t\t\tNo hay productos en esta categoría." << endl;
 					system("pause>0");
 				}
 			}
@@ -281,22 +335,40 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 				string nombreTerciaria = terciariasMenestras[tercopcion - 1];
 				cout << "\n\t\t\t-- Productos de Menestras " << nombreTerciaria << " --" << endl;
 				try {
-					const Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Menestras", nombreTerciaria);
+					 Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Menestras", nombreTerciaria);
 					if (modoSeleccion) {
 						int idx = seleccionarProductoEnTabla(productos);
 						if (idx != -1) {
-							const Categoria& seleccionado = productos.getValor(idx);
+							Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
 							// Pedir cantidad al usuario
 							int cantidad;
 							cout << "\nIngrese la cantidad que desea comprar: ";
 							cin >> cantidad;
 
+							//validar si hay suficiente stock antes de agregar
+							if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+								cout << "Cantidad no válida. Stock disponible: " << seleccionado.getStock() << endl;
+								system("pause>0");
+								return Categoria();
+							}
+							// Asegurarse de que la cantidad sea positiva
+							if (cantidad <= 0) {
+								cout << "Cantidad debe ser mayor a 0." << endl;
+								system("pause>0");
+								return Categoria(); // Retorna un objeto vacío si la cantidad es inválida
+							}
+
 							// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
 							Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-							seleccionadoConCantidad->setCantidad(cantidad); // Aseg�rate de tener este m�todo
+							seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+							seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
 							productosSeleccionados->agregaInicial(seleccionadoConCantidad);
 							cout << "Producto agregado correctamente" << endl;
+							////ahora restar stock de categoria original
+							//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegúrate de que este método exista
+							////comprobando si resta stock
+							cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
 							system("pause>0");
 						}
@@ -307,7 +379,7 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 					}
 				}
 				catch (const out_of_range&) {
-					cout << "\t\t\tNo hay productos en esta categor�a." << endl;
+					cout << "\t\t\tNo hay productos en esta categoría." << endl;
 					system("pause>0");
 				}
 			}
@@ -376,7 +448,7 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 		cout << "\t\t\tMUNDO MASCOTAS" << endl;
 		break;
 	default:
-		cout << "\t\tOpci�n invalida\n";
+		cout << "\t\tOpción invalida\n";
 		system("pause");
 	}
 

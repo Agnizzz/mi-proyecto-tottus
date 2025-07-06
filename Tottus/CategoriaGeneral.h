@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <iomanip>
 #include <sstream>
@@ -31,20 +31,32 @@ public:
         cantidad = _cantidad;
         precioUnitario = _precio;
     }
+    // Constructor copia correcto
+    Categoria(const Categoria& other) {
+        id = other.id;
+        nombre = other.nombre;
+        unidadMedida = other.unidadMedida;
+        precioUnitario = other.precioUnitario;
+        precioDescuento = other.precioDescuento;
+        precioFinal = other.precioFinal;
+        cantidad = other.cantidad; // âœ… COPIA REAL DE LA CANTIDAD
+        stock = other.stock;
+    }
     double calcularPrecioFinal() const {
         double precioUnit = precioUnitario * (1.0 - precioDescuento); // precio con descuento
         return precioUnit * cantidad;
     }
-    // Constructor copia explícito
-    Categoria(const Categoria& otra)
-        : id(otra.id),
-        nombre(otra.nombre),
-        unidadMedida(otra.unidadMedida),
-        precioUnitario(otra.precioUnitario),
-        precioDescuento(otra.precioDescuento),
-        cantidad(otra.cantidad) {
-        calcularPrecioFinal(); // Esto lo garantiza en cada copia
-    }
+    //PARECE QUE NO SIRVE AHIRA
+    //// Constructor copia explÃ­cito
+    //Categoria(const Categoria& otra)
+    //    : id(otra.id),
+    //    nombre(otra.nombre),
+    //    unidadMedida(otra.unidadMedida),
+    //    precioUnitario(otra.precioUnitario),
+    //    precioDescuento(otra.precioDescuento),
+    //    cantidad(otra.cantidad) {
+    //    calcularPrecioFinal(); // Esto lo garantiza en cada copia
+    //}
 
     // Setters y getters (igual que antes)
     void setID(const string& pId) { id = pId; }
@@ -61,16 +73,14 @@ public:
     int getCantidad() const { return cantidad; }
     void setPrecioFinal(double) { calcularPrecioFinal(); }
     double getPrecioFinal() const { return precioFinal; }
-	// Método para actualizar el stock
-	void actualizarStock(int cantidadComprada) {
-		if (cantidadComprada <= stock) {
-			stock -= cantidadComprada;
-		}
-		else {
-			cout << "No hay suficiente stock disponible." << endl;
-		}
-	}
-	// Método para obtener el stock actual
+	// MÃ©todo para actualizar el stock
+    void actualizarStock(int cantidadModificada) {
+        stock += cantidadModificada;
+        if (stock < 0) {
+            stock = 0; // o lanzar error si no permites stock negativo
+        }
+    }
+	// MÃ©todo para obtener el stock actual
 	int getStock() const {return stock;}
 
     //para el descuento
@@ -78,14 +88,14 @@ public:
         return precioUnitario * (1.0 - precioDescuento); //  correcto
     }
 
-    // Fila para la boleta (dos líneas)
+    // Fila para la boleta (dos lÃ­neas)
     string toTicketRow(int width = 40) const {
         ostringstream oss;
         double precioAplicado = (precioDescuento > 0.0) ? precioDescuento : precioUnitario;
-        // Línea 1: ID a la izquierda, precio a la derecha
+        // LÃ­nea 1: ID a la izquierda, precio a la derecha
         oss << left << setw(width - 10) << id
             << "S/. " << right << setw(6) << fixed << setprecision(2) << precioAplicado << "\n";
-        // Línea 2: Nombre - unidad xCantidad
+        // LÃ­nea 2: Nombre - unidad xCantidad
         oss << nombre << " - " << unidadMedida << " x" << cantidad;
         return oss.str();
     }
