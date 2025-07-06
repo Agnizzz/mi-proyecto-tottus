@@ -8,6 +8,8 @@
 #include "CategoriasEstructura.h"
 #include "Lista.h"
 #include "IDpropio.h"
+#include "Promociones.h"//NUEVO
+
 
 using namespace std;
 
@@ -17,7 +19,10 @@ private:
     map<int, map<string, map<string, Lista<Categoria>>>> productos;
 
 public:
+    //OJOOOOOO
     Catalogo() { cargarDesdeArchivo("producto.txt"); }
+    // REEMPLAZA LA VERSIÓN ANTERIOR CON ESTA:NUEVOOOOOOOOOOOO
+    map<int, map<string, map<string, Lista<Categoria>>>>& getProductos() { return productos; }
 
     int buscarIndice(const string* arr, int tam, const string& valor) {
         for (int i = 0; i < tam; ++i)
@@ -75,26 +80,26 @@ public:
                     idxTer = buscarIndice(terciariasArroz, sizeof(terciariasArroz) / sizeof(string), terciaria);
                 else if (secundaria == "Conservas")
                     idxTer = buscarIndice(terciariasConservas, sizeof(terciariasConservas) / sizeof(string), terciaria);
-				else if (secundaria == "Aceite")
-					idxTer = buscarIndice(terciariasAceite, sizeof(terciariasAceite) / sizeof(string), terciaria);
-				else if (secundaria == "Pasta")
-					idxTer = buscarIndice(terciariasPasta, sizeof(terciariasPasta) / sizeof(string), terciaria);
-				else if (secundaria == "Menestras")
-					idxTer = buscarIndice(terciariasMenestras, sizeof(terciariasMenestras) / sizeof(string), terciaria);
-				else if (secundaria == "Sal")
-					idxTer = buscarIndice(terciariasSal, sizeof(terciariasSal) / sizeof(string), terciaria);
-				else if (secundaria == "Salsas para Pasta")
-					idxTer = buscarIndice(terciariasSalsasPasta, sizeof(terciariasSalsasPasta) / sizeof(string), terciaria);
-				else if (secundaria == "Salsas/Cremas")
-					idxTer = buscarIndice(terciariasSalsasCremas, sizeof(terciariasSalsasCremas) / sizeof(string), terciaria);
-				else if (secundaria == "Condimentos")
-					idxTer = buscarIndice(terciariasCondimentos, sizeof(terciariasCondimentos) / sizeof(string), terciaria);
-				else if (secundaria == "Especias")
-					idxTer = buscarIndice(terciariasEspecias, sizeof(terciariasEspecias) / sizeof(string), terciaria);
-				else if (secundaria == "Puré, Sopas y Bases")
-					idxTer = buscarIndice(terciariasPure, sizeof(terciariasPure) / sizeof(string), terciaria);
-				else if (secundaria == "Harina")
-					idxTer = buscarIndice(terciariasHarina, sizeof(terciariasHarina) / sizeof(string), terciaria);
+                else if (secundaria == "Aceite")
+                    idxTer = buscarIndice(terciariasAceite, sizeof(terciariasAceite) / sizeof(string), terciaria);
+                else if (secundaria == "Pasta")
+                    idxTer = buscarIndice(terciariasPasta, sizeof(terciariasPasta) / sizeof(string), terciaria);
+                else if (secundaria == "Menestras")
+                    idxTer = buscarIndice(terciariasMenestras, sizeof(terciariasMenestras) / sizeof(string), terciaria);
+                else if (secundaria == "Sal")
+                    idxTer = buscarIndice(terciariasSal, sizeof(terciariasSal) / sizeof(string), terciaria);
+                else if (secundaria == "Salsas para Pasta")
+                    idxTer = buscarIndice(terciariasSalsasPasta, sizeof(terciariasSalsasPasta) / sizeof(string), terciaria);
+                else if (secundaria == "Salsas/Cremas")
+                    idxTer = buscarIndice(terciariasSalsasCremas, sizeof(terciariasSalsasCremas) / sizeof(string), terciaria);
+                else if (secundaria == "Condimentos")
+                    idxTer = buscarIndice(terciariasCondimentos, sizeof(terciariasCondimentos) / sizeof(string), terciaria);
+                else if (secundaria == "Especias")
+                    idxTer = buscarIndice(terciariasEspecias, sizeof(terciariasEspecias) / sizeof(string), terciaria);
+                else if (secundaria == "Puré, Sopas y Bases")
+                    idxTer = buscarIndice(terciariasPure, sizeof(terciariasPure) / sizeof(string), terciaria);
+                else if (secundaria == "Harina")
+                    idxTer = buscarIndice(terciariasHarina, sizeof(terciariasHarina) / sizeof(string), terciaria);
                 // ...y así para las demás subcategorías
             }
 

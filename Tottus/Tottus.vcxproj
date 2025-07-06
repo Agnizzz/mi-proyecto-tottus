@@ -139,6 +139,7 @@
     <ClInclude Include="GrafosProveedores.h" />
     <ClInclude Include="GrafoTiendas.h" />
     <ClInclude Include="MetOrg.h" />
+    <ClInclude Include="Promociones.h" />
     <ClInclude Include="Soporte.h" />
     <ClInclude Include="Catalogo.h" />
     <ClInclude Include="CategoriaGeneral.h" />

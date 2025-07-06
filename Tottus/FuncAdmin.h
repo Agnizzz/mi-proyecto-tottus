@@ -3,14 +3,17 @@
 #include <conio.h>
 #include <chrono> 
 #include <functional>
+#include <algorithm> // Para std::sort NUEVO
+#include <limits>    // Para std::numeric_limits NUEVO
 #include "GestionCategorias.h"
 #include "ArbolBB.h"
+#include "Promociones.h"//NUEVO AGREGADO
 
 //SE HIZO CAMBIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOS
 
 using namespace std;
 
-
+extern Lista<Boleta*> listaBoletas;
 
 // Árboles para indexar productos por diferentes atributos.
 ArbolBinarioBusqueda<Categoria*> arbolPorId;
@@ -210,7 +213,7 @@ void buscarProductoAdmin() {
 
     // Mostrar resultado
     system("cls");
- 
+
     if (resultado != nullptr) {
         cout << "\n\t\t\t--- Producto Encontrado ---" << endl;
         resultado->dato->mostrarResumen();
@@ -376,70 +379,70 @@ void gestionarCategoriasAdminCase0() {
     case 5: // <-- NUEVO CASE
         buscarProductoAdmin();
         break;
-    //case 6: // <-- NUEVO CASE
-	//    revisarVentasDelDia(); // Nuevo este es para revisar las ventas del día
-    //    break;
-    //case 7: // <-- NUEVO CASE
-	//    procesarPedidos(); // Nuevo este es para procesar pedidos pendientes
-    //    break;
+        //case 6: // <-- NUEVO CASE
+        //    revisarVentasDelDia(); // Nuevo este es para revisar las ventas del día
+        //    break;
+        //case 7: // <-- NUEVO CASE
+        //    procesarPedidos(); // Nuevo este es para procesar pedidos pendientes
+        //    break;
     case 0:
         system("cls");
-		return; // Salir del menú de gestión de categorías
+        return; // Salir del menú de gestión de categorías
         break;
     default:
         cout << "\t\t\tOpcion invalida. Presione una tecla para continuar...";
         system("pause>0");
         system("cls");
     }
- 
+
 }
 //funcion para ver un reporte de los productos mas vendidos
 void verProductosMasVendidos() {
-	system("cls");
-	cout << "\n\n\t\t\t------ PRODUCTOS MÁS VENDIDOS ------" << endl;
-	// Aquí deberías implementar la lógica para calcular los productos más vendidos.
-	// Por ejemplo, podrías usar un mapa o un arreglo para contar las ventas de cada producto.
-	// Simulación de productos más vendidos (esto debería ser dinámico en una implementación real)
-	cout << "\n\t\tProducto A - 150 unidades vendidas" << endl;
-	cout << "\t\tProducto B - 120 unidades vendidas" << endl;
-	cout << "\t\tProducto C - 100 unidades vendidas" << endl;
-	cout << "\n\n";
-	system("pause>0");
+    system("cls");
+    cout << "\n\n\t\t\t------ PRODUCTOS MÁS VENDIDOS ------" << endl;
+    // Aquí deberías implementar la lógica para calcular los productos más vendidos.
+    // Por ejemplo, podrías usar un mapa o un arreglo para contar las ventas de cada producto.
+    // Simulación de productos más vendidos (esto debería ser dinámico en una implementación real)
+    cout << "\n\t\tProducto A - 150 unidades vendidas" << endl;
+    cout << "\t\tProducto B - 120 unidades vendidas" << endl;
+    cout << "\t\tProducto C - 100 unidades vendidas" << endl;
+    cout << "\n\n";
+    system("pause>0");
 }
 //funcion para solo ver las boletas del día
 void verBoletasDelDia() {
-	system("cls");
-	cout << "\n\n\t\t\t------ BOLETAS DEL DIA ------" << endl;
-	// --- 1. OBTENER LA FECHA DE HOY ---
-	time_t now = chrono::system_clock::to_time_t(chrono::system_clock::now());
-	struct tm timeinfo;
-	localtime_s(&timeinfo, &now);
-	string fechaHoy = to_string(timeinfo.tm_mday) + "/" +
-		to_string(timeinfo.tm_mon + 1) + "/" +
-		to_string(timeinfo.tm_year + 1900);
-	cout << "\n\t\tFecha del reporte: " << fechaHoy << endl;
-	cout << "\t\t-------------------------------------------" << endl;
-	// --- 2. RECORRER LAS BOLETAS Y MOSTRAR LAS QUE COINCIDEN CON LA FECHA ---
-	if (listaBoletas.esVacia()) {
-		cout << "\n\t\tNo hay boletas registradas en el sistema." << endl;
-	}
-	else {
-		cout << "\n\t\tBoletas generadas hoy:" << endl;
-		cout << left << setw(15) << "\t\tN. Boleta" << setw(30) << "Cliente" << setw(15) << "Total (S/.)" << endl;
-		cout << "\t\t------------------------------------------------------------" << endl;
-		for (int i = 0; i < listaBoletas.longitud(); i++) {
-			Boleta* boletaActual = listaBoletas.obtenerPos(i);
-			if (boletaActual != nullptr && boletaActual->getFecha() == fechaHoy) {
-				double totalBoleta = boletaActual->getTotal();
-				cout << left << setw(15) << "\t\t" + to_string(boletaActual->getNumeroBoleta())
-					<< setw(30) << boletaActual->getCliente()
-					<< fixed << setprecision(2) << setw(15) << totalBoleta
-					<< endl;
-			}
-		}
-	}
-	cout << "\n\n";
-	system("pause>0");
+    system("cls");
+    cout << "\n\n\t\t\t------ BOLETAS DEL DIA ------" << endl;
+    // --- 1. OBTENER LA FECHA DE HOY ---
+    time_t now = chrono::system_clock::to_time_t(chrono::system_clock::now());
+    struct tm timeinfo;
+    localtime_s(&timeinfo, &now);
+    string fechaHoy = to_string(timeinfo.tm_mday) + "/" +
+        to_string(timeinfo.tm_mon + 1) + "/" +
+        to_string(timeinfo.tm_year + 1900);
+    cout << "\n\t\tFecha del reporte: " << fechaHoy << endl;
+    cout << "\t\t-------------------------------------------" << endl;
+    // --- 2. RECORRER LAS BOLETAS Y MOSTRAR LAS QUE COINCIDEN CON LA FECHA ---
+    if (listaBoletas.esVacia()) {
+        cout << "\n\t\tNo hay boletas registradas en el sistema." << endl;
+    }
+    else {
+        cout << "\n\t\tBoletas generadas hoy:" << endl;
+        cout << left << setw(15) << "\t\tN. Boleta" << setw(30) << "Cliente" << setw(15) << "Total (S/.)" << endl;
+        cout << "\t\t------------------------------------------------------------" << endl;
+        for (int i = 0; i < listaBoletas.longitud(); i++) {
+            Boleta* boletaActual = listaBoletas.obtenerPos(i);
+            if (boletaActual != nullptr && boletaActual->getFecha() == fechaHoy) {
+                double totalBoleta = boletaActual->getTotal();
+                cout << left << setw(15) << "\t\t" + to_string(boletaActual->getNumeroBoleta())
+                    << setw(30) << boletaActual->getCliente()
+                    << fixed << setprecision(2) << setw(15) << totalBoleta
+                    << endl;
+            }
+        }
+    }
+    cout << "\n\n";
+    system("pause>0");
 }
 
 
@@ -447,30 +450,30 @@ void verBoletasDelDia() {
 // NUEVO PARA GENERAR REPORTE DE VENTAS
 void GenerarReporteDeVentasRegistro() {
     //primero limpio
-	system("cls");
+    system("cls");
     //hago un menu de reportes del dia con opciones de revisar ventas del día
-	cout << "\n\n\t\t\t------ REPORTE DE VENTAS DEL DIA ------" << endl;
-	cout << "\n\t\t\t1. Ver ventas del día\n";
-	cout << "\n\t\t\t2. ver reporte de Productos Más Vendidos\n";
-	cout << "\n\t\t\t0. Regresar al menu principal\n";
-	cout << "\n\t\t\tSeleccione una opcion: ";
+    cout << "\n\n\t\t\t------ REPORTE DE VENTAS DEL DIA ------" << endl;
+    cout << "\n\t\t\t1. Ver ventas del día\n";
+    cout << "\n\t\t\t2. ver reporte de Productos Más Vendidos\n";
+    cout << "\n\t\t\t0. Regresar al menu principal\n";
+    cout << "\n\t\t\tSeleccione una opcion: ";
 
-	int opcion;
-	cin >> opcion;
-	switch (opcion) {
-	case 1:
-		revisarVentasDelDia();
-		break;
-	case 2:
+    int opcion;
+    cin >> opcion;
+    switch (opcion) {
+    case 1:
+        revisarVentasDelDia();
+        break;
+    case 2:
         verProductosMasVendidos(); // Llamamos a la función para ver productos más vendidos
-		break;
-	case 0:
-		return; // Regresar al menú principal
-	default:
-		cout << "\t\t\tOpcion invalida. Presione una tecla para continuar...";
-		system("pause>0");
-		system("cls");
-	}
+        break;
+    case 0:
+        return; // Regresar al menú principal
+    default:
+        cout << "\t\t\tOpcion invalida. Presione una tecla para continuar...";
+        system("pause>0");
+        system("cls");
+    }
 }
 
 //funcion para busqueda de boletas con menu
@@ -509,69 +512,6 @@ void BusquedaBoletas() {
     system("pause>0");
 }
 
-void menuRegistroAdmin() {
-    int opcion;
-
-    do {
-        system("cls");
-        cout << "\n\t===== ADMIN-BOLETAS =====\n";
-        cout << "1. Buscar  boletas por DNI\n";
-        cout << "2. Buscar boleta especifica\n";           // ⬅️ NUEVA OPCIÓN
-        cout << "3. Mostrar todas las boletas\n";          // ⬅️ NUEVA OPCIÓN
-        cout << "4. Eliminar boleta\n";                // ⬅️ NUEVA OPCIÓN
-        cout << "5. Ordenar boletas\n"; // ⬅️ NUEVA OPCIÓN
-        cout << "6. Salir\n";
-        cout << "\n\t\t0. Cerrar Sesion" << endl;
-        cout << "Seleccione una opcion: ";
-        cin >> opcion;
-
-        switch (opcion) {
-        case 0: // Cerrar sesión
-            sistemaUsuarios->cerrarSesion();
-            cout << "\n\t\t\tCerrando sesion...\n";
-            system("pause");
-            productosSeleccionados->limpiar();  // Limpia el carrito del usuario anterior
-            return; // Salir del menú de registro
-
-
-        case 1: {
-            system("cls");
-            string dniBuscar = sistemaUsuarios->getUsuarioActual().DNI;
-            cout << "\nBuscando boletas para DNI: " << dniBuscar << "\n";
-            tablaBoletas.buscarPorDNI(dniBuscar);
-            system("pause");
-            break;
-        }
-
-        case 2:
-            buscarBoletaEspecifica();
-            break;
-
-        case 3:
-            system("cls");
-            cout << "\n=== TODAS LAS BOLETAS ===" << endl;
-            tablaBoletas.mostrarTodas();
-            system("pause");
-            break;
-
-        case 4:
-            eliminarBoleta();
-            break;
-        case 5:
-            ordenarBoletasAvanzado();
-            break;
-
-        case 6:
-            cout << "Saliendo del menu...\n";
-            break;
-
-        default:
-            cout << "Opcion no valida.\n";
-            system("pause");
-        }
-
-    } while (opcion != 6);  // ⬅️ CAMBIÉ A 6 porque ahora hay más opciones
-}
 
 //NUEVO METODO
 void ManejoUsuariosDeAdmin() {
@@ -611,4 +551,317 @@ void ManejoUsuariosDeAdmin() {
             break;
         }
     }
+}
+//nuevoooo x2222222
+void inicializarOfertasDeProductos() {
+    // Si no se cargaron ofertas del archivo, no hacemos nada.
+    if (ofertasPosibles.empty()) return;
+
+    // Recorremos todo el catálogo y asignamos una oferta aleatoria a cada producto.
+    for (auto& parPrincipal : catalogo.getProductos()) {
+        for (auto& parSecundaria : parPrincipal.second) {
+            for (auto& parTerciaria : parSecundaria.second) {
+                Lista<Categoria>& listaProds = parTerciaria.second;
+                for (int i = 0; i < listaProds.getTam(); ++i) {
+                    asignarOfertaAleatoria(listaProds.getValor(i));
+                }
+            }
+        }
+    }
+}
+//NUEVOOOOOOOOOOOOOO
+void verPromocionesVigentes() {
+    system("cls");
+
+    // Agrupamos los productos que tienen oferta por el tipo de oferta
+    map<string, Lista<Categoria>> productosPorOferta;
+    for (int i = 1; i <= numCategoriasPrincipales; ++i) {
+        try {
+            const auto& subMapa = catalogo.getPorIdPrincipal(i);
+            for (const auto& parSub : subMapa) {
+                for (const auto& parTer : parSub.second) {
+                    const Lista<Categoria>& listaProds = parTer.second;
+                    for (int j = 0; j < listaProds.getTam(); ++j) {
+                        Categoria prod = listaProds.getValor(j);
+                        if (!prod.getOferta().empty()) {
+                            productosPorOferta[prod.getOferta()].agregaFinal(prod);
+                        }
+                    }
+                }
+            }
+        }
+        catch (const out_of_range&) { continue; }
+    }
+
+    if (productosPorOferta.empty()) {
+        cout << "\n\n\t\tNo hay promociones vigentes en este momento." << endl;
+        system("pause>0");
+        return;
+    }
+
+    // Creamos un menú con los nombres de las promociones encontradas
+    vector<string> promos;
+    for (const auto& par : productosPorOferta) {
+        promos.push_back(par.first);
+    }
+
+    int seleccion = 0;
+    while (true) {
+        system("cls");
+        cout << "\n\t\t\t------ PROMOCIONES VIGENTES ------\n" << endl;
+        for (size_t i = 0; i < promos.size(); ++i) {
+            if (i == seleccion) setColor(0, 15); else setColor(15, 0);
+            cout << "\t\t\t" << (i + 1) << ". " << promos[i] << endl;
+        }
+        setColor(15, 0);
+        cout << "\n\t\t\t[Enter] Ver productos [ESC] Salir" << endl;
+
+        int key = _getch();
+        if (key == 27) return;
+        if (key == 13) break;
+        if (key == 224) {
+            key = _getch();
+            if (key == 72 && seleccion > 0) seleccion--;
+            if (key == 80 && seleccion < promos.size() - 1) seleccion++;
+        }
+    }
+
+    setColor(15, 0);
+    string promoSeleccionada = promos[seleccion];
+    Lista<Categoria>& listaDeLaOferta = productosPorOferta[promoSeleccionada];
+
+    // Llamamos a la tabla para mostrar los productos de esa oferta
+    int idxProducto = seleccionarProductoEnTabla(listaDeLaOferta);
+
+    // Lógica para agregar al carrito
+    if (idxProducto != -1) {
+        Categoria& productoOriginal = listaDeLaOferta.getValor(idxProducto);
+        int cantidad;
+        cout << "\nIngrese la cantidad a comprar: ";
+        cin >> cantidad;
+        if (cantidad > 0 && cantidad <= productoOriginal.getStock()) {
+            Categoria* copiaParaCarrito = new Categoria(productoOriginal);
+            copiaParaCarrito->setCantidad(cantidad);
+            productosSeleccionados->agregaFinal(copiaParaCarrito);
+            cout << "\n>> " << cantidad << "x " << copiaParaCarrito->getNombre() << " agregado al carrito!" << endl;
+        }
+        else {
+            cout << "\nCantidad no válida o sin stock suficiente." << endl;
+        }
+        system("pause>0");
+    }
+}
+//aca va para arbror el tx es nuvo esta webada
+
+
+// Lee el archivo promociones.txt y carga los datos en la lista 'ofertasPosibles'
+void cargarPromociones() {
+    ifstream archivo("promociones.txt");
+    if (!archivo.is_open()) {
+        cout << "ADVERTENCIA: No se encontró promociones.txt. No se cargarán ofertas." << endl;
+        return;
+    }
+
+    string linea;
+    ofertasPosibles.clear(); // Limpiamos la lista por si acaso
+    while (getline(archivo, linea)) {
+        if (!linea.empty()) {
+            ofertasPosibles.push_back(linea);
+        }
+    }
+    archivo.close();
+}
+
+// Sobrescribe el archivo promociones.txt con la lista actual de 'ofertasPosibles'
+void guardarPromociones() {
+    ofstream archivo("promociones.txt");
+    if (!archivo.is_open()) {
+        cout << "ERROR: No se pudo abrir promociones.txt para guardar." << endl;
+        return;
+    }
+
+    for (const string& promo : ofertasPosibles) {
+        archivo << promo << endl;
+    }
+    archivo.close();
+}
+//CREADO NUEVO
+void gestionarPromociones() {
+    string opciones[] = { "Ver Promociones Actuales", "Crear Nueva Promocion", "Eliminar Promocion", "Volver" };
+    int nOpciones = 4;
+    int seleccion = 0;
+
+    while (true) {
+        system("cls");
+        cout << "\n\t\t\t------ GESTION DE PROMOCIONES ------\n" << endl;
+        for (int i = 0; i < nOpciones; ++i) {
+            if (i == seleccion) setColor(0, 15); else setColor(15, 0);
+            cout << "\t\t\t" << (i + 1) << ". " << opciones[i] << endl;
+        }
+        setColor(15, 0);
+
+        int key = _getch();
+        if (key == 27) break;
+        if (key == 13) {
+            switch (seleccion) {
+            case 0: { // Ver Promociones
+                system("cls");
+                cout << "\n\t\t--- LISTA DE PROMOCIONES ACTIVAS ---\n" << endl;
+                for (size_t i = 0; i < ofertasPosibles.size(); ++i) {
+                    cout << "\t\t" << (i + 1) << ". " << ofertasPosibles[i] << endl;
+                }
+                cout << endl;
+                system("pause>0");
+                break;
+            }
+            case 1: { // Crear
+                system("cls");
+                // Declaramos la variable 'nuevaPromo' aquí
+                string nuevaPromo;
+                cout << "\n\t\t--- CREAR NUEVA PROMOCION ---\n" << endl;
+                cout << "\t\tIngrese el nombre de la nueva promocion: ";
+                cin.clear();
+                cin.ignore(10000, '\n');
+                getline(cin, nuevaPromo);
+
+                if (!nuevaPromo.empty()) {
+                    ofertasPosibles.push_back(nuevaPromo);
+                    guardarPromociones(); // Guardamos los cambios en el archivo
+                    cout << "\n\t\t>> EXITO: Promocion '" << nuevaPromo << "' creada y guardada." << endl;
+                }
+                else {
+                    cout << "\n\t\tERROR: El nombre no puede estar vacio." << endl;
+                }
+                system("pause>0");
+                break;
+            }
+            case 2: { // Eliminar
+                system("cls");
+                cout << "\n\t\t--- ELIMINAR PROMOCION ---\n" << endl;
+                if (ofertasPosibles.empty()) {
+                    cout << "\t\tNo hay promociones para eliminar." << endl;
+                    system("pause>0");
+                    break;
+                }
+                for (size_t i = 0; i < ofertasPosibles.size(); ++i) {
+                    cout << "\t\t" << (i + 1) << ". " << ofertasPosibles[i] << endl;
+                }
+
+                // Declaramos la variable 'numeroAEliminar' aquí
+                int numeroAEliminar;
+                cout << "\n\t\tIngrese el numero de la promocion a eliminar: ";
+                cin >> numeroAEliminar;
+
+                if (!cin.fail() && numeroAEliminar > 0 && numeroAEliminar <= ofertasPosibles.size()) {
+                    string promoEliminada = ofertasPosibles[numeroAEliminar - 1];
+                    ofertasPosibles.erase(ofertasPosibles.begin() + (numeroAEliminar - 1));
+                    guardarPromociones(); // Guardamos los cambios en el archivo
+                    cout << "\n\t\t>> EXITO: Promocion '" << promoEliminada << "' eliminada y guardada." << endl;
+                }
+                else {
+                    cout << "\n\t\tERROR: Numero no valido." << endl;
+                    cin.clear();
+                    cin.ignore(10000, '\n');
+                }
+                system("pause>0");
+                break;
+            }
+            case 3: { // Volver
+                return;
+            }
+            }
+        }
+        if (key == 224) {
+            key = _getch();
+            if (key == 72 && seleccion > 0) seleccion--;
+            if (key == 80 && seleccion < nOpciones - 1) seleccion++;
+        }
+    }
+}
+
+// nuevooooooooooooooooooooo
+
+void generarReporteMasVendidos() {
+    system("cls");
+    cout << "\n\t\t\t------ REPORTE DE PRODUCTOS MAS VENDIDOS ------\n" << endl;
+
+    if (listaBoletas.esVacia()) {
+        cout << "\t\tNo hay ventas registradas para generar un reporte." << endl;
+        system("pause>0");
+        return;
+    }
+
+    // --- Paso 1: Contar las ventas de cada producto usando un mapa ---
+    map<string, int> ventasPorProducto;
+    for (int i = 0; i < listaBoletas.longitud(); ++i) {
+        Boleta* boleta = listaBoletas.getValor(i);
+        // Asumiendo que Boleta tiene un getter para su lista de productos
+        for (int j = 0; j < boleta->getProductos().longitud(); ++j) {
+            Categoria* productoVendido = boleta->getProductos().getValor(j);
+            ventasPorProducto[productoVendido->getNombre()] += productoVendido->getCantidad();
+        }
+    }
+
+    // --- Paso 2: Copiar el mapa a un arreglo dinámico para poder ordenarlo ---
+    int numProductosUnicos = ventasPorProducto.size();
+    // Creamos un arreglo dinámico en lugar de un vector
+    pair<string, int>* sortedVentas = new pair<string, int>[numProductosUnicos];
+
+    int index = 0;
+    for (const auto& par : ventasPorProducto) {
+        sortedVentas[index] = par;
+        index++;
+    }
+
+    // --- Paso 3: Ordenar el arreglo dinámico ---
+    // Usamos el algoritmo de ordenamiento sort, que también funciona con arreglos dinámicos.
+    sort(sortedVentas, sortedVentas + numProductosUnicos, [](const pair<string, int>& a, const pair<string, int>& b) {
+        return a.second > b.second; // Ordena de mayor a menor cantidad
+        });
+
+    // --- Paso 4: Mostrar el reporte Top N ---
+    int topN;
+    cout << "\t\tIngrese la cantidad de los prodcutos mas vendidos que desea ver: ";
+    cin >> topN;
+
+    if (cin.fail() || topN <= 0) {
+        cout << "\n\t\tNúmero no válido." << endl;
+    }
+    else {
+        system("cls");
+        cout << "\n\t\t\t------ TOP " << topN << " PRODUCTOS MAS VENDIDOS ------\n" << endl;
+        cout << "\t\t" << left << setw(5) << "RANK" << setw(50) << "PRODUCTO" << "CANT. VENDIDA" << endl;
+        cout << "\t\t" << string(70, '-') << endl;
+
+        for (int i = 0; i < topN && i < numProductosUnicos; ++i) {
+            cout << "\t\t" << left << setw(5) << (i + 1)
+                << setw(50) << sortedVentas[i].first
+                << sortedVentas[i].second << endl;
+        }
+    }
+
+    // --- Paso 5: Opción para rellenar el stock (sin cambios) ---
+    char opcion;
+    cout << "\n\n\t\tDesea rellenar el stock de todos los productos a 100 unidades? (S/N): ";
+    cin >> opcion;
+    if (tolower(opcion) == 's') {
+        cout << "\n\t\tRellenando stock..." << endl;
+        for (auto& parPrincipal : catalogo.getProductos()) {
+            for (auto& parSecundaria : parPrincipal.second) {
+                for (auto& parTerciaria : parSecundaria.second) {
+                    Lista<Categoria>& listaProds = parTerciaria.second;
+                    for (int i = 0; i < listaProds.getTam(); ++i) {
+                        listaProds.getValor(i).setStock(100);
+                    }
+                }
+            }
+        }
+        cout << "\t\t>> EXITO: Stock de todos los productos rellenado." << endl;
+    }
+
+    // --- Paso 6: Liberar la memoria del arreglo dinámico ---
+    // ¡Muy importante para evitar fugas de memoria!
+    delete[] sortedVentas;
+
+    system("pause>0");
 }

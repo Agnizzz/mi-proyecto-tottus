@@ -57,6 +57,33 @@ public:
     T& getValor(int pos) {
         return obtenerReferencia(pos); // ✅ devuelve referencia real
     }
+    //nuevo puesto el 05/07/2025
+    void eliminar(int pos) {
+        if (pos < 0 || pos >= this->getTam()) { // Usamos this-> para ser explícitos
+            return; // Posición inválida
+        }
+
+        Nodo<T>* nodoAEliminar;
+        if (pos == 0) {
+            nodoAEliminar = this->ini;
+            this->inicial = this->inicial->siguiente;
+            if (this->inicial == nullptr) this->final = nullptr;
+        }
+        else {
+            Nodo<T>* anterior = this->inicial;
+            for (int i = 0; i < pos - 1; ++i) {
+                anterior = anterior->siguiente;
+            }
+            nodoAEliminar = anterior->siguiente;
+            anterior->siguiente = nodoAEliminar->siguiente;
+            if (nodoAEliminar == this->final) this->final = anterior;
+        }
+
+        // No borramos el dato (delete nodoAEliminar->dato) porque es un puntero
+        // y lo borraremos en la función principal. Solo borramos el nodo.
+        delete nodoAEliminar;
+        this->tam--;
+    }
 
     // Mostrar lista
     void mostrar() const;

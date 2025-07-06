@@ -98,6 +98,9 @@
     <ClInclude Include="GrafosProveedores.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Promociones.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Reclamos.txt">

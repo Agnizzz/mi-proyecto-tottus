@@ -14,13 +14,15 @@ private:
     double precioFinal;
     int cantidad;
 	int stock = 100; // Agregado para manejar el stock
-
+    //nuevo
+    string oferta;
 
 public:
 	// Constructores
 
+    // Constructor por defecto se hizo cambios
     Categoria()
-        : id(""), nombre(""), unidadMedida(""), precioUnitario(0.0), precioDescuento(0.0), precioFinal(0.0), cantidad(1) {
+        : id(""), nombre(""), unidadMedida(""), precioUnitario(0.0), precioDescuento(0.0), precioFinal(0.0), cantidad(1), oferta("") {
     }
 
     Categoria(const string& pId, const string& pNombre, const string& punidadMedida, int pCantidad = 1)
@@ -41,6 +43,7 @@ public:
         precioFinal = other.precioFinal;
         cantidad = other.cantidad; // ✅ COPIA REAL DE LA CANTIDAD
         stock = other.stock;
+        oferta = other.oferta; // <-- AÑADIR NUEVO
     }
     double calcularPrecioFinal() const {
         double precioUnit = precioUnitario * (1.0 - precioDescuento); // precio con descuento
@@ -73,7 +76,10 @@ public:
     int getCantidad() const { return cantidad; }
     void setPrecioFinal(double) { calcularPrecioFinal(); }
     double getPrecioFinal() const { return precioFinal; }
-	// Método para actualizar el stock
+    //metodos nuevos
+    void setOferta(const string& pOferta) { oferta = pOferta; }
+    const string& getOferta() const { return oferta; }
+    // Método para actualizar el stock
     void actualizarStock(int cantidadModificada) {
         stock += cantidadModificada;
         if (stock < 0) {
@@ -110,5 +116,9 @@ public:
             << setw(10) << unidadMedida
             << "x" << setw(3) << cantidad
             << " -> S/." << fixed << setprecision(2) << total << endl;
+    }
+    // ¡AÑADE ESTA FUNCIÓN AQUÍ! nuevooooooooooooooooooooooo
+    void setStock(int nuevoStock) {
+        stock = nuevoStock;
     }
 };

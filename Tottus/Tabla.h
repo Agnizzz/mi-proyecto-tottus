@@ -24,12 +24,12 @@ void printHeader() {
         << setw(45) << "Producto"
         << setw(10) << "Unidad"
         << setw(10) << "Precio"
-        << setw(11) << " Oferta " 
-	    << setw(10) << "Stock" << endl;
+        << setw(11) << " Oferta "
+        << setw(10) << "Stock" << endl;
 
     setColor(15, 0);
 }
-
+//ACA SE AGREGO CAMBIOS
 void mostrarTablaProductos(const Lista<Categoria>& productos) {
 
     const int productosPorPagina = 10;
@@ -54,14 +54,14 @@ void mostrarTablaProductos(const Lista<Categoria>& productos) {
             cout << left << setw(15) << prod.getID().substr(0, 13)
                 << setw(45) << prod.getNombre().substr(0, 44)
                 << setw(10) << prod.getUnidadMedida().substr(0, 9)
-                << "S/." << setw(8) << fixed << setprecision(2) << prod.getPrecioUnitario()
-                << setw(10);
+                << "S/." << setw(8) << fixed << setprecision(2) << prod.getPrecioUnitario();
 
-            if (prod.getPrecioDescuento() > 0.0)
-                cout << fixed << setprecision(2) << prod.getPrecioDescuento();
-            else
-                cout << "";
-            cout << setw(10) << prod.getStock(); // <-- Aquí agregas el stock
+            /* if (prod.getPrecioDescuento() > 0.0)
+                 cout << fixed << setprecision(2) << prod.getPrecioDescuento();
+             else
+                 cout << "";*/
+            cout << setw(15) << ""; // <-- ESTA LÍNEA IMPRIME UN ESPACIO EN BLANCO NUEVO
+            cout << setw(10) << prod.getStock(); // <-- Aquí agregas el stock VUEBO
 
             cout << endl;
         }
@@ -86,7 +86,7 @@ void mostrarTablaProductos(const Lista<Categoria>& productos) {
             seleccionado = fin - 1;
     }
 }
-
+//SE AGREGO CAMBIOS
 int seleccionarProductoEnTabla(const Lista<Categoria>& productos) {
     const int productosPorPagina = 10;
     int pagina = 0;
@@ -108,12 +108,13 @@ int seleccionarProductoEnTabla(const Lista<Categoria>& productos) {
             cout << left << setw(15) << prod.getID().substr(0, 13)
                 << setw(45) << prod.getNombre().substr(0, 44)
                 << setw(10) << prod.getUnidadMedida().substr(0, 9)
-                << "S/." << setw(8) << fixed << setprecision(2) << prod.getPrecioUnitario()
-                << setw(10);
-            if (prod.getPrecioDescuento() > 0.0)
-                cout << fixed << setprecision(2) << prod.getPrecioDescuento();
-            else
-                cout << "";
+                << "S/." << setw(8) << fixed << setprecision(2) << prod.getPrecioUnitario();
+            ///*if (prod.getPrecioDescuento() > 0.0)
+            //    cout << fixed << setprecision(2) << prod.getPrecioDescuento();
+            //else*/
+            //    cout << "";
+            cout << setw(15) << ""; // <-- ESTA LÍNEA IMPRIME UN ESPACIO EN BLANCO NUEVO
+            cout << setw(10) << prod.getStock(); // <-- Aquí agregas el stock NUEVO
             cout << endl;
         }
 

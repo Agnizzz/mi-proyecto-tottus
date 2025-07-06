@@ -233,7 +233,7 @@ int binarySearchPorCantidad(Categoria** productos, int n, int cantidadBuscada) {
 	return -1;
 }
 
-//funcion para buscar en el que se incluira los 3 metodos binary search
+//funcion para buscar en el que se incluira los 3 metodos binary search CREO QUE ESO NO LO USO
 void buscarProducto() {
 	system("cls");
 	cout << "\n\t\t\t--- BUSCAR PRODUCTO ---\n";
@@ -787,7 +787,35 @@ void buscarBoletaEspecifica() {
 
 	system("pause");
 }
+//NUEVAAAAAAAAZO
+void adminBuscarBoletaEspecifica() {
+	system("cls");
+	int numeroBoleta;
 
+	cout << "\n\t\t--- BUSCAR BOLETA ESPECIFICA (ADMIN) ---\n" << endl;
+	cout << "\t\tIngrese el numero de boleta a buscar: ";
+	cin >> numeroBoleta;
+
+	// La búsqueda del admin debe ser global, sin depender de un DNI.
+	// Usamos la lista principal de boletas para esto.
+	Boleta* boletaEncontrada = nullptr;
+	for (int i = 0; i < listaBoletas.longitud(); ++i) {
+		if (listaBoletas.getValor(i)->getNumeroBoleta() == numeroBoleta) {
+			boletaEncontrada = listaBoletas.getValor(i);
+			break; // La encontramos, salimos del bucle
+		}
+	}
+
+	if (boletaEncontrada != nullptr) {
+		cout << "\n\t\tBoleta encontrada:\n";
+		boletaEncontrada->mostrarBoleta();
+	}
+	else {
+		cout << "\n\t\tNo se encontro ninguna boleta en el sistema con el numero " << numeroBoleta << endl;
+	}
+
+	system("pause>0");
+}
 // Función para mostrar estadísticas (NUEVA)
 void mostrarEstadisticasTabla() {
 	system("cls");
@@ -820,7 +848,7 @@ void menuRegistroCliente() {
 			system("pause");
 			productosSeleccionados->limpiar();  // Limpia el carrito del usuario anterior
 			return; // Salir del menú de registro
-;
+			;
 
 		case 1: {
 			system("cls");
@@ -851,7 +879,7 @@ void menuRegistroCliente() {
 			system("pause");
 		}
 
-	} while (opcion != 6);  // ⬅️ CAMBIÉ A 6 porque ahora hay más opciones
+	} while (opcion != 4);  // ⬅️ CAMBIÉ A 6 porque ahora hay más opciones
 }
 
 
@@ -861,7 +889,7 @@ bool existeBoleta(const string& dni, int numeroBoleta) {
 	return tablaBoletas.contains(dni, numeroBoleta);
 }
 
-// Función para eliminar una boleta (NUEVA)
+// Función para eliminar una boleta 
 void eliminarBoleta() {
 	system("cls");
 	string dni = sistemaUsuarios->getUsuarioActual().DNI;
@@ -879,6 +907,52 @@ void eliminarBoleta() {
 	}
 
 	system("pause");
+}
+
+//NUEVAAAZOO
+void AdmineliminarBoleta() {
+	system("cls");
+	int numeroBoleta;
+	cout << "\n\t\t--- ELIMINAR BOLETA (ADMIN) ---\n" << endl;
+	cout << "\t\tIngrese el numero de boleta a eliminar: ";
+	cin >> numeroBoleta;
+
+	// --- Variables para guardar la información de la boleta a borrar ---
+	Boleta* boletaAEliminar = nullptr;
+	string dniDeLaBoleta = "";
+	int indiceEnLista = -1;
+
+	// 1. Buscamos la boleta en la lista principal para obtener sus datos
+	for (int i = 0; i < listaBoletas.longitud(); ++i) {
+		if (listaBoletas.getValor(i)->getNumeroBoleta() == numeroBoleta) {
+			boletaAEliminar = listaBoletas.getValor(i);
+			dniDeLaBoleta = boletaAEliminar->getDNI();
+			indiceEnLista = i;
+			break; // La encontramos, salimos del bucle
+		}
+	}
+
+	// 2. Si encontramos la boleta, procedemos a eliminarla de todas partes
+	if (boletaAEliminar != nullptr) {
+		// A. Eliminar de la Tabla Hash, usando el método 'remove' que ya tienes
+		tablaBoletas.remove(dniDeLaBoleta, numeroBoleta);
+
+		// B. Eliminar de la Lista Principal, usando el método 'eliminaPos' que ya tienes
+		listaBoletas.eliminaPos(indiceEnLista);
+
+		// C. Liberar la memoria del objeto Boleta para evitar fugas de memoria
+		delete boletaAEliminar;
+
+		cout << "\n\t\t>> EXITO: Boleta " << numeroBoleta << " eliminada exitosamente." << endl;
+
+		// IMPORTANTE: Aquí necesitarás una función que reescriba el archivo Boletas.txt
+		// con la 'listaBoletas' actualizada para que el cambio sea permanente.
+	}
+	else {
+		cout << "\n\t\tNo se encontro una boleta con el numero " << numeroBoleta << " para eliminar." << endl;
+	}
+
+	system("pause>0");
 }
 
 // Función para limpiar todas las boletas (NUEVA - Solo para administrador)
@@ -1006,249 +1080,317 @@ void procesarCompra() {
 }
 
 
-	void confirmacioncase3() {
-		if (productosSeleccionados->esVacia()) {
-			std::cout << "\nEl carrito de compras ya está vacío.\n";
-			return;
-		}
-
-		char confirmacion;
-		do {
-			std::cout << "\n¿Está seguro de que desea eliminar todos los productos de su carrito? (S/N): ";
-			std::cin >> confirmacion;
-			confirmacion = tolower(confirmacion); // Convertir a minúscula
-
-			if (confirmacion == 's') {
-				productosSeleccionados->limpiar(); // Llama a la función para vaciar la lista
-				std::cout << "\n>> Su carrito de compras ha sido vaciado.\n";
-				break; // Sale del bucle de confirmación
-			}
-			else if (confirmacion == 'n') {
-				std::cout << "\nOperación cancelada. Sus productos siguen en el carrito.\n";
-				break; // Sale del bucle de confirmación
-			}
-			else {
-				std::cout << "Opción no válida. Por favor, ingrese 'S' o 'N'.\n";
-				// Limpiar el buffer de entrada por si el usuario ingresó más de un carácter
-				std::cin.ignore(10000, '\n');
-			}
-		} while (true); // El bucle se repite hasta que se ingrese 's' o 'n'
+void confirmacioncase3() {
+	if (productosSeleccionados->esVacia()) {
+		std::cout << "\nEl carrito de compras ya está vacío.\n";
+		return;
 	}
 
-	//aca va el menu
-	void menuCarrito() {
+	char confirmacion;
+	do {
+		std::cout << "\n¿Está seguro de que desea eliminar todos los productos de su carrito? (S/N): ";
+		std::cin >> confirmacion;
+		confirmacion = tolower(confirmacion); // Convertir a minúscula
+
+		if (confirmacion == 's') {
+			productosSeleccionados->limpiar(); // Llama a la función para vaciar la lista
+			std::cout << "\n>> Su carrito de compras ha sido vaciado.\n";
+			break; // Sale del bucle de confirmación
+		}
+		else if (confirmacion == 'n') {
+			std::cout << "\nOperación cancelada. Sus productos siguen en el carrito.\n";
+			break; // Sale del bucle de confirmación
+		}
+		else {
+			std::cout << "Opción no válida. Por favor, ingrese 'S' o 'N'.\n";
+			// Limpiar el buffer de entrada por si el usuario ingresó más de un carácter
+			std::cin.ignore(10000, '\n');
+		}
+	} while (true); // El bucle se repite hasta que se ingrese 's' o 'n'
+}
+
+//aca va el menu
+void menuCarrito() {
+	system("cls");
+	cout << "\n\n\t\t\t------ MENU CARRITO ------" << endl;
+	cout << "\n\t\t\t1. Comprar\n";
+	cout << "\n\t\t\t2. Ver carrito\n";
+	cout << "\n\t\t\t3. Eliminar producto\n";
+	cout << "\n\t\t\t4. Ver ofertas\n";
+	cout << "\n\t\t\t5. Procesar compra\n";
+	cout << "\n\t\t\t6. Buscar producto\n";
+	cout << "\n\t\t\t7. Ordenar productos\n";
+	cout << "\n\t\t\t0. Salir\n";
+	cout << "\n\t\t\tSeleccione una opcion: ";
+	int opcion;
+	cin >> opcion;
+
+	if (opcion < 0 || opcion > 7) {
+		cout << "\t\t\tOpcion invalida. Presione una tecla para continuar...";
+		system("pause>0");
 		system("cls");
-		cout << "\n\n\t\t\t------ MENU CARRITO ------" << endl;
-		cout << "\n\t\t\t1. Comprar\n";
-		cout << "\n\t\t\t2. Ver carrito\n";
-		cout << "\n\t\t\t3. Eliminar producto\n";
-		cout << "\n\t\t\t4. Ver ofertas\n";
-		cout << "\n\t\t\t5. Procesar compra\n";
-		cout << "\n\t\t\t6. Buscar producto\n";
-		cout << "\n\t\t\t7. Ordenar productos\n";
-		cout << "\n\t\t\t0. Salir\n";
-		cout << "\n\t\t\tSeleccione una opcion: ";
-		int opcion;
-		cin >> opcion;
+		return;
+	}
 
-		if (opcion < 0 || opcion > 7) {
-			cout << "\t\t\tOpcion invalida. Presione una tecla para continuar...";
-			system("pause>0");
-			system("cls");
-			return;
-		}
+	switch (opcion) {
+	case 0:
+		cout << "\n\t\t\tSALIENDO DEL SISTEMA..." << endl;
+		break;
+	case 1:
+		comprar();
+		break;
+	case 2:
+		verCarrito();
+		break;
+	case 3:
+		eliminarProducto();
+		break;
+	case 4:
+		verOfertas();
+		break;
+	case 5:
+		procesarCompra();
+		break;
+	case 6:
+		buscarProducto();
+		break;
+	case 7:
+		ordenarProductosAvanzado();
+		break;
+	}
+}
 
-		switch (opcion) {
-		case 0:
-			cout << "\n\t\t\tSALIENDO DEL SISTEMA..." << endl;
-			break;
-		case 1:
-			comprar();
-			break;
-		case 2:
-			verCarrito();
-			break;
-		case 3:
-			eliminarProducto();
-			break;
-		case 4:
-			verOfertas();
-			break;
-		case 5:
-			procesarCompra();
-			break;
-		case 6:
-			buscarProducto();
-			break;
-		case 7:
-			ordenarProductosAvanzado();
-			break;
+// --- FUNCIÓN AUXILIAR PARA LIMPIAR ESPACIOS Y CARACTERES INVISIBLES ---
+string trim(const string& str) {
+	const string whitespace = " \t\n\r\f\v";
+	size_t first = str.find_first_not_of(whitespace);
+	if (string::npos == first) {
+		return "";
+	}
+	size_t last = str.find_last_not_of(whitespace);
+	return str.substr(first, (last - first + 1));
+}
+
+// --- FUNCIÓN AUXILIAR PARA VALIDAR Y CONVERTIR PRECIO ---
+bool convertirPrecio(const string& precioStr, double& precio) {
+	string precioLimpio = trim(precioStr);
+
+	// Reemplazar comas por puntos si es necesario
+	for (char& c : precioLimpio) {
+		if (c == ',') {
+			c = '.';
 		}
 	}
 
-	// --- FUNCIÓN AUXILIAR PARA LIMPIAR ESPACIOS Y CARACTERES INVISIBLES ---
-	string trim(const string& str) {
-		const string whitespace = " \t\n\r\f\v";
-		size_t first = str.find_first_not_of(whitespace);
-		if (string::npos == first) {
-			return "";
+	// Verificar que solo contenga dígitos, punto y posiblemente un signo negativo
+	bool puntoEncontrado = false;
+	for (size_t i = 0; i < precioLimpio.length(); i++) {
+		char c = precioLimpio[i];
+		if (c == '.') {
+			if (puntoEncontrado) return false; // Más de un punto
+			puntoEncontrado = true;
 		}
-		size_t last = str.find_last_not_of(whitespace);
-		return str.substr(first, (last - first + 1));
+		else if (c == '-' && i == 0) {
+			// Permitir signo negativo al inicio
+			continue;
+		}
+		else if (!isdigit(c)) {
+			return false; // Carácter no válido
+		}
 	}
 
-	// --- FUNCIÓN AUXILIAR PARA VALIDAR Y CONVERTIR PRECIO ---
-	bool convertirPrecio(const string& precioStr, double& precio) {
-		string precioLimpio = trim(precioStr);
+	if (precioLimpio.empty() || precioLimpio == "." || precioLimpio == "-") {
+		return false;
+	}
 
-		// Reemplazar comas por puntos si es necesario
-		for (char& c : precioLimpio) {
-			if (c == ',') {
-				c = '.';
-			}
-		}
+	try {
+		precio = stod(precioLimpio);
+		return true;
+	}
+	catch (const std::exception&) {
+		return false;
+	}
+}
 
-		// Verificar que solo contenga dígitos, punto y posiblemente un signo negativo
-		bool puntoEncontrado = false;
-		for (size_t i = 0; i < precioLimpio.length(); i++) {
-			char c = precioLimpio[i];
-			if (c == '.') {
-				if (puntoEncontrado) return false; // Más de un punto
-				puntoEncontrado = true;
-			}
-			else if (c == '-' && i == 0) {
-				// Permitir signo negativo al inicio
-				continue;
-			}
-			else if (!isdigit(c)) {
-				return false; // Carácter no válido
-			}
-		}
+// --- FUNCIÓN PRINCIPAL CORREGIDA ---
+void cargarBoletasDesdeArchivo() {
+	ifstream archivo("Boletas.txt");
+	if (!archivo.is_open()) {
+		cout << "ADVERTENCIA: No se encontró 'Boletas.txt'." << endl;
+		return;
+	}
 
-		if (precioLimpio.empty() || precioLimpio == "." || precioLimpio == "-") {
-			return false;
+	string linea;
+	Boleta* boletaActual = nullptr;
+	int numeroDeLinea = 0;
+
+	while (getline(archivo, linea)) {
+		numeroDeLinea++;
+		linea = trim(linea);
+
+		if (linea.empty()) {
+			continue;
 		}
 
 		try {
-			precio = stod(precioLimpio);
-			return true;
+			if (linea.rfind("N° Boleta: ", 0) == 0) {
+				// Procesar boleta anterior si existe
+				if (boletaActual != nullptr) {
+					boletaActual->calcularTotal();
+					listaBoletas.agregaFinal(boletaActual);
+					tablaBoletas.insertar(boletaActual);
+				}
+
+				// Crear nueva boleta
+				int numero = stoi(linea.substr(linea.find(": ") + 2));
+				getline(archivo, linea); numeroDeLinea++;
+
+				size_t posDNI = linea.find(" (DNI: ");
+				string nombre = linea.substr(linea.find(": ") + 2, posDNI - (linea.find(": ") + 2));
+				string dni = linea.substr(posDNI + 7, 8);
+
+				getline(archivo, linea); numeroDeLinea++; // Línea de fecha
+				boletaActual = new Boleta(nombre, dni, numero);
+			}
+			else if (boletaActual != nullptr && isdigit(linea[0]) && linea.find(" - Cantidad: ") != string::npos) {
+				// Procesar línea de producto
+				string nombreProducto, cantidadStr, precioStr;
+
+				// Extraer nombre del producto
+				size_t inicioNombre = linea.find(". ") + 2;
+				size_t finNombre = linea.find(" - Cantidad:");
+				nombreProducto = linea.substr(inicioNombre, finNombre - inicioNombre);
+
+				// Extraer cantidad
+				size_t inicioCantidad = linea.find(": ", finNombre) + 2;
+				size_t finCantidad = linea.find(" - Precio:", inicioCantidad);
+				cantidadStr = linea.substr(inicioCantidad, finCantidad - inicioCantidad);
+				int cantidad = stoi(trim(cantidadStr));
+
+				// Extraer precio con mejor validación
+				size_t posS = linea.find("S/. ");
+				if (posS == string::npos) {
+					cout << "ERROR: No se encontró 'S/. ' en línea " << numeroDeLinea << endl;
+					cout << "Línea completa: " << linea << endl;
+					continue;
+				}
+
+				size_t inicioPrecio = posS + 4; // Después de "S/. "
+				size_t finPrecio = linea.find(" ", inicioPrecio);
+				if (finPrecio == string::npos) {
+					precioStr = linea.substr(inicioPrecio);
+				}
+				else {
+					precioStr = linea.substr(inicioPrecio, finPrecio - inicioPrecio);
+				}
+
+				// Validar y convertir precio
+				double precio;
+				if (!convertirPrecio(precioStr, precio)) {
+					cout << "ERROR: Precio inválido en línea " << numeroDeLinea
+						<< ". Precio encontrado: '" << precioStr << "'" << endl;
+					cout << "Línea completa: " << linea << endl;
+					continue; // Saltar este producto pero continuar con la boleta
+				}
+
+				// Crear y agregar producto
+				Categoria* producto = new Categoria();
+				producto->setNombre(nombreProducto);
+				producto->setCantidad(cantidad);
+				producto->setPrecioUnitario(precio);
+				producto->setPrecioDescuento(0.0);
+				boletaActual->agregarProducto(producto);
+			}
 		}
-		catch (const std::exception&) {
-			return false;
+		catch (const std::exception& e) {
+			cout << "ERROR: Se ignoró la línea " << numeroDeLinea
+				<< " por formato inválido. Motivo: " << e.what() << endl;
+			cout << "Línea problemática: " << linea << endl;
+
+			// Solo eliminar boleta si el error fue al crearla
+			if (linea.rfind("N° Boleta: ", 0) == 0 && boletaActual != nullptr) {
+				delete boletaActual;
+				boletaActual = nullptr;
+			}
 		}
 	}
 
-	// --- FUNCIÓN PRINCIPAL CORREGIDA ---
-	void cargarBoletasDesdeArchivo() {
-		ifstream archivo("Boletas.txt");
-		if (!archivo.is_open()) {
-			cout << "ADVERTENCIA: No se encontró 'Boletas.txt'." << endl;
-			return;
-		}
-
-		string linea;
-		Boleta* boletaActual = nullptr;
-		int numeroDeLinea = 0;
-
-		while (getline(archivo, linea)) {
-			numeroDeLinea++;
-			linea = trim(linea);
-
-			if (linea.empty()) {
-				continue;
-			}
-
-			try {
-				if (linea.rfind("N° Boleta: ", 0) == 0) {
-					// Procesar boleta anterior si existe
-					if (boletaActual != nullptr) {
-						boletaActual->calcularTotal();
-						listaBoletas.agregaFinal(boletaActual);
-						tablaBoletas.insertar(boletaActual);
-					}
-
-					// Crear nueva boleta
-					int numero = stoi(linea.substr(linea.find(": ") + 2));
-					getline(archivo, linea); numeroDeLinea++;
-
-					size_t posDNI = linea.find(" (DNI: ");
-					string nombre = linea.substr(linea.find(": ") + 2, posDNI - (linea.find(": ") + 2));
-					string dni = linea.substr(posDNI + 7, 8);
-
-					getline(archivo, linea); numeroDeLinea++; // Línea de fecha
-					boletaActual = new Boleta(nombre, dni, numero);
-				}
-				else if (boletaActual != nullptr && isdigit(linea[0]) && linea.find(" - Cantidad: ") != string::npos) {
-					// Procesar línea de producto
-					string nombreProducto, cantidadStr, precioStr;
-
-					// Extraer nombre del producto
-					size_t inicioNombre = linea.find(". ") + 2;
-					size_t finNombre = linea.find(" - Cantidad:");
-					nombreProducto = linea.substr(inicioNombre, finNombre - inicioNombre);
-
-					// Extraer cantidad
-					size_t inicioCantidad = linea.find(": ", finNombre) + 2;
-					size_t finCantidad = linea.find(" - Precio:", inicioCantidad);
-					cantidadStr = linea.substr(inicioCantidad, finCantidad - inicioCantidad);
-					int cantidad = stoi(trim(cantidadStr));
-
-					// Extraer precio con mejor validación
-					size_t posS = linea.find("S/. ");
-					if (posS == string::npos) {
-						cout << "ERROR: No se encontró 'S/. ' en línea " << numeroDeLinea << endl;
-						cout << "Línea completa: " << linea << endl;
-						continue;
-					}
-
-					size_t inicioPrecio = posS + 4; // Después de "S/. "
-					size_t finPrecio = linea.find(" ", inicioPrecio);
-					if (finPrecio == string::npos) {
-						precioStr = linea.substr(inicioPrecio);
-					}
-					else {
-						precioStr = linea.substr(inicioPrecio, finPrecio - inicioPrecio);
-					}
-
-					// Validar y convertir precio
-					double precio;
-					if (!convertirPrecio(precioStr, precio)) {
-						cout << "ERROR: Precio inválido en línea " << numeroDeLinea
-							<< ". Precio encontrado: '" << precioStr << "'" << endl;
-						cout << "Línea completa: " << linea << endl;
-						continue; // Saltar este producto pero continuar con la boleta
-					}
-
-					// Crear y agregar producto
-					Categoria* producto = new Categoria();
-					producto->setNombre(nombreProducto);
-					producto->setCantidad(cantidad);
-					producto->setPrecioUnitario(precio);
-					producto->setPrecioDescuento(0.0);
-					boletaActual->agregarProducto(producto);
-				}
-			}
-			catch (const std::exception& e) {
-				cout << "ERROR: Se ignoró la línea " << numeroDeLinea
-					<< " por formato inválido. Motivo: " << e.what() << endl;
-				cout << "Línea problemática: " << linea << endl;
-
-				// Solo eliminar boleta si el error fue al crearla
-				if (linea.rfind("N° Boleta: ", 0) == 0 && boletaActual != nullptr) {
-					delete boletaActual;
-					boletaActual = nullptr;
-				}
-			}
-		}
-
-		// Procesar última boleta
-		if (boletaActual != nullptr) {
-			boletaActual->calcularTotal();
-			listaBoletas.agregaFinal(boletaActual);
-			tablaBoletas.insertar(boletaActual);
-		}
-
-		//cout << "\nINFO: Carga de historial finalizada. Se cargaron "
-			//<< listaBoletas.longitud() << " boletas." << endl;
-		archivo.close();
+	// Procesar última boleta
+	if (boletaActual != nullptr) {
+		boletaActual->calcularTotal();
+		listaBoletas.agregaFinal(boletaActual);
+		tablaBoletas.insertar(boletaActual);
 	}
+
+	//cout << "\nINFO: Carga de historial finalizada. Se cargaron "
+		//<< listaBoletas.longitud() << " boletas." << endl;
+	archivo.close();
+}
+//CAMBIO DE POSICION NUEVOOO
+void menuRegistroAdmin() {
+	int opcion;
+
+	do {
+		system("cls");
+		cout << "\n\t===== ADMIN-BOLETAS =====\n";
+		cout << "1. Buscar  boletas por DNI\n";
+		cout << "2. Buscar boleta especifica\n";           // ⬅️ NUEVA OPCIÓN
+		cout << "3. Mostrar todas las boletas\n";          // ⬅️ NUEVA OPCIÓN
+		cout << "4. Eliminar boleta\n";                // ⬅️ NUEVA OPCIÓN
+		cout << "5. Ordenar boletas\n"; // ⬅️ NUEVA OPCIÓN
+		cout << "6. Salir\n";
+		cout << "\n\t\t0. Cerrar Sesion" << endl;
+		cout << "Seleccione una opcion: ";
+		cin >> opcion;
+
+		switch (opcion) {
+		case 0: // Cerrar sesión
+			sistemaUsuarios->cerrarSesion();
+			cout << "\n\t\t\tCerrando sesion...\n";
+			system("pause");
+			productosSeleccionados->limpiar();  // Limpia el carrito del usuario anterior
+			return; // Salir del menú de registro
+
+
+		case 1: {
+			system("cls");
+			string dniBuscar;
+			cout << "\n\t\t--- BUSCAR BOLETAS POR DNI (ADMIN) ---\n" << endl;
+			cout << "\t\tIngrese el DNI del cliente a buscar: ";
+			cin >> dniBuscar;
+
+			cout << "\n\t\tBuscando boletas para DNI: " << dniBuscar << "\n";
+			tablaBoletas.buscarPorDNI(dniBuscar); // Tu función de tabla hash aquí funciona bien
+			system("pause>0");
+			break;
+		}
+
+		case 2:
+			adminBuscarBoletaEspecifica();
+			break;
+
+		case 3:
+			system("cls");
+			cout << "\n=== TODAS LAS BOLETAS ===" << endl;
+			tablaBoletas.mostrarTodas();
+			system("pause");
+			break;
+
+		case 4:
+			AdmineliminarBoleta();
+			break;
+		case 5:
+			ordenarBoletasAvanzado();
+			break;
+
+		case 6:
+			cout << "Saliendo del menu...\n";
+			break;
+
+		default:
+			cout << "Opcion no valida.\n";
+			system("pause");
+		}
+
+	} while (opcion != 6);  // ⬅️ CAMBIÉ A 6 porque ahora hay más opciones
+}

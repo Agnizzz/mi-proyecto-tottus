@@ -42,7 +42,7 @@ public:
         : nombreCliente(nombre), dniCliente(dni), total(0.0), numeroBoleta(numBoleta) {
         fecha = obtenerFechaActual();
     }
-
+    Lista<Categoria*>& getProductos() { return productos; } // <-- AÑADE ESTA LÍNEA NUEVAAAAAAAAAAAAAAAAAAAAA
     void agregarProducto(Categoria* producto) {
         //  Validar que el producto no sea nulo antes de agregarlo
         if (producto == nullptr) {
