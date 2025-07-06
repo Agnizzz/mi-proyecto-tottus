@@ -17,6 +17,9 @@ public:
     void apilar(T v);
     T desapilar();
     bool esVacia();
+    Nodo<T>* get_tope() {
+        return tope;
+    }
 };
 template <class T>
 void Pila<T>::apilar(T v) {

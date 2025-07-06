@@ -19,6 +19,7 @@ SistemaAdministradores* sistemaAdmins = new SistemaAdministradores();
 SistemaUsuarios* sistemaUsuarios = new SistemaUsuarios();
 TottusGrafo tottus;
 ProveedoresGrafo proveedoresGrafo;
+Soporte sistemaSoporte;
 
 void Tienda() {
 	SetBackgroundColor(Black);
@@ -601,17 +602,23 @@ void SoporteUsuario() {
 		case 0: { // Enviar Nueva Solicitud
 			// Inicia el proceso para crear un nuevo ticket de soporte. Le pedirá que seleccione el tipo de solicitud (Reclamo, Consulta, Sugerencia) y que describa su caso. Al finalizar, le entregará un número de ticket
 			// Tu código aquí
+			sistemaSoporte.enviarNuevaSolicitud();
+			system("cls");
 			break;
 		}
 		case 1: { // Consultar el Estado de Mis Solicitudes
 			// Muestra una lista de todos los tickets de soporte que el cliente ha creado, indicando su estado actual ("Nuevo", "En Proceso", "Resuelto", etc.)
 			// Desde esta lista, el cliente puede seleccionar un ticket para ver el historial completo de la conversación y, si el ticket está abierto, añadir un nuevo mensaje
 			// Tu código aquí
+			sistemaSoporte.consultarMisSolicitudes();
+			system("cls");
 			break;
 		}
 		case 2: { // Ver Preguntas Frecuentes
 			// Le da acceso a la base de conocimiento para que pueda resolver dudas comunes por su cuenta, consultando una lista de preguntas y respuestas predefinidas por el administrador
 			// Tu código aquí
+			sistemaSoporte.mostrarPreguntasFrecuentes();
+			system("cls");
 			break;
 		}
 		case 3: { // Ver Distancia entre tiendas
@@ -1133,21 +1140,21 @@ void SoporteAdministrador() {
 			SetCursorPosition(35, posicionY + FILAS + 6);
 			if (seleccion == 2) {
 				setColor(0, 15);
-				cout << "> - Gestion de la Base de Conocimiento <";
+				cout << "> - Contactar con Soporte <";
 				setColor(15, 0);
 			}
 			else {
-				cout << "  - Gestion de la Base de Conocimiento  ";
+				cout << "  - Contactar con Soporte  ";
 			}
 			// Opción 4: Ver Estadisticas de Soporte
 			SetCursorPosition(35, posicionY + FILAS + 8);
 			if (seleccion == 3) {
 				setColor(0, 15);
-				cout << "> - Ver Estadisticas de Soporte <";
+				cout << "> - Ver Estadisticas de Soporte  <";
 				setColor(15, 0);
 			}
 			else {
-				cout << "  - Ver Estadisticas de Soporte  ";
+				cout << "  - Ver Estadisticas de Soporte ";
 			}
 
 			// Opción 0: Volver al Panel de Administracion
@@ -1191,6 +1198,8 @@ void SoporteAdministrador() {
 
 			Opción :*/
 			// Tu código aquí
+			sistemaSoporte.dashboardDeTickets();
+			system("cls");
 			break;
 		}
 		case 1: { // Gestionar un Ticket Especifico
@@ -1216,12 +1225,16 @@ void SoporteAdministrador() {
 
 			Opción:*/
 			// Tu código aquí
+			sistemaSoporte.dashboardDeTickets();
+			system("cls");
 			break;
 		}
 		case 2: { // Gestion de la Base de Conocimiento
 			// FAQ
 			// a. Agregar Nuevo Artículo de FAQ // b. Modificar Artículo Existente // c. Eliminar Artículo // d. Listar Todos los Artículos //0. Volver
 			// Tu código aquí
+			sistemaSoporte.contactarSoporte();
+			system("cls");
 			break;
 		}
 		case 3: { // Ver Estadisticas de Soporte
@@ -1249,6 +1262,8 @@ void SoporteAdministrador() {
 			-------------------------------------------------
 			(0) Volver*/
 			// Tu código aquí
+			sistemaSoporte.mostrarEstadisticasSoporte();
+			system("cls");
 			break;
 		}
 		case 4: { // Volver al Panel de Administracion

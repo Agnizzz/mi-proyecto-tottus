@@ -1248,6 +1248,24 @@ public:
 		cout << "\n---------------------------\n" << endl;
 		system("pause>0");
 	}
+
+	User buscarPorDNI(string dni) {
+		// 1. Creamos un usuario "molde" con el DNI a buscar.
+		User usuarioTemp;
+		usuarioTemp.DNI = dni;
+
+		// 2. Verificamos SI EXISTE el usuario en el árbol.
+		if (arbolPorDNI->buscar(usuarioTemp)) {
+			// 3. SI EXISTE, usamos el método "obtener" de tu árbol para traer el dato.
+			//    Asumo que tu árbol tiene un método para obtener el elemento completo.
+			//    Si se llama diferente, solo cambia "obtener".
+			return arbolPorDNI->obtener(usuarioTemp);
+		}
+		else {
+			// 4. Si no existe, devolvemos un usuario vacío.
+			return User();
+		}
+	}
 };
 
 // Variable global para acceder desde cualquier parte del programa

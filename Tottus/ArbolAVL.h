@@ -309,4 +309,15 @@ public:
         _buscarYProcesarCoincidencias(raiz, termino, procesadorCoincidencia);
     }
 
+    // Nuevo método "obtener" para recuperar un elemento específico
+    T obtener(T clave) {
+        NodoAVL<T>* nodoEncontrado = _buscar(raiz, clave);
+        if (nodoEncontrado != nullptr) {
+            return nodoEncontrado->elemento; // Retorna el elemento encontrado
+        }
+        else {
+            throw std::runtime_error("Elemento no encontrado en el árbol AVL");
+        }
+    }
+
 };
