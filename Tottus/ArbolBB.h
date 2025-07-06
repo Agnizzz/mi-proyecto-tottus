@@ -35,6 +35,20 @@ private:
         }
     }
 
+    //NUEVO
+    NodoArbol<T>* _insertar_con_operador(NodoArbol<T>* nodo, T dato) {
+        if (nodo == nullptr) {
+            return new NodoArbol<T>(dato);
+        }
+        if (dato < nodo->dato) {
+            nodo->izq = _insertar_con_operador(nodo->izq, dato);
+        }
+        else if (dato > nodo->dato) {
+            nodo->der = _insertar_con_operador(nodo->der, dato);
+        }
+        return nodo;
+    }
+
     // Método auxiliar privado para buscar un nodo recursivamente
     NodoArbol<T>* buscar(NodoArbol<T>* nodo, T clave, const std::function<int(T, T)>& comparador) {
         if (nodo == nullptr) {
@@ -63,6 +77,13 @@ private:
         }
     }
 
+    // La función recursiva privada
+    void _inOrden(NodoArbol<T>* nodo, function<void(T)> procesar) {
+        if (nodo == nullptr) return;
+        _inOrden(nodo->izq, procesar);
+        procesar(nodo->dato); // Procesa el nodo actual
+        _inOrden(nodo->der, procesar);
+    }
 
 public:
     ArbolBinarioBusqueda() : raiz(nullptr) {}
@@ -79,9 +100,17 @@ public:
     void insertar(T dato, const std::function<int(T, T)>& comparador) {
         insertar(raiz, dato, comparador);
     }
+    //nuevo
+    void insertar(T dato) {
+        raiz = _insertar_con_operador(raiz, dato);
+    }
 
     // Método público para buscar datos
     NodoArbol<T>* buscar(T clave, const std::function<int(T, T)>& comparador) {
         return buscar(raiz, clave, comparador);
+    }
+    // Permite ejecutar una acción en cada nodo del árbol en orden
+    void inOrden(function<void(T)> procesar) {
+        _inOrden(raiz, procesar); // Llama a una función auxiliar recursiva
     }
 };

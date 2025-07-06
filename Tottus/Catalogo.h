@@ -9,6 +9,9 @@
 #include "Lista.h"
 #include "IDpropio.h"
 #include "Promociones.h"//NUEVO
+#include "ArbolBB.h" // //CAMBIOS EL 06/07/2025 7:00 AM
+
+
 
 
 using namespace std;
@@ -17,10 +20,19 @@ class Catalogo {
 private:
     // Mapa: idPrincipal -> secundaria -> terciaria -> lista enlazada de productos
     map<int, map<string, map<string, Lista<Categoria>>>> productos;
+    ArbolBinarioBusqueda<Categoria>* arbolDeProductos;//CAMBIOS EL 06/07/2025 7:00 AMSASASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 public:
     //OJOOOOOO
-    Catalogo() { cargarDesdeArchivo("producto.txt"); }
+    Catalogo() { 
+        arbolDeProductos = new ArbolBinarioBusqueda<Categoria>();//CAMBIOS EL 06/07/2025 7:00 AMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        cargarDesdeArchivo("producto.txt"); }
+    //DESTRUCTOR
+    //CAMBIOS EL 06/07/2025 7:00 AM
+    ~Catalogo() {
+        // Liberamos la memoria en el destructor
+        delete arbolDeProductos;
+    }
     // REEMPLAZA LA VERSIÓN ANTERIOR CON ESTA:NUEVOOOOOOOOOOOO
     map<int, map<string, map<string, Lista<Categoria>>>>& getProductos() { return productos; }
 
@@ -118,6 +130,7 @@ public:
             producto.setPrecioUnitario(precioUnitario);
 
             productos[idPrincipal][secundaria][terciaria].agregaFinal(producto);
+            arbolDeProductos->insertar(producto);//FORCHI NUEVO
         }
         file.close();
     }
@@ -136,5 +149,10 @@ public:
      // Obtener productos por secundaria y terciaria SIN CONST
     Lista<Categoria>& getPorCategoria(int idPrincipal, const string& secundaria, const string& terciaria) {
         return productos.at(idPrincipal).at(secundaria).at(terciaria);
+    }
+
+    //CAMBIOS EL 06/07/2025 7:00 AM
+    ArbolBinarioBusqueda<Categoria>* getArbolProductos() {
+        return arbolDeProductos; // El nombre aquí debe coincidir con el de arriba
     }
 };

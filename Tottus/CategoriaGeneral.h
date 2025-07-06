@@ -121,4 +121,12 @@ public:
     void setStock(int nuevoStock) {
         stock = nuevoStock;
     }
+
+    // --- AÑADE ESTOS OPERADORES SI NO LOS TIENES ---
+    bool operator<(const Categoria& other) const {
+        return this->getNombre() < other.getNombre();
+    }
+    bool operator>(const Categoria& other) const {
+        return this->getNombre() > other.getNombre();
+    }
 };

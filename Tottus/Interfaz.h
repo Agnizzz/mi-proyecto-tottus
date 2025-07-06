@@ -897,7 +897,7 @@ void Gestion() {
 		case 2: { // Generar Reportes del Sistema
 			// a. Reporte de Usuarios // b. Reporte de Actividad de Promociones // c. Reporte Resumido de Inventario // 0. Volver al menú anterior
 			// Tu código aquí
-
+			generarReporteInventario(); //se hizo cambiops
 			system("cls");
 			break;
 		}

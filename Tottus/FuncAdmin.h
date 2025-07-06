@@ -925,3 +925,62 @@ void generarReporteMasVendidos() {
 
     system("pause>0");
 }
+
+//CAMBIOS EL 06/07/2025 7:00 AM
+void generarReporteInventario() {
+    system("cls");
+    cout << "\n\t\t\t------ REPORTE RESUMIDO DE INVENTARIO ------\n" << endl;
+
+    // Variables para guardar las estadísticas
+    int totalProductos = 0;
+    double valorTotalInventario = 0.0;
+
+    // ==========================================================
+    //  CAMBIO PRINCIPAL: Usamos tu clase Lista en lugar de std::vector
+    // ==========================================================
+    Lista<Categoria> productosBajoStock;
+
+    // Usamos el recorrido in-orden del árbol para procesar cada producto
+    catalogo.getArbolProductos()->inOrden([&](Categoria prod) {
+        totalProductos++;
+        valorTotalInventario += prod.getPrecioUnitario() * prod.getStock();
+
+        // Consideramos "bajo stock" si hay 20 o menos unidades
+        if (prod.getStock() <= 20) {
+            // Usamos tu método 'agregaFinal'
+            productosBajoStock.agregaFinal(prod);
+        }
+        });
+
+    // --- Mostramos las Estadísticas Generales ---
+    cout << "\t\t=============================================" << endl;
+    cout << "\t\t Estadisticas Generales del Inventario" << endl;
+    cout << "\t\t=============================================" << endl;
+    cout << "\t\t - Total de productos unicos: " << totalProductos << endl;
+    cout << "\t\t - Valor total del inventario: S/. " << fixed << setprecision(2) << valorTotalInventario << endl;
+    cout << "\n\n";
+
+    // --- Mostramos los Productos con Bajo Stock ---
+    cout << "\t\t=============================================" << endl;
+    cout << "\t\t Alerta de Productos con Bajo Stock (<= 20 u.)" << endl;
+    cout << "\t\t=============================================" << endl;
+
+    // Usamos tu método 'esVacia()'
+    if (productosBajoStock.esVacia()) {
+        cout << "\t\t>> Felicitaciones! No hay productos con bajo stock." << endl;
+    }
+    else {
+        cout << "\t\t" << left << setw(45) << "PRODUCTO" << "STOCK ACTUAL" << endl;
+        cout << "\t\t" << string(60, '-') << endl;
+
+        // Recorremos tu 'Lista' con un bucle for tradicional
+        for (int i = 0; i < productosBajoStock.getTam(); ++i) {
+            Categoria prod = productosBajoStock.getValor(i);
+            cout << "\t\t" << left << setw(45) << prod.getNombre().substr(0, 44)
+                << prod.getStock() << endl;
+        }
+    }
+
+    cout << endl;
+    system("pause>0");
+}
