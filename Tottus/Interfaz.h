@@ -20,7 +20,6 @@ SistemaUsuarios* sistemaUsuarios = new SistemaUsuarios();
 TottusGrafo tottus;
 ProveedoresGrafo proveedoresGrafo;
 
-
 void Tienda() {
 	SetBackgroundColor(Black);
 	system("cls");

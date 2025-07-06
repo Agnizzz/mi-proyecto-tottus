@@ -18,22 +18,79 @@ Lista<Categoria*>* productosSeleccionados = new Lista<Categoria*>();
 Cola<Boleta*> colaDePedidos;
 
 Categoria gestionarCategorias(bool modoSeleccion = false) {
-
+	SetBackgroundColor(Black);
 	system("cls");
-	cout << "\n\t\t\t------ CATEGORIAS ------" << endl;
-	int nCat = sizeof(categoriasPrincipales) / sizeof(categoriasPrincipales[0]);
-	for (int i = 0; i < nCat; ++i) {
-		cout << "\t\t\t" << (i + 1) << ". " << categoriasPrincipales[i] << endl;
-	}
-	cout << "\n\t\t\t0. Salir\n";
-	cout << "\n\t\t\tSeleccione una opcion: ";
-	int opcion;
-	cin >> opcion;
 
-	switch (opcion) {
-	case 0:
+	// Variables para la navegación
+	int seleccion = 0;
+	int nCat = numCategoriasPrincipales; // Usar la constante definida
+	int maxSeleccion = nCat + 1; // ✅ CAMBIO: +1 para incluir la opción "Salir"
+	AccionTecla accion = NINGUNA;
+	int opcion = -1; // Inicializamos a -1 para indicar que no se ha seleccionado nada
+
+	while (true) {
+		// Limpiar pantalla para evitar parpadeos
 		system("cls");
-		break;
+
+		// Mostrar título centrado
+		SetForegroundColor(Green);
+		string titulo = "====== LISTA DE PRODUCTOS ======";
+		int anchoConsola = GetConsoleWidth();
+		int posicionCentrada = (anchoConsola - titulo.length()) / 2;
+		SetCursorPosition(posicionCentrada, 2);
+		cout << titulo << endl;
+
+		// Mostrar las opciones de categorías con la selección actual resaltada
+		SetForegroundColor(BrightWhite);
+		for (int i = 0; i < nCat; ++i) {
+			SetCursorPosition(24, 6 + i);
+			if (seleccion == i) {
+				setColor(0, 15); // Fondo blanco, texto negro para la selección
+				cout << "> - " << categoriasPrincipales[i] << " <";
+				setColor(15, 0); // Volver a colores normales
+			}
+			else {
+				cout << "  - " << categoriasPrincipales[i] << "  ";
+			}
+		}
+
+		// Mostrar opción de salir
+		SetCursorPosition(24, 6 + nCat + 2);
+		if (seleccion == nCat) {
+			setColor(0, 15);
+			cout << "> - Volver al Menu Anterior <";
+			setColor(15, 0);
+		}
+		else {
+			cout << "  - Volver al Menu Anterior  ";
+		}
+
+		// Esperar entrada del usuario
+		accion = navegarConFlechas(seleccion, maxSeleccion);
+
+		// Si el usuario selecciona una opción o cancela
+		if (accion == SELECCIONAR) {
+			if (seleccion == nCat) { // Si seleccionó "Volver al Menu Anterior"
+				SetCursorPosition(24, 9 + nCat + 2);
+				cout << "VOLVIENDO AL MENU ANTERIOR...";
+				Sleep(500);
+				system("cls");
+				return Categoria(); // Salir inmediatamente sin procesar nada más
+			}
+			else {
+				opcion = seleccion + 1; // Las opciones van de 1 a n
+				break; // Salir del bucle para procesar la opción
+			}
+		}
+		else if (accion == CANCELAR) {
+			SetCursorPosition(24, 9 + nCat + 2);
+			cout << "VOLVIENDO AL MENU ANTERIOR...";
+			Sleep(500);
+			system("cls");
+			return Categoria(); // Si cancela, también salir inmediatamente
+		}
+	}
+	switch (opcion) {
 	case 1: { // Abarrotes
 		system("cls");
 		int nSub = sizeof(subcategoriasAbarrotes) / sizeof(subcategoriasAbarrotes[0]);
@@ -47,22 +104,86 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 		cin >> subopcion;
 		if (subopcion == 1) { // Arroz
 			system("cls");
+
+			// Variables para la navegación de subcategorías terciarias
+			int seleccionTerciaria = 0;
 			int nTer = sizeof(terciariasArroz) / sizeof(terciariasArroz[0]);
-			cout << "\n\t\t\t-- " << subcategoriasAbarrotes[0] << " --" << endl;
-			for (int i = 0; i < nTer; ++i) {
-				cout << "\t\t\t" << (i + 1) << ". " << terciariasArroz[i] << endl;
+			int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opción "Salir"
+			AccionTecla accionTerciaria = NINGUNA;
+			int tercopcion = -1;
+
+			while (true) {
+				// Limpiar pantalla
+				system("cls");
+
+				// Mostrar título centrado para subcategoría
+				SetForegroundColor(Green);
+				// Convertir a mayúsculas
+				string subcategoria = string(subcategoriasAbarrotes[0]);
+				transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+				string tituloArroz = "====== " + subcategoria + " ======";
+				int anchoConsola = GetConsoleWidth();
+				int posicionCentradaArroz = (anchoConsola - tituloArroz.length()) / 2;
+				SetCursorPosition(posicionCentradaArroz, 2);
+				cout << tituloArroz << endl;
+
+				// Mostrar las opciones terciarias con navegación
+				SetForegroundColor(BrightWhite);
+				for (int i = 0; i < nTer; ++i) {
+					SetCursorPosition(24, 6 + i);
+					if (seleccionTerciaria == i) {
+						setColor(0, 15); // Fondo blanco, texto negro para la selección
+						cout << "> - " << terciariasArroz[i] << " <";
+						setColor(15, 0); // Volver a colores normales
+					}
+					else {
+						cout << "  - " << terciariasArroz[i] << "  ";
+					}
+				}
+
+				// Mostrar opción de salir
+				SetCursorPosition(24, 6 + nTer + 2);
+				if (seleccionTerciaria == nTer) {
+					setColor(0, 15);
+					cout << "> - Volver al Menu Anterior <";
+					setColor(15, 0);
+				}
+				else {
+					cout << "  - Volver al Menu Anterior  ";
+				}
+
+				// Esperar entrada del usuario
+				accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+				// Si el usuario selecciona una opción o cancela
+				if (accionTerciaria == SELECCIONAR) {
+					if (seleccionTerciaria == nTer) { // Si seleccionó "Volver al Menu Anterior"
+						SetCursorPosition(24, 9 + nTer + 2);
+						cout << "VOLVIENDO AL MENU ANTERIOR...";
+						Sleep(500);
+						system("cls");
+						break; // Salir del bucle de subcategorías
+					}
+					else {
+						tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+						break; // Salir del bucle para procesar la opción
+					}
+				}
+				else if (accionTerciaria == CANCELAR) {
+					SetCursorPosition(24, 9 + nTer + 2);
+					cout << "VOLVIENDO AL MENU ANTERIOR...";
+					Sleep(500);
+					system("cls");
+					break; // Si cancela, también salir
+				}
 			}
-			cout << "\n\t\t\t0. Salir\n";
-			cout << "\n\t\t\tSeleccione una opcion: ";
-			int tercopcion;
-			cin >> tercopcion;
 
 			if (tercopcion > 0 && tercopcion <= nTer) {
 				system("cls");
 				string nombreTerciaria = terciariasArroz[tercopcion - 1];
 				cout << "\n\t\t\t-- Productos de Arroz " << nombreTerciaria << " --" << endl;
 				try {
-					 Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Arroz", nombreTerciaria);
+					Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Arroz", nombreTerciaria);
 
 					if (modoSeleccion) {
 						int idx = seleccionarProductoEnTabla(productos);
@@ -111,9 +232,6 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 					cout << "\t\t\tNo hay productos en esta categoría." << endl;
 					system("pause>0");
 				}
-			}
-			else if (tercopcion == 0) {
-				system("cls");
 			}
 		}
 		else if (subopcion == 2) { // Conservas

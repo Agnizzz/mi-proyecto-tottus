@@ -348,54 +348,114 @@ void procesarPedidos() {
 
 //funcion para gestionar las categorias
 void gestionarCategoriasAdminCase0() {
-    system("cls");
-    cout << "\n\n\t\t\t------ GESTION CATEGORIAS ------" << endl;
-    int opcion;
-    cout << "\n\t\t\t1. Ver productos\n";
-    cout << "\n\t\t\t2. Agregar producto\n";
-    cout << "\n\t\t\t3. Editar producto\n";
-    cout << "\n\t\t\t4. Eliminar producto\n";
-    cout << "\n\t\t\t5. Buscar Producto\n"; // <-- NUEVA OPCIÓN
-    //cout << "\n\t\t\t6. Revisar Ventas del Dia (Nuevo)\n"; //Nuevo
-    //cout << "\n\t\t\t7. Procesar Pedidos Pendientes (Nuevo)\n"; // <-- NUEVA OPCIÓN
-    cout << "\n\t\t\t0. Regresar al menu principal\n";
-    cout << "\n\t\t\tSeleccione una opcion: ";
-    cin >> opcion;
-    switch (opcion) {
-    case 1:
-        gestionarCategorias();
-        break;
-    case 2:
-        agregarProductoInteractivo(); // <-- MODIFICADO PARA AGREGAR PRODUCTO
-        break;
-    case 3:
-        // Lógica para editar categoría
-        editarProductoPorID(); // <-- MODIFICADO PARA EDITAR PRODUCTO
-        break;
-    case 4:
-        // Lógica para eliminar categoría
-        eliminarProductoPorID(); // <-- MODIFICADO PARA ELIMINAR PRODUCTO
-        break;
-    case 5: // <-- NUEVO CASE
-        buscarProductoAdmin();
-        break;
-        //case 6: // <-- NUEVO CASE
-        //    revisarVentasDelDia(); // Nuevo este es para revisar las ventas del día
-        //    break;
-        //case 7: // <-- NUEVO CASE
-        //    procesarPedidos(); // Nuevo este es para procesar pedidos pendientes
-        //    break;
-    case 0:
-        system("cls");
-        return; // Salir del menú de gestión de categorías
-        break;
-    default:
-        cout << "\t\t\tOpcion invalida. Presione una tecla para continuar...";
-        system("pause>0");
-        system("cls");
-    }
+	SetBackgroundColor(Black);
+	system("cls");
+	while (true) {
+		// Variables para la navegación del menú
+		int seleccion = 0;
+		int maxSeleccion = 6; // 6 opciones, de 0 a 5
+		AccionTecla accion = NINGUNA;
 
+		// Obtener ancho de la consola para centrado
+		int ancho = GetConsoleWidth();
+
+		// Encabezado centrado
+		SetForegroundColor(Green);
+		string titulo = "====== GESTION DE PRODUCTOS ======";
+		int posX = (ancho - titulo.length()) / 2;
+		SetCursorPosition(posX, 2);
+		cout << titulo << endl;
+		SetForegroundColor(BrightWhite);
+
+		// Ciclo de navegación del menú
+		while (true) {
+			// Reiniciar acción
+			accion = NINGUNA;
+
+			// Limpiar área de menú
+			for (int i = 5; i < 20; i++) {
+				SetCursorPosition(0, i);
+				cout << string(ancho, ' ');
+			}
+
+			// Mostrar opciones de menú centradas
+			SetForegroundColor(BrightWhite);
+
+			string opciones[] = {
+				"Agregar Nuevo Producto",
+				"Modificar Producto",
+				"Eliminar Producto",
+				"Buscar Producto",
+				"Listar Todos los Productos",
+				"Volver al Menu Anterior"
+			};
+
+			// Calcular la posición más ancha para centrado uniforme
+			int maxLength = 0;
+			for (int i = 0; i < 6; i++) {
+				if (opciones[i].length() > maxLength) {
+					maxLength = opciones[i].length();
+				}
+			}
+
+			// Añadir espacio para los caracteres de selección
+			maxLength += 6; // Para "> - " y " <"
+
+			for (int i = 0; i < 6; i++) {
+				int posY = 6 + (i * 3);
+				posX = (ancho - maxLength) / 2;
+
+				SetCursorPosition(posX, posY);
+				if (seleccion == i) {
+					setColor(0, 15); // Fondo blanco, texto negro
+					cout << "> - " << opciones[i] << " <";
+					setColor(15, 0); // Volver a colores normales
+				}
+				else {
+					cout << "  - " << opciones[i] << "  ";
+				}
+			}
+
+			// Esperar por la entrada del usuario
+			accion = navegarConFlechas(seleccion, maxSeleccion);
+
+			// Si el usuario selecciona una opción
+			if (accion == SELECCIONAR || accion == CANCELAR) {
+				break;
+			}
+		}
+
+		// Procesar la selección
+		switch (seleccion) {
+		case 0: // Agregar Nuevo Producto
+			agregarProductoInteractivo();
+			system("cls");
+			break;
+		case 1: // Modificar Producto
+			editarProductoPorID();
+			system("cls");
+			break;
+		case 2: // Eliminar Producto
+			eliminarProductoPorID();
+			system("cls");
+			break;
+		case 3: // Buscar Producto
+			buscarProductoAdmin();
+			system("cls");
+			break;
+		case 4: // Listar Todos los Productos
+			gestionarCategorias();
+			system("cls");
+			break;
+		case 5: // Volver al menú anterior
+			SetCursorPosition((ancho - 30) / 2, 24);
+			cout << "VOLVIENDO AL MENU ANTERIOR...";
+			Sleep(500);
+			return;
+		}
+	}
 }
+
 //funcion para ver un reporte de los productos mas vendidos
 void verProductosMasVendidos() {
     system("cls");
