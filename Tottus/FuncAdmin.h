@@ -613,16 +613,20 @@ void ManejoUsuariosDeAdmin() {
     }
 }
 void inicializarOfertasDeProductos() {
-    // Si no se cargaron ofertas del archivo, no hacemos nada.
     if (ofertasPosibles.empty()) return;
 
-    // Recorremos todo el catálogo y asignamos una oferta aleatoria a cada producto.
     for (auto& parPrincipal : catalogo.getProductos()) {
         for (auto& parSecundaria : parPrincipal.second) {
             for (auto& parTerciaria : parSecundaria.second) {
                 Lista<Categoria>& listaProds = parTerciaria.second;
                 for (int i = 0; i < listaProds.getTam(); ++i) {
-                    asignarOfertaAleatoria(listaProds.getValor(i));
+                    // Reinicia la oferta antes de asignar una nueva
+                    Categoria& prod = listaProds.getValor(i);
+                    prod.setOferta("");
+                    prod.setPrecioDescuento(0.0);
+
+                    // Ahora asigna una nueva aleatoria
+                    asignarOfertaAleatoria(prod);
                 }
             }
         }

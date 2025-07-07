@@ -140,6 +140,7 @@ void Tienda() {
 		case 2: { // Ver Promociones Vigentes
 			// Muestra una lista de las ofertas activas. Al seleccionar una, puede que se listen los productos participantes, permitiendo al cliente agregarlos al carrito desde allí.
 			// Tu código aquí
+			//inicializarOfertasDeProductos();
 			verPromocionesVigentes();
 			system("cls");
 			break;

@@ -24,11 +24,15 @@ private:
 
 public:
     //OJOOOOOO
-    Catalogo() { 
+    Catalogo() {
         arbolDeProductos = new ArbolBinarioBusqueda<Categoria>();//CAMBIOS EL 06/07/2025 7:00 AMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        cargarDesdeArchivo("producto.txt"); }
+        cargarDesdeArchivo("producto.txt");
+       
+    }
     //DESTRUCTOR
     //CAMBIOS EL 06/07/2025 7:00 AM
+
+    
     ~Catalogo() {
         // Liberamos la memoria en el destructor
         delete arbolDeProductos;
@@ -155,4 +159,5 @@ public:
     ArbolBinarioBusqueda<Categoria>* getArbolProductos() {
         return arbolDeProductos; // El nombre aquí debe coincidir con el de arriba
     }
+   
 };

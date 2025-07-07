@@ -162,7 +162,7 @@ void mostrarTablaProductos(const Lista<Categoria>& productos) {
 				<< setw(45) << nombreMostrar
 				<< setw(12) << prod.getUnidadMedida().substr(0, 11)
 				<< setw(12) << precioStr.str()<<
-				setw(10) << prod.getOferta().substr(0, 9)
+				 setw(10) << prod.getOferta().substr(0, 9)
 				<< setw(9) << prod.getStock();
 
 			// Rellenar el resto de la línea con el color de fondo actual
@@ -256,8 +256,8 @@ int seleccionarProductoEnTabla(const Lista<Categoria>& productos) {
 				<< setw(15) << prod.getID().substr(0, 14)
 				<< setw(45) << nombreMostrar
 				<< setw(12) << prod.getUnidadMedida().substr(0, 11)
-				<< setw(12) << precioStr.str()
-				<< setw(12) << ""  // Columna Oferta vacía
+				<< setw(12) << precioStr.str()<<
+				setw(10) << prod.getOferta().substr(0, 9)
 				<< setw(9) << prod.getStock();
 
 			// Rellenar el resto de la línea con el color de fondo actual

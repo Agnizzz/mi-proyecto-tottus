@@ -11,7 +11,6 @@ vector<string> ofertasPosibles;
 
 // La función para asignar ofertas no cambia, pero la dejamos aquí.
 inline void asignarOfertaAleatoria(Categoria& producto) {
-
     if (ofertasPosibles.empty()) return;
 
     int indiceOferta = rand() % ofertasPosibles.size();
