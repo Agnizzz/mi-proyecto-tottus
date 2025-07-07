@@ -12,7 +12,7 @@
 //SE HIZO CAMBIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOS
 
 using namespace std;
-
+bool ofertasAplicadas = false;
 extern Lista<Boleta*> listaBoletas;
 
 // Árboles para indexar productos por diferentes atributos.
@@ -612,7 +612,6 @@ void ManejoUsuariosDeAdmin() {
         }
     }
 }
-//nuevoooo x2222222
 void inicializarOfertasDeProductos() {
     // Si no se cargaron ofertas del archivo, no hacemos nada.
     if (ofertasPosibles.empty()) return;
@@ -633,8 +632,10 @@ void inicializarOfertasDeProductos() {
 void verPromocionesVigentes() {
     system("cls");
 
-    // Agrupamos los productos que tienen oferta por el tipo de oferta
-    map<string, Lista<Categoria>> productosPorOferta;
+    inicializarOfertasDeProductos(); // Aplica ofertas aleatorias al entrar
+
+    // Reunimos todos los productos que tienen oferta
+    Lista<Categoria> productosConOferta;
     for (int i = 1; i <= numCategoriasPrincipales; ++i) {
         try {
             const auto& subMapa = catalogo.getPorIdPrincipal(i);
@@ -644,7 +645,7 @@ void verPromocionesVigentes() {
                     for (int j = 0; j < listaProds.getTam(); ++j) {
                         Categoria prod = listaProds.getValor(j);
                         if (!prod.getOferta().empty()) {
-                            productosPorOferta[prod.getOferta()].agregaFinal(prod);
+                            productosConOferta.agregaFinal(prod);
                         }
                     }
                 }
@@ -653,49 +654,17 @@ void verPromocionesVigentes() {
         catch (const out_of_range&) { continue; }
     }
 
-    if (productosPorOferta.empty()) {
+    if (productosConOferta.esVacia()) {
         cout << "\n\n\t\tNo hay promociones vigentes en este momento." << endl;
         system("pause>0");
         return;
     }
 
-    // Creamos un menú con los nombres de las promociones encontradas
-    vector<string> promos;
-    for (const auto& par : productosPorOferta) {
-        promos.push_back(par.first);
-    }
+    // Mostrar directamente la tabla con productos con oferta
+    int idxProducto = seleccionarProductoEnTabla(productosConOferta);
 
-    int seleccion = 0;
-    while (true) {
-        system("cls");
-        cout << "\n\t\t\t------ PROMOCIONES VIGENTES ------\n" << endl;
-        for (size_t i = 0; i < promos.size(); ++i) {
-            if (i == seleccion) setColor(0, 15); else setColor(15, 0);
-            cout << "\t\t\t" << (i + 1) << ". " << promos[i] << endl;
-        }
-        setColor(15, 0);
-        cout << "\n\t\t\t[Enter] Ver productos [ESC] Salir" << endl;
-
-        int key = _getch();
-        if (key == 27) return;
-        if (key == 13) break;
-        if (key == 224) {
-            key = _getch();
-            if (key == 72 && seleccion > 0) seleccion--;
-            if (key == 80 && seleccion < promos.size() - 1) seleccion++;
-        }
-    }
-
-    setColor(15, 0);
-    string promoSeleccionada = promos[seleccion];
-    Lista<Categoria>& listaDeLaOferta = productosPorOferta[promoSeleccionada];
-
-    // Llamamos a la tabla para mostrar los productos de esa oferta
-    int idxProducto = seleccionarProductoEnTabla(listaDeLaOferta);
-
-    // Lógica para agregar al carrito
     if (idxProducto != -1) {
-        Categoria& productoOriginal = listaDeLaOferta.getValor(idxProducto);
+        Categoria& productoOriginal = productosConOferta.getValor(idxProducto);
         int cantidad;
         cout << "\nIngrese la cantidad a comprar: ";
         cin >> cantidad;
@@ -745,7 +714,6 @@ void guardarPromociones() {
     }
     archivo.close();
 }
-//CREADO NUEVO
 void gestionarPromociones() {
     string opciones[] = { "Ver Promociones Actuales", "Crear Nueva Promocion", "Eliminar Promocion", "Volver" };
     int nOpciones = 4;
@@ -776,10 +744,17 @@ void gestionarPromociones() {
             }
             case 1: { // Crear
                 system("cls");
-                // Declaramos la variable 'nuevaPromo' aquí
                 string nuevaPromo;
                 cout << "\n\t\t--- CREAR NUEVA PROMOCION ---\n" << endl;
-                cout << "\t\tIngrese el nombre de la nueva promocion: ";
+
+                cout << "\t\tIngrese el nombre de la nueva promocion:\n";
+                cout << "\t\tFormato válido:\n";
+                cout << "\t\t - S/ 9.90   (descuento fijo de 9.90 soles)\n";
+                cout << "\t\t - 15% Dcto. (descuento porcentual del 15%)\n";
+                cout << "\t\t - 2x1       (descuento del 50% simulado)\n";
+                cout << "\t\t-------------------------------------------\n";
+                cout << "\t\t>> ";
+
                 cin.clear();
                 cin.ignore(10000, '\n');
                 getline(cin, nuevaPromo);
@@ -839,7 +814,6 @@ void gestionarPromociones() {
     }
 }
 
-// nuevooooooooooooooooooooo
 
 void generarReporteMasVendidos() {
     system("cls");

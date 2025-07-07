@@ -11,7 +11,7 @@ int main() {
 	srand(time(0)); // <--- AÑADE ESTA LÍNEA PARA SEMBRAR EL RANDOM NUEVA
 	cargarBoletasDesdeArchivo();
 	cargarPromociones();          //NUEVO
-	inicializarOfertasDeProductos(); //NUEVO
+	//inicializarOfertasDeProductos(); //NUEVO
 	SetConsoleSize(160, 41);
 	SetCursorVisible(false);
 
