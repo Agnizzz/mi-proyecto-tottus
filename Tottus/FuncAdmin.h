@@ -420,7 +420,7 @@ void gestionarCategoriasAdminCase0() {
 			accion = navegarConFlechas(seleccion, maxSeleccion);
 
 			// Si el usuario selecciona una opción
-			if (accion == SELECCIONAR || accion == CANCELAR) {
+			if (accion == SELECCIONAR) {
 				break;
 			}
 		}

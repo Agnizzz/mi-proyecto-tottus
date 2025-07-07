@@ -602,12 +602,12 @@
 1,Especias,Canela,Badia Canela en Polvo Envase,10.40,56.7 g
 1,Especias,Canela,Tottus Canela Molida,8,50 g
 
-1,Especias,Orégano,Tottus Orégano Entero,1.40,10 g
-1,Especias,Orégano,Sibarita Orégano Pack,2.20,6 UN
-1,Especias,Orégano,Karino Orégano Molido Kariño,3.30,15 g
-1,Especias,Orégano,Karino Orégano Entero Kariño,3.30,18 g 
-1,Especias,Orégano,Tottus Orégano Entero,5.30,10 g
-1,Especias,Orégano,Tottus Orégano Molido,5.20,35 g
+1,Especias,Oregano,Tottus Orégano Entero,1.40,10 g
+1,Especias,Oregano,Sibarita Orégano Pack,2.20,6 UN
+1,Especias,Oregano,Karino Orégano Molido Kariño,3.30,15 g
+1,Especias,Oregano,Karino Orégano Entero Kariño,3.30,18 g 
+1,Especias,Oregano,Tottus Orégano Entero,5.30,10 g
+1,Especias,Oregano,Tottus Orégano Molido,5.20,35 g
 
 1,Especias,Otras Especias,Badia Perejil,4.50,7 g
 1,Especias,Otras Especias,Sibarita Palillo Amarillo,2.40,57 g
@@ -623,29 +623,29 @@
 1,Especias,Pimienta,Tottus Pimienta Blanca Molida,8,60 g
 1,Especias,Pimienta,Karino Pimienta Negra Molida Kariño,5.10,18 g
 
-1,Puré Sopas y Bases,Bases,Provenzal Mezcla para Arroz con Pollo Seco y Aguadito Provenzal,9,58 g
+1,Pure Sopas y Bases,Bases,Provenzal Mezcla para Arroz con Pollo Seco y Aguadito Provenzal,9,58 g
 
-1,Puré Sopas y Bases,Cremas,Maggi Crema de Hongos Maggi,3.80,65 g
+1,Pure Sopas y Bases,Cremas,Maggi Crema de Hongos Maggi,3.80,65 g
 
-1,Puré Sopas y Bases,Mezclas para Apanar,Ajinomix Mezcla para Apanar Receta Apanado,2.70,96 g
-1,Puré Sopas y Bases,Mezclas para Apanar,Ajinomix Mezcla para Apanar Receta Crocante,2.70,96 g
-1,Puré Sopas y Bases,Mezclas para Apanar,Tottus Mezcla para Apanar,2.30,90 g
-1,Puré Sopas y Bases,Mezclas para Apanar,Maggi Mezcla Apanar Semola Harina Condimentado,2.50,80 g
-1,Puré Sopas y Bases,Mezclas para Apanar,Tottus Mezcla para Apanar Crocante,2.10,90 g
-1,Puré Sopas y Bases,Mezclas para Apanar,Ajinomix Mezcla Lista para Apanar Picante,2.70,80 g
+1,Pure Sopas y Bases,Mezclas para Apanar,Ajinomix Mezcla para Apanar Receta Apanado,2.70,96 g
+1,Pure Sopas y Bases,Mezclas para Apanar,Ajinomix Mezcla para Apanar Receta Crocante,2.70,96 g
+1,Pure Sopas y Bases,Mezclas para Apanar,Tottus Mezcla para Apanar,2.30,90 g
+1,Pure Sopas y Bases,Mezclas para Apanar,Maggi Mezcla Apanar Semola Harina Condimentado,2.50,80 g
+1,Pure Sopas y Bases,Mezclas para Apanar,Tottus Mezcla para Apanar Crocante,2.10,90 g
+1,Pure Sopas y Bases,Mezclas para Apanar,Ajinomix Mezcla Lista para Apanar Picante,2.70,80 g
 
-1,Puré Sopas y Bases,Purés,Knorr Puré de Papa,4.90,125 g
-1,Puré Sopas y Bases,Purés,Tottus Puré de Papas,4.20,125 g
-1,Puré Sopas y Bases,Purés,Tottus Puré de Papas Instantáneo,8.20,250 g
+1,Pure Sopas y Bases,Pures,Knorr Pure de Papa,4.90,125 g
+1,Pure Sopas y Bases,Pures,Tottus Pure de Papas,4.20,125 g
+1,Pure Sopas y Bases,Pures,Tottus Pure de Papas Instantáneo,8.20,250 g
 
-1,Puré Sopas y Bases,Salsas Tottus Salsa Peto en Polvo Tottus,2,30 g
+1,Pure Sopas y Bases,Salsas Tottus Salsa Peto en Polvo Tottus,2,30 g
 
-1,Puré Sopas y Bases,Sopas,Ajinomen Sopa Instantánea Sabor Pollo Verduras,2,80 g
-1,Puré Sopas y Bases,Sopas,Ajinomen Sopa Instantánea Sabor Gallina Picante,2,80 g
-1,Puré Sopas y Bases,Sopas,Ajinomen Sopa Instantánea Sabor Gallina,2,80 g
-1,Puré Sopas y Bases,Sopas,Ajinomen Sopa Instantánea Sabor Pollo,2,80 g,
-1,Puré Sopas y Bases,Sopas,Ajinomen Sopa Instantánea Sabor Carne Oriental,2,80 g
-1,Puré Sopas y Bases,Sopas,Ajinomen Sopa Instantánea Sabor Gallina Criolla,2,80 g
+1,Pure Sopas y Bases,Sopas,Ajinomen Sopa Instantanea Sabor Pollo Verduras,2,80 g
+1,Pure Sopas y Bases,Sopas,Ajinomen Sopa Instantanea Sabor Gallina Picante,2,80 g
+1,Pure Sopas y Bases,Sopas,Ajinomen Sopa Instantanea Sabor Gallina,2,80 g
+1,Pure Sopas y Bases,Sopas,Ajinomen Sopa Instantanea Sabor Pollo,2,80 g,
+1,Pure Sopas y Bases,Sopas,Ajinomen Sopa Instantanea Sabor Carne Oriental,2,80 g
+1,Pure Sopas y Bases,Sopas,Ajinomen Sopa Instantanea Sabor Gallina Criolla,2,80 g
 
 1,Harina,Especiales,Tottus Harina Integral,8.20,1 kg
 1,Harina,Especiales,Nuestra Salud Harina Maca y Lúcuma,20.90,200 g
@@ -662,106 +662,106 @@
 1,Harina,Sin Preparar,Gatti Harina de Ajonjolí,10,250 g
 1,Harina,Sin Preparar,Renacer Harina de Quinua,33.90,500 g
 
-2,Panadería,Kekes Turrones y King Kongs,Tottus Keke de Plátano Rectangular,9.90,430 g
-2,Panadería,Kekes Turrones y King Kongs,Tottus Keke de Naranja Rectangular,9.90,430 g
-2,Panadería,Kekes Turrones y King Kongs,Tottus Keke Marmoleado Rectangular,9.90,430 g 
-2,Panadería,Kekes Turrones y King Kongs,Bimbo Keke Familiar Naranja,9.90,380 g
-2,Panadería,Kekes Turrones y King Kongs,Tottus Keke de Plátano Redondo, 16.90,900 g 
-2,Panadería,Kekes Turrones y King Kongs,Marinela Pingüinos Cookies and Cream,3.50,80 g
-2,Panadería,Kekes Turrones y King Kongs,Marinela Pingüinos Triple Chocolate 2P,3.50,80 g  
-2,Panadería,Kekes Turrones y King Kongs,Bimbo Little Bites Blueberry Cj 10P,8.90,130 g
-2,Panadería,Kekes Turrones y King Kongs,Bimbo Little Bites Brownie Cj 10P,8.90,130 g 
-2,Panadería,Kekes Turrones y King Kongs,Bimbo Bimboletes Marmoleado Bolsa 3P,3.30,105 g 
-2,Panadería,Kekes Turrones y King Kongs,Bimbo Bimboletes Vainilla Bolsa 3P,3.30,105 g
-2,Panadería,Kekes Turrones y King Kongs,Tottus Keke Marmoleado Redondo,16.90,850 g 
-2,Panadería,Kekes Turrones y King Kongs,Tottus Keke con Zanahoria y Frosting,15.90,470 g 
-2,Panadería,Kekes Turrones y King Kongs,Tottus Keke de Naranja Redondo,16.90,850 g
-2,Panadería,Kekes Turrones y King Kongs,Bimbo Mini Pingüino Marinela 10 Unidades,10.90,200 g 
-2,Panadería,Kekes Turrones y King Kongs,Bimbo Bites Chipa Choco Cj 10P,8.90,130 g 
-2,Panadería,Kekes Turrones y King Kongs,Tottus Chifon Sabor a Naranja,21.90,850 g 
-2,Panadería,Kekes Turrones y King Kongs,Tottus Keke Marmoleado,8.90,380 g
-2,Panadería,Kekes Turrones y King Kongs,Tottus Turrón Doña Pepa,21.90,1 kg
-2,Panadería,Kekes Turrones y King Kongs,Marinela Minix Gansito 8P,10.90,240 g
-2,Panadería,Kekes Turrones y King Kongs,Marinela Minix Pingüino Triple Chocolate 10P,10.90,200 g
-2,Panadería,Kekes Turrones y King Kongs,Tottus Turrón Doña Pepa,11.90,500 g
-2,Panadería,Kekes Turrones y King Kongs,Tottus Turrón de Doña Pepa,11.90,500 g
-2,Panadería,Kekes Turrones y King Kongs,San Roque King Kong Manjar,6.00,75 g
-2,Panadería,Kekes Turrones y King Kongs,Marinela Minix Pingüino Cookies and Cream,10.90,200 g 
-2,Panadería,Kekes Turrones y King Kongs,San Roque Barra King Kong Manjar Blanco,21.00,230 g
-2,Panadería,Kekes Turrones y King Kongs,San Jose Turrón San José Empaque,33.90,1 Kg 
-2,Panadería,Kekes Turrones y King Kongs,
-2,Panadería,Kekes Turrones y King Kongs,Marinela Pingüino,3.50,80 g
-2,Panadería,Kekes Turrones y King Kongs,San Roque King Kong Manjarblanco,28.50,450 g
-2,Panadería,Kekes Turrones y King Kongs,Tottus Keke de Vainilla,9.90,430 g
-2,Panadería,Kekes Turrones y King Kongs,Bimbo Kekitos Sabor Vainilla Pyc,3.00,90 g
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Keke de Plátano Rectangular,9.90,430 g
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Keke de Naranja Rectangular,9.90,430 g
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Keke Marmoleado Rectangular,9.90,430 g 
+2,Panaderia,Kekes Turrones y King Kongs,Bimbo Keke Familiar Naranja,9.90,380 g
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Keke de Plátano Redondo, 16.90,900 g 
+2,Panaderia,Kekes Turrones y King Kongs,Marinela Pingüinos Cookies and Cream,3.50,80 g
+2,Panaderia,Kekes Turrones y King Kongs,Marinela Pingüinos Triple Chocolate 2P,3.50,80 g  
+2,Panaderia,Kekes Turrones y King Kongs,Bimbo Little Bites Blueberry Cj 10P,8.90,130 g
+2,Panaderia,Kekes Turrones y King Kongs,Bimbo Little Bites Brownie Cj 10P,8.90,130 g 
+2,Panaderia,Kekes Turrones y King Kongs,Bimbo Bimboletes Marmoleado Bolsa 3P,3.30,105 g 
+2,Panaderia,Kekes Turrones y King Kongs,Bimbo Bimboletes Vainilla Bolsa 3P,3.30,105 g
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Keke Marmoleado Redondo,16.90,850 g 
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Keke con Zanahoria y Frosting,15.90,470 g 
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Keke de Naranja Redondo,16.90,850 g
+2,Panaderia,Kekes Turrones y King Kongs,Bimbo Mini Pingüino Marinela 10 Unidades,10.90,200 g 
+2,Panaderia,Kekes Turrones y King Kongs,Bimbo Bites Chipa Choco Cj 10P,8.90,130 g 
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Chifon Sabor a Naranja,21.90,850 g 
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Keke Marmoleado,8.90,380 g
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Turrón Doña Pepa,21.90,1 kg
+2,Panaderia,Kekes Turrones y King Kongs,Marinela Minix Gansito 8P,10.90,240 g
+2,Panaderia,Kekes Turrones y King Kongs,Marinela Minix Pingüino Triple Chocolate 10P,10.90,200 g
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Turrón Doña Pepa,11.90,500 g
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Turrón de Doña Pepa,11.90,500 g
+2,Panaderia,Kekes Turrones y King Kongs,San Roque King Kong Manjar,6.00,75 g
+2,Panaderia,Kekes Turrones y King Kongs,Marinela Minix Pingüino Cookies and Cream,10.90,200 g 
+2,Panaderia,Kekes Turrones y King Kongs,San Roque Barra King Kong Manjar Blanco,21.00,230 g
+2,Panaderia,Kekes Turrones y King Kongs,San Jose Turrón San José Empaque,33.90,1 Kg 
+2,Panaderia,Kekes Turrones y King Kongs,
+2,Panaderia,Kekes Turrones y King Kongs,Marinela Pingüino,3.50,80 g
+2,Panaderia,Kekes Turrones y King Kongs,San Roque King Kong Manjarblanco,28.50,450 g
+2,Panaderia,Kekes Turrones y King Kongs,Tottus Keke de Vainilla,9.90,430 g
+2,Panaderia,Kekes Turrones y King Kongs,Bimbo Kekitos Sabor Vainilla Pyc,3.00,90 g
 
-2,Panadería,Pan Árabe y Pita,Bimbo Pan Pita Integral 10 unidades,6.00,300 g
-2,Panadería,Pan Árabe y Pita,Bimbo Pan Pita Blanco,7.50,300 g 
-2,Panadería,Pan Árabe y Pita,El Cedro Pan Árabe Integral,7.40,10 UN
-2,Panadería,Pan Árabe y Pita,Bimbo Pan Pita Linaza 10 Unidades,6.00,300 g
-2,Panadería,Pan Árabe y Pita,El Cedro Pan Árabe Blanco ,7.40,10 UN
-2,Panadería,Pan Árabe y Pita,Pan Árabe con Salvado de Trigo,4.00,5 UN 
-2,Panadería,Pan Árabe y Pita,El Cedro Tortilla Artesanal Clásica,8.50,12 Unidades
-2,Panadería,Pan Árabe y Pita,El Cedro Pan Árabe Sash,5.30,200 g
-2,Panadería,Pan Árabe y Pita,El Cedro Pan Árabe Sash con Salvado de Trigo,5.30,200 g
-2,Panadería,Pan Árabe y Pita,Don Paulino Pan Dulce Día de la Madre,8.50,1 UN
-2,Panadería,Pan Árabe y Pita,El Cedro Arabe Blanco,4.00,5 UN
+2,Panaderia,Pan Arabe y Pita,Bimbo Pan Pita Integral 10 unidades,6.00,300 g
+2,Panaderia,Pan Arabe y Pita,Bimbo Pan Pita Blanco,7.50,300 g 
+2,Panaderia,Pan Arabe y Pita,El Cedro Pan Árabe Integral,7.40,10 UN
+2,Panaderia,Pan Arabe y Pita,Bimbo Pan Pita Linaza 10 Unidades,6.00,300 g
+2,Panaderia,Pan Arabe y Pita,El Cedro Pan Árabe Blanco ,7.40,10 UN
+2,Panaderia,Pan Arabe y Pita,Pan Árabe con Salvado de Trigo,4.00,5 UN 
+2,Panaderia,Pan Arabe y Pita,El Cedro Tortilla Artesanal Clásica,8.50,12 Unidades
+2,Panaderia,Pan Arabe y Pita,El Cedro Pan Árabe Sash,5.30,200 g
+2,Panaderia,Pan Arabe y Pita,El Cedro Pan Árabe Sash con Salvado de Trigo,5.30,200 g
+2,Panaderia,Pan Arabe y Pita,Don Paulino Pan Dulce Día de la Madre,8.50,1 UN
+2,Panaderia,Pan Arabe y Pita,El Cedro Arabe Blanco,4.00,5 UN
 
-2,Panadería,Pan de Molde Blanco,Bimbo Pan de Molde Blanco XL,12.90,770 g
-2,Panadería,Pan de Molde Blanco,Bimbo Pan de Molde Artesano Blanco,11.90,560 g
-2,Panadería,Pan de Molde Blanco,Bimbo Pan de Molde Pan de Molde Blanco Sin Bordes,16.00,650 g
-2,Panadería,Pan de Molde Blanco,Tottus Pan Molde Blanco Sin Corteza,12.90,560 g
-2,Panadería,Pan de Molde Blanco,Don Mamino Pan de Molde Blanco sin Corteza,13.50,560 g 
-2,Panadería,Pan de Molde Blanco,Tottus Pan Molde Blanco,7.60,480 g
-2,Panadería,Pan de Molde Blanco,Bibo Pan de Molde Blanco Familiar,10.50,590 g
-2,Panadería,Pan de Molde Blanco,Tottus Pan Molde Blanco,10.90,750 g
-2,Panadería,Pan de Molde Blanco,Union America Sandwich Unión,9.50,400 g
-2,Panadería,Pan de Molde Blanco,Bimbo Pan de Molde Vital con Semillas,14.90,600 g
+2,Panaderia,Pan de Molde Blanco,Bimbo Pan de Molde Blanco XL,12.90,770 g
+2,Panaderia,Pan de Molde Blanco,Bimbo Pan de Molde Artesano Blanco,11.90,560 g
+2,Panaderia,Pan de Molde Blanco,Bimbo Pan de Molde Pan de Molde Blanco Sin Bordes,16.00,650 g
+2,Panaderia,Pan de Molde Blanco,Tottus Pan Molde Blanco Sin Corteza,12.90,560 g
+2,Panaderia,Pan de Molde Blanco,Don Mamino Pan de Molde Blanco sin Corteza,13.50,560 g 
+2,Panaderia,Pan de Molde Blanco,Tottus Pan Molde Blanco,7.60,480 g
+2,Panaderia,Pan de Molde Blanco,Bibo Pan de Molde Blanco Familiar,10.50,590 g
+2,Panaderia,Pan de Molde Blanco,Tottus Pan Molde Blanco,10.90,750 g
+2,Panaderia,Pan de Molde Blanco,Union America Sandwich Unión,9.50,400 g
+2,Panaderia,Pan de Molde Blanco,Bimbo Pan de Molde Vital con Semillas,14.90,600 g
 
 
-2,Panadería,Pan de Molde Integral,Bimbo Pan de Molde Multicereal Vital con Chía y Linaza,8,90,360 g
-2,Panadería,Pan de Molde Integral,Union Pan Multisemillas Avena Unión,11.40,540 g
-2,Panadería,Pan de Molde Integral,Bimbo Pan de Molde Vital Integral Multicereal con Chía y Linaza,14.90,600 g
-2,Panadería,Pan de Molde Integral,Bimbo Pan de Molde Semillas Vital,10.50,360 g
-2,Panadería,Pan de Molde Integral,Bimbo Pan de Molde Artesano Integral,11.90,560 g
-2,Panadería,Pan de Molde Integral,Bimbo Pan de Molde Integral Cerocero,12.00,650 g
-2,Panadería,Pan de Molde Integral,Union Pan con Granos Integrales Unión,11.40,540 g
-2,Panadería,Pan de Molde Integral,Bimbo Pan de Molde Integral XL,12.90,810 g
-2,Panadería,Pan de Molde Integral,Don Mamino Pan de Molde Salvado de Trigo,13.50,560 g 
+2,Panaderia,Pan de Molde Integral,Bimbo Pan de Molde Multicereal Vital con Chía y Linaza,8,90,360 g
+2,Panaderia,Pan de Molde Integral,Union Pan Multisemillas Avena Unión,11.40,540 g
+2,Panaderia,Pan de Molde Integral,Bimbo Pan de Molde Vital Integral Multicereal con Chía y Linaza,14.90,600 g
+2,Panaderia,Pan de Molde Integral,Bimbo Pan de Molde Semillas Vital,10.50,360 g
+2,Panaderia,Pan de Molde Integral,Bimbo Pan de Molde Artesano Integral,11.90,560 g
+2,Panaderia,Pan de Molde Integral,Bimbo Pan de Molde Integral Cerocero,12.00,650 g
+2,Panaderia,Pan de Molde Integral,Union Pan con Granos Integrales Unión,11.40,540 g
+2,Panaderia,Pan de Molde Integral,Bimbo Pan de Molde Integral XL,12.90,810 g
+2,Panaderia,Pan de Molde Integral,Don Mamino Pan de Molde Salvado de Trigo,13.50,560 g 
 
-2,Panadería,Pan Hamburguesa y HotDog,Bimbo Pan Hamburguesa Brioche Artesano 4P,9.00,360 g
-2,Panadería,Pan Hamburguesa y HotDog,Don Mamino Cachito de Mantequilla,9.50,6 Unidades
-2,Panadería,Pan Hamburguesa y HotDog,Don Mamino Pan Hamburguesa Brioche,11.90,600 g
-2,Panadería,Pan Hamburguesa y HotDog,Tottus Enrollado Hot Dog,2.90,1 Unidad
-2,Panadería,Pan Hamburguesa y HotDog,Don Mamino Pan de Yema,7.90,6 Unidades
-2,Panadería,Pan Hamburguesa y HotDog,Tottus Pan Brioche la Panaderia,10.50,400 g
+2,Panaderia,Pan Hamburguesa y HotDog,Bimbo Pan Hamburguesa Brioche Artesano 4P,9.00,360 g
+2,Panaderia,Pan Hamburguesa y HotDog,Don Mamino Cachito de Mantequilla,9.50,6 Unidades
+2,Panaderia,Pan Hamburguesa y HotDog,Don Mamino Pan Hamburguesa Brioche,11.90,600 g
+2,Panaderia,Pan Hamburguesa y HotDog,Tottus Enrollado Hot Dog,2.90,1 Unidad
+2,Panaderia,Pan Hamburguesa y HotDog,Don Mamino Pan de Yema,7.90,6 Unidades
+2,Panaderia,Pan Hamburguesa y HotDog,Tottus Pan Brioche la Panaderia,10.50,400 g
 
-2,Panadería,Panetón,Tottus Panetoncito Chispas Chocolate,3.10,90 g
-2,Panadería,Panetón,Donofrio Bizcocho Chocotón Gota Chocol Bolsa,21.90,450 g
-2,Panadería,Panetón,Donofrio Bizcocho Chocotoncito Bolsa,3.90,80 g
-2,Panadería,Panetón,Tottus Panetón Chispas Chocolate,16.90,500 g
-2,Panadería,Panetón,Gloria Panetón Mini en Bolsa,3.90,80 g
-2,Panadería,Panetón,Tottus Panetoncito Tradicional,3.10,90 g
-2,Panadería,Panetón, Todino Panetón Cioccolato con Gota de Chocolate Caja,4.60,80 g
-2,Panadería,Panetón,Gloria Panetón Algarrobina,22.90,500 g
+2,Panaderia,Paneton,Tottus Panetoncito Chispas Chocolate,3.10,90 g
+2,Panaderia,Paneton,Donofrio Bizcocho Chocotón Gota Chocol Bolsa,21.90,450 g
+2,Panaderia,Paneton,Donofrio Bizcocho Chocotoncito Bolsa,3.90,80 g
+2,Panaderia,Paneton,Tottus Panetón Chispas Chocolate,16.90,500 g
+2,Panaderia,Paneton,Gloria Panetón Mini en Bolsa,3.90,80 g
+2,Panaderia,Paneton,Tottus Panetoncito Tradicional,3.10,90 g
+2,Panaderia,Paneton, Todino Panetón Cioccolato con Gota de Chocolate Caja,4.60,80 g
+2,Panaderia,Paneton,Gloria Panetón Algarrobina,22.90,500 g
 
-2,Panadería,Panqueques,Hungry Jack Pancake y Waffle Mix Buttermilk,23.90,907 g
-2,Panadería,Panqueques,Tottus Premezcla Torta Chocolate,9.90,500 g
+2,Panaderia,Panqueques,Hungry Jack Pancake y Waffle Mix Buttermilk,23.90,907 g
+2,Panaderia,Panqueques,Tottus Premezcla Torta Chocolate,9.90,500 g
 
-2,Panadería,Tostadas Crissines y Tortillas,Bimbo Tostadas Integrales,7.90,10 Unidades 
-2,Panadería,Tostadas Crissines y Tortillas,Bimbo Rapiditas Cero Cero,7.90,270 g
-2,Panadería,Tostadas Crissines y Tortillas,Bimbo Tostadas Clasicas,7.9,160 g
-2,Panadería,Tostadas Crissines y Tortillas,Bimbo Tortillas Rapiditas Clasicas,7.90,310 g
-2,Panadería,Tostadas Crissines y Tortillas,Bimbo Rapiditas Tortillas de Harina de Trigo Integral,7.90,12 Unidades
-2,Panadería,Tostadas Crissines y Tortillas,Pyc Tostadas Clásicas,6.70,118 g 
-2,Panadería,Tostadas Crissines y Tortillas,Bimbo Tostadas Cero Cero,7.90,140 g
-2,Panadería,Tostadas Crissines y Tortillas,Bimbo Rapiditas Tortilla de Harina de Trigo Wrap,7.90,6 Unidades
-2,Panadería,Tostadas Crissines y Tortillas,Tottus Tortillas de Trigo Medianas,4.80,8 Unidades
-2,Panadería,Tostadas Crissines y Tortillas,Bauducco Tostada Integral,7.90,142 g
-2,Panadería,Tostadas Crissines y Tortillas,Sanis Simo Galleta Saludable Salmas,10.40,144 g
-2,Panadería,Tostadas Crissines y Tortillas,Bimbo Pan Pita Integral Cero Cero,6.80,240 g
-2,Panadería,Tostadas Crissines y Tortillas,Bimbo Pan Molido,3.70,250 g
-2,Panadería,Tostadas Crissines y Tortillas,Union Tostadas Integrales Unión,10 Unidades,150 g
+2,Panaderia,Tostadas Crissines y Tortillas,Bimbo Tostadas Integrales,7.90,10 Unidades 
+2,Panaderia,Tostadas Crissines y Tortillas,Bimbo Rapiditas Cero Cero,7.90,270 g
+2,Panaderia,Tostadas Crissines y Tortillas,Bimbo Tostadas Clasicas,7.9,160 g
+2,Panaderia,Tostadas Crissines y Tortillas,Bimbo Tortillas Rapiditas Clasicas,7.90,310 g
+2,Panaderia,Tostadas Crissines y Tortillas,Bimbo Rapiditas Tortillas de Harina de Trigo Integral,7.90,12 Unidades
+2,Panaderia,Tostadas Crissines y Tortillas,Pyc Tostadas Clásicas,6.70,118 g 
+2,Panaderia,Tostadas Crissines y Tortillas,Bimbo Tostadas Cero Cero,7.90,140 g
+2,Panaderia,Tostadas Crissines y Tortillas,Bimbo Rapiditas Tortilla de Harina de Trigo Wrap,7.90,6 Unidades
+2,Panaderia,Tostadas Crissines y Tortillas,Tottus Tortillas de Trigo Medianas,4.80,8 Unidades
+2,Panaderia,Tostadas Crissines y Tortillas,Bauducco Tostada Integral,7.90,142 g
+2,Panaderia,Tostadas Crissines y Tortillas,Sanis Simo Galleta Saludable Salmas,10.40,144 g
+2,Panaderia,Tostadas Crissines y Tortillas,Bimbo Pan Pita Integral Cero Cero,6.80,240 g
+2,Panaderia,Tostadas Crissines y Tortillas,Bimbo Pan Molido,3.70,250 g
+2,Panaderia,Tostadas Crissines y Tortillas,Union Tostadas Integrales Unión,10 Unidades,150 g
 
 
 3,Leches,Crema de Leche,Laive Crema de Leche,6.70,236 ml
