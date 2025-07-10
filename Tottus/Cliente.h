@@ -1383,6 +1383,7 @@ void menuRegistroAdmin() {
 
 		case 6:
 			cout << "Saliendo del menu...\n";
+			system("cls");
 			break;
 
 		default:
