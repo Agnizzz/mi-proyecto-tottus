@@ -691,7 +691,6 @@ void generarBoleta() {
 		sistemaUsuarios->getUsuarioActual().apellido_paterno;
 	string dni = sistemaUsuarios->getUsuarioActual().DNI;
 
-	cout << "[DEBUG] Usuario actual: " << nombreCliente << " - DNI: " << dni << endl;
 
 	int numeroBoleta = generarNumeroBoletaUnico();
 	Boleta* nuevaBoleta = new Boleta(nombreCliente, dni, numeroBoleta);
@@ -728,10 +727,6 @@ void generarBoleta() {
 		copia->setPrecioDescuento(descuento);
 
 		nuevaBoleta->agregarProducto(copia);
-		cout << "[DEBUG] Producto agregado: " << copia->getNombre()
-			<< " - Cantidad: " << copia->getCantidad()
-			<< " - Precio Unitario: S/. " << copia->getPrecioUnitario()
-			<< " - Descuento: " << static_cast<int>(descuento * 100) << "%" << endl;
 	}
 
 	// Verificar si realmente se agregaron productos a la boleta
@@ -746,8 +741,6 @@ void generarBoleta() {
 	cout << "\n Mostrando boleta:\n";
 	nuevaBoleta->mostrarBoleta();
 
-	// ✅ CAMBIO PRINCIPAL: Insertar en HashTable (solo un parámetro)
-	cout << "[DEBUG] Insertando boleta con DNI: " << dni << endl;
 	tablaBoletas.insertar(nuevaBoleta);  // ⬅️ SOLO UN PARÁMETRO AHORA
 	nuevaBoleta->guardarBoletaEnArchivo();
 
