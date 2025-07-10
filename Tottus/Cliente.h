@@ -992,6 +992,7 @@ void generarProductosDePrueba(Lista<Categoria*>& productos) {
 }
 
 void procesarCompra() {
+	system("cls");
 	// 1. VERIFICAR SI EL CARRITO ESTÁ VACÍO
 	if (productosSeleccionados->esVacia()) {
 		std::cout << "El carrito está vacío. No se puede procesar la compra.\n";
@@ -1018,6 +1019,7 @@ void procesarCompra() {
 	// 3. PEDIR CONFIRMACIÓN FINAL
 	char confirmar;
 	do {
+		system("cls"); // Limpia la pantalla para mostrar el resumen
 		std::cout << "¿Confirma la compra? (S/N): ";
 		std::cin >> confirmar;
 		confirmar = tolower(confirmar);
@@ -1034,6 +1036,7 @@ void procesarCompra() {
 	// 4. SIMULAR ELECCIÓN DE MÉTODO DE PAGO
 	int metodoPago;
 	do {
+		system("cls"); // Limpia la pantalla para mostrar el menú de pago
 		std::cout << "\nSeleccione método de pago:\n";
 		std::cout << "1. Tarjeta de Credito\n";
 		std::cout << "2. Tarjeta de Debito\n";
@@ -1081,6 +1084,7 @@ void procesarCompra() {
 
 
 void confirmacioncase3() {
+	system("cls"); // Limpia la pantalla para mostrar el mensaje de confirmación
 	if (productosSeleccionados->esVacia()) {
 		std::cout << "\nEl carrito de compras ya está vacío.\n";
 		return;
@@ -1088,6 +1092,7 @@ void confirmacioncase3() {
 
 	char confirmacion;
 	do {
+		system("cls"); // Limpia la pantalla para mostrar el mensaje de confirmación
 		std::cout << "\n¿Está seguro de que desea eliminar todos los productos de su carrito? (S/N): ";
 		std::cin >> confirmacion;
 		confirmacion = tolower(confirmacion); // Convertir a minúscula

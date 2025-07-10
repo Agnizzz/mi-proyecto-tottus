@@ -80,7 +80,6 @@ public:
     }
 
     void mostrarBoleta() {
-        // ✅ Usar variables locales para mostrar, sin modificar los atributos
         string nombreClienteActual = sistemaUsuarios->getUsuarioActual().nombre + " " +
             sistemaUsuarios->getUsuarioActual().apellido_paterno;
         string dniClienteActual = sistemaUsuarios->getUsuarioActual().DNI;
@@ -89,51 +88,38 @@ public:
         cout << "         BOLETA DE VENTA     " << endl;
         cout << "==============================" << endl;
         cout << "N° Boleta: " << numeroBoleta << endl;
-        cout << "Cliente: " << nombreClienteActual << " (DNI: " << dniClienteActual << ")" << endl;
+        cout << "Cliente: " << nombreClienteActual << "  DNI: " << dniClienteActual << endl;
         cout << "Fecha:   " << fecha << endl;
         cout << "------------------------------" << endl;
 
-        if (productos.longitud() == 0) {
-            cout << "No hay productos registrados." << endl;
-        }
-        else {
-            for (int i = 0; i < productos.longitud(); ++i) {
-                Categoria* p = productos.obtenerPos(i);
-                if (p == nullptr) continue;
+        cout << left << setw(35) << "Producto"
+            << right << setw(10) << "Cantidad"
+            << setw(10) << "Precio"
+            << setw(10) << "Total" << endl;
 
-                int cantidad = p->getCantidad();
-                double precioOriginal = p->getPrecioUnitario();
-                double descuento = p->getPrecioDescuento(); // 👈 Este es el porcentaje de descuento
-                double precioFinalUnitario = precioOriginal * (1.0 - descuento);
-                double ahorroTotal = (precioOriginal - precioFinalUnitario) * cantidad;
+        double totalPagar = 0.0;
 
-                // 🟡 DEBUG: Muestra el porcentaje de descuento
-                cout << "[DEBUG] Descuento para " << p->getNombre() << ": " << descuento << " (" << static_cast<int>(descuento * 100) << "%)" << endl;
+        for (int i = 0; i < productos.longitud(); ++i) {
+            Categoria* p = productos.obtenerPos(i);
+            if (p == nullptr) continue;
 
-                cout << setw(2) << i + 1 << ". " << p->getNombre()
-                    << " - Cantidad: " << cantidad;
+            int cantidad = p->getCantidad();
+            double precioOriginal = p->getPrecioUnitario();
+            double totalProducto = precioOriginal * cantidad;
+            totalPagar += totalProducto;
 
-                if (descuento > 0.0) {
-                    cout << " - Precio: S/. " << fixed << setprecision(2) << precioOriginal
-                        << " (-" << static_cast<int>(descuento * 100) << "%)"
-                        << " → S/. " << fixed << setprecision(2) << precioFinalUnitario
-                        << " | Ahorraste: S/. " << ahorroTotal;
-                }
-                else {
-                    cout << " - Precio: S/. " << fixed << setprecision(2) << precioOriginal;
-                }
-
-                cout << endl;
-            }
+            cout << left << setw(35) << p->getNombre()
+                << right << setw(10) << cantidad
+                << setw(10) << fixed << setprecision(2) << precioOriginal
+                << setw(10) << fixed << setprecision(2) << totalProducto << endl;
         }
 
         cout << "------------------------------" << endl;
-        cout << "Total a pagar: S/. " << fixed << setprecision(2) << total << endl;
+        cout << "Total a pagar: S/. " << fixed << setprecision(2) << totalPagar << endl;
         cout << "==============================" << endl;
     }
 
     void guardarBoletaEnArchivo() {
-        // ✅ Usar variables locales para guardar, sin modificar los atributos
         string nombreClienteActual = sistemaUsuarios->getUsuarioActual().nombre + " " +
             sistemaUsuarios->getUsuarioActual().apellido_paterno;
         string dniClienteActual = sistemaUsuarios->getUsuarioActual().DNI;
@@ -148,66 +134,53 @@ public:
         archivo << "         BOLETA DE VENTA     " << endl;
         archivo << "==============================" << endl;
         archivo << "N° Boleta: " << numeroBoleta << endl;
-        archivo << "Cliente: " << nombreClienteActual << " (DNI: " << dniClienteActual << ")" << endl;
+        archivo << "Cliente: " << nombreClienteActual << "  DNI: " << dniClienteActual << endl;
         archivo << "Fecha:   " << fecha << endl;
         archivo << "------------------------------" << endl;
 
-        if (productos.longitud() == 0) {
-            archivo << "No hay productos registrados." << endl;
-        }
-        else {
-            for (int i = 0; i < productos.longitud(); ++i) {
-                Categoria* p = productos.obtenerPos(i);
+        archivo << left << setw(35) << "Producto"
+            << right << setw(10) << "Cantidad"
+            << setw(10) << "Precio"
+            << setw(10) << "Total" << endl;
 
-                if (p == nullptr) {
-                    archivo << " Producto nulo en posicion " << i << " - ignorado." << endl;
+        double totalPagar = 0.0;
+
+        for (int i = 0; i < productos.longitud(); ++i) {
+            Categoria* p = productos.obtenerPos(i);
+            if (p == nullptr) {
+                archivo << " Producto nulo en posición " << i << " - ignorado." << endl;
+                continue;
+            }
+
+            try {
+                int cantidad = p->getCantidad();
+                double precioOriginal = p->getPrecioUnitario();
+                double totalProducto = precioOriginal * cantidad;
+                totalPagar += totalProducto;
+
+                if (precioOriginal < 0 || precioOriginal > 10000 || cantidad < 0 || cantidad > 1000) {
+                    archivo << " Producto con datos inválidos en posición " << i << endl;
                     continue;
                 }
 
-                try {
-                    int cantidad = p->getCantidad();
-                    double precioOriginal = p->getPrecioUnitario();
-                    double descuento = p->getPrecioDescuento(); // porcentaje, ej: 0.20 para 20%
-                    double precioFinal = precioOriginal * (1.0 - descuento);
-                    double ahorroTotal = (precioOriginal - precioFinal) * cantidad;
-
-                    // Validaciones opcionales
-                    if (precioOriginal < 0 || precioOriginal > 10000) {
-                        archivo << " Precio invalido en producto " << i << ": " << precioOriginal << endl;
-                        continue;
-                    }
-
-                    if (cantidad < 0 || cantidad > 1000) {
-                        archivo << " Cantidad invalida en producto " << i << ": " << cantidad << endl;
-                        continue;
-                    }
-
-                    archivo << setw(2) << i + 1 << ". "
-                        << p->getNombre()
-                        << " - Cantidad: " << cantidad;
-
-                    if (descuento > 0.0) {
-                        archivo << " - Precio: S/. " << fixed << setprecision(2) << precioOriginal
-                            << " (-" << static_cast<int>(descuento * 100) << "%)"
-                            << " → S/. " << fixed << setprecision(2) << precioFinal
-                            << " | Ahorraste: S/. " << fixed << setprecision(2) << ahorroTotal;
-                    }
-                    else {
-                        archivo << " - Precio: S/. " << fixed << setprecision(2) << precioOriginal;
-                    }
-
-                    archivo << endl;
-
-                }
-                catch (...) {
-                    archivo << " Error al acceder a los datos del producto " << i << endl;
-                }
+                archivo << left << setw(35) << p->getNombre()
+                    << right << setw(10) << cantidad
+                    << setw(10) << fixed << setprecision(2) << precioOriginal
+                    << setw(10) << fixed << setprecision(2) << totalProducto << endl;
+            }
+            catch (...) {
+                archivo << " Error al acceder a los datos del producto " << i << endl;
             }
         }
 
         archivo << "------------------------------" << endl;
-        archivo << "Total a pagar: S/. " << fixed << setprecision(2) << total << endl;
+        archivo << "Total a pagar: S/. " << fixed << setprecision(2) << totalPagar << endl;
         archivo << "==============================" << endl << endl;
+
+        archivo << "[REPORTE] "
+            << numeroBoleta << ";"
+            << nombreClienteActual << ";"
+            << fixed << setprecision(2) << totalPagar << endl;
 
         archivo.close();
     }

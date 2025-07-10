@@ -759,13 +759,21 @@ void gestionarPromociones() {
                 cout << "\t\t-------------------------------------------\n";
                 cout << "\t\t>> ";
 
-                cin.clear();
-                cin.ignore(10000, '\n');
+                cin.ignore(); // limpiar el salto de línea pendiente
                 getline(cin, nuevaPromo);
 
                 if (!nuevaPromo.empty()) {
+                    // Verificamos si es solo un número → lo convertimos a formato "S/ x.xx"
+                    bool esNumero = all_of(nuevaPromo.begin(), nuevaPromo.end(), [](char c) {
+                        return isdigit(c) || c == '.'; // permite decimales
+                        });
+
+                    if (esNumero) {
+                        nuevaPromo = "S/ " + nuevaPromo;
+                    }
+
                     ofertasPosibles.push_back(nuevaPromo);
-                    guardarPromociones(); // Guardamos los cambios en el archivo
+                    guardarPromociones();
                     cout << "\n\t\t>> EXITO: Promocion '" << nuevaPromo << "' creada y guardada." << endl;
                 }
                 else {

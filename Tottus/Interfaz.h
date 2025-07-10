@@ -316,6 +316,8 @@ void Carrito() {
 			char selection;
 
 			do {
+				system("cls");
+
 				cout << "¿Desea realizar la compra? (Si/No): ";
 				cin >> selection;
 				selection = tolower(selection); // convierte a minúscula para facilitar comparación
