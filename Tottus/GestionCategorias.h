@@ -153,1507 +153,1507 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 
 			// Solo procesar si se selecciono una subcategoria valida
 			if (subopcion > 0 && subopcion <= nSub) {
-			if (subopcion == 1) { // Arroz
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasArroz) / sizeof(terciariasArroz[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				if (subopcion == 1) { // Arroz
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[0]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloArroz = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaArroz = (anchoConsola - tituloArroz.length()) / 2;
-					SetCursorPosition(posicionCentradaArroz, 2);
-					cout << tituloArroz << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasArroz) / sizeof(terciariasArroz[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasArroz[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[0]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloArroz = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaArroz = (anchoConsola - tituloArroz.length()) / 2;
+						SetCursorPosition(posicionCentradaArroz, 2);
+						cout << tituloArroz << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasArroz[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasArroz[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasArroz[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion o cancela
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasArroz[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Arroz " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Arroz", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion o cancela
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasArroz[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Arroz " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Arroz", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 2) { // Conservas
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasConservas) / sizeof(terciariasConservas[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 2) { // Conservas
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[1]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloConservas = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaConservas = (anchoConsola - tituloConservas.length()) / 2;
-					SetCursorPosition(posicionCentradaConservas, 2);
-					cout << tituloConservas << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasConservas) / sizeof(terciariasConservas[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasConservas[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[1]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloConservas = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaConservas = (anchoConsola - tituloConservas.length()) / 2;
+						SetCursorPosition(posicionCentradaConservas, 2);
+						cout << tituloConservas << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasConservas[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasConservas[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasConservas[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion o cancela
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasConservas[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Conservas " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Conservas", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion o cancela
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasConservas[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Conservas " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Conservas", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 3) { // Aceite
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasAceite) / sizeof(terciariasAceite[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 3) { // Aceite
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[2]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloAceite = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaAceite = (anchoConsola - tituloAceite.length()) / 2;
-					SetCursorPosition(posicionCentradaAceite, 2);
-					cout << tituloAceite << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasAceite) / sizeof(terciariasAceite[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasAceite[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[2]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloAceite = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaAceite = (anchoConsola - tituloAceite.length()) / 2;
+						SetCursorPosition(posicionCentradaAceite, 2);
+						cout << tituloAceite << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasAceite[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasAceite[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasAceite[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasAceite[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Aceite " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Aceite", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasAceite[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Aceite " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Aceite", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 4) { // Pasta
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasPasta) / sizeof(terciariasPasta[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 4) { // Pasta
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[3]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloPasta = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaPasta = (anchoConsola - tituloPasta.length()) / 2;
-					SetCursorPosition(posicionCentradaPasta, 2);
-					cout << tituloPasta << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasPasta) / sizeof(terciariasPasta[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasPasta[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[3]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloPasta = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaPasta = (anchoConsola - tituloPasta.length()) / 2;
+						SetCursorPosition(posicionCentradaPasta, 2);
+						cout << tituloPasta << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasPasta[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasPasta[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasPasta[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasPasta[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Pasta " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Pasta", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasPasta[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Pasta " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Pasta", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 5) { // Menestras
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasMenestras) / sizeof(terciariasMenestras[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 5) { // Menestras
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[4]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloMenestras = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaMenestras = (anchoConsola - tituloMenestras.length()) / 2;
-					SetCursorPosition(posicionCentradaMenestras, 2);
-					cout << tituloMenestras << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasMenestras) / sizeof(terciariasMenestras[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasMenestras[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[4]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloMenestras = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaMenestras = (anchoConsola - tituloMenestras.length()) / 2;
+						SetCursorPosition(posicionCentradaMenestras, 2);
+						cout << tituloMenestras << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasMenestras[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasMenestras[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasMenestras[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasMenestras[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Menestras " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Menestras", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasMenestras[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Menestras " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Menestras", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 6) { // Sal
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasSal) / sizeof(terciariasSal[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 6) { // Sal
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[5]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloSal = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaSal = (anchoConsola - tituloSal.length()) / 2;
-					SetCursorPosition(posicionCentradaSal, 2);
-					cout << tituloSal << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasSal) / sizeof(terciariasSal[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasSal[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[5]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloSal = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaSal = (anchoConsola - tituloSal.length()) / 2;
+						SetCursorPosition(posicionCentradaSal, 2);
+						cout << tituloSal << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasSal[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasSal[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasSal[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasSal[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Sal " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Sal", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasSal[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Sal " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Sal", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 7) { // Salsas para Pasta
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasSalsasPasta) / sizeof(terciariasSalsasPasta[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 7) { // Salsas para Pasta
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[6]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloSalsasPasta = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaSalsasPasta = (anchoConsola - tituloSalsasPasta.length()) / 2;
-					SetCursorPosition(posicionCentradaSalsasPasta, 2);
-					cout << tituloSalsasPasta << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasSalsasPasta) / sizeof(terciariasSalsasPasta[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasSalsasPasta[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[6]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloSalsasPasta = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaSalsasPasta = (anchoConsola - tituloSalsasPasta.length()) / 2;
+						SetCursorPosition(posicionCentradaSalsasPasta, 2);
+						cout << tituloSalsasPasta << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasSalsasPasta[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasSalsasPasta[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasSalsasPasta[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasSalsasPasta[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Salsas para Pasta " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Salsas para Pasta", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasSalsasPasta[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Salsas para Pasta " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Salsas para Pasta", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 8) { // Salsas/Cremas
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasSalsasCremas) / sizeof(terciariasSalsasCremas[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 8) { // Salsas/Cremas
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[7]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloSalsasCremas = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaSalsasCremas = (anchoConsola - tituloSalsasCremas.length()) / 2;
-					SetCursorPosition(posicionCentradaSalsasCremas, 2);
-					cout << tituloSalsasCremas << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasSalsasCremas) / sizeof(terciariasSalsasCremas[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasSalsasCremas[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[7]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloSalsasCremas = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaSalsasCremas = (anchoConsola - tituloSalsasCremas.length()) / 2;
+						SetCursorPosition(posicionCentradaSalsasCremas, 2);
+						cout << tituloSalsasCremas << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasSalsasCremas[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasSalsasCremas[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasSalsasCremas[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasSalsasCremas[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Salsas/Cremas " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Salsas/Cremas", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasSalsasCremas[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Salsas/Cremas " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Salsas/Cremas", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 9) { // Condimentos
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasCondimentos) / sizeof(terciariasCondimentos[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 9) { // Condimentos
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[8]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloCondimentos = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaCondimentos = (anchoConsola - tituloCondimentos.length()) / 2;
-					SetCursorPosition(posicionCentradaCondimentos, 2);
-					cout << tituloCondimentos << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasCondimentos) / sizeof(terciariasCondimentos[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasCondimentos[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[8]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloCondimentos = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaCondimentos = (anchoConsola - tituloCondimentos.length()) / 2;
+						SetCursorPosition(posicionCentradaCondimentos, 2);
+						cout << tituloCondimentos << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasCondimentos[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasCondimentos[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasCondimentos[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasCondimentos[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Condimentos " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Condimentos", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasCondimentos[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Condimentos " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Condimentos", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 10) { // Especias
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasEspecias) / sizeof(terciariasEspecias[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 10) { // Especias
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[9]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloEspecias = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaEspecias = (anchoConsola - tituloEspecias.length()) / 2;
-					SetCursorPosition(posicionCentradaEspecias, 2);
-					cout << tituloEspecias << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasEspecias) / sizeof(terciariasEspecias[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasEspecias[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[9]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloEspecias = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaEspecias = (anchoConsola - tituloEspecias.length()) / 2;
+						SetCursorPosition(posicionCentradaEspecias, 2);
+						cout << tituloEspecias << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasEspecias[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasEspecias[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasEspecias[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasEspecias[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Especias " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Especias", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasEspecias[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Especias " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Especias", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 11) { // Pure, Sopas y Bases
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasPure) / sizeof(terciariasPure[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 11) { // Pure, Sopas y Bases
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[10]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloPure = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaPure = (anchoConsola - tituloPure.length()) / 2;
-					SetCursorPosition(posicionCentradaPure, 2);
-					cout << tituloPure << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasPure) / sizeof(terciariasPure[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasPure[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[10]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloPure = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaPure = (anchoConsola - tituloPure.length()) / 2;
+						SetCursorPosition(posicionCentradaPure, 2);
+						cout << tituloPure << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasPure[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasPure[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasPure[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasPure[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Pure Sopas y Bases " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Pure Sopas y Bases", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasPure[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Pure Sopas y Bases " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Pure Sopas y Bases", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
-			}
-			else if (subopcion == 12) { // Harina
-				system("cls");
-
-				// Variables para la navegacion de subcategorias terciarias
-				int seleccionTerciaria = 0;
-				int nTer = sizeof(terciariasHarina) / sizeof(terciariasHarina[0]);
-				int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
-				AccionTecla accionTerciaria = NINGUNA;
-				int tercopcion = -1;
-
-				while (true) {
-					// Limpiar pantalla
+				else if (subopcion == 12) { // Harina
 					system("cls");
 
-					// Mostrar titulo centrado para subcategoria
-					SetForegroundColor(Green);
-					// Convertir a mayusculas
-					string subcategoria = string(subcategoriasAbarrotes[11]);
-					transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
-					string tituloHarina = "====== " + subcategoria + " ======";
-					int anchoConsola = GetConsoleWidth();
-					int posicionCentradaHarina = (anchoConsola - tituloHarina.length()) / 2;
-					SetCursorPosition(posicionCentradaHarina, 2);
-					cout << tituloHarina << endl;
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasHarina) / sizeof(terciariasHarina[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
 
-					// Mostrar las opciones terciarias con navegacion
-					SetForegroundColor(BrightWhite);
-					for (int i = 0; i < nTer; ++i) {
-						SetCursorPosition(24, 6 + i);
-						if (seleccionTerciaria == i) {
-							setColor(0, 15); // Fondo blanco, texto negro para la seleccion
-							cout << "> - " << terciariasHarina[i] << " <";
-							setColor(15, 0); // Volver a colores normales
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasAbarrotes[11]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloHarina = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaHarina = (anchoConsola - tituloHarina.length()) / 2;
+						SetCursorPosition(posicionCentradaHarina, 2);
+						cout << tituloHarina << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasHarina[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasHarina[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
 						}
 						else {
-							cout << "  - " << terciariasHarina[i] << "  ";
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
 						}
 					}
 
-					// Mostrar opcion de salir
-					SetCursorPosition(24, 6 + nTer + 2);
-					if (seleccionTerciaria == nTer) {
-						setColor(0, 15);
-						cout << "> - Volver al Menu Anterior <";
-						setColor(15, 0);
-					}
-					else {
-						cout << "  - Volver al Menu Anterior  ";
-					}
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasHarina[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Harina " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Harina", nombreTerciaria);
 
-					// Esperar entrada del usuario
-					accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
 
-					// Si el usuario selecciona una opcion
-					if (accionTerciaria == SELECCIONAR) {
-						if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
-							SetCursorPosition(24, 9 + nTer + 2);
-							cout << "VOLVIENDO AL MENU ANTERIOR...";
-							Sleep(500);
-							system("cls");
-							break; // Salir del bucle de subcategorias
-						}
-						else {
-							tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
-							break; // Salir del bucle para procesar la opcion
-						}
-					}
-				}
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
 
-				if (tercopcion > 0 && tercopcion <= nTer) {
-					system("cls");
-					string nombreTerciaria = terciariasHarina[tercopcion - 1];
-					cout << "\n\t\t\t-- Productos de Harina " << nombreTerciaria << " --" << endl;
-					try {
-						Lista<Categoria>& productos = catalogo.getPorCategoria(1, "Harina", nombreTerciaria);
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+									// Asegurarse de que la cantidad sea positiva
+									if (cantidad <= 0) {
+										cout << "Cantidad debe ser mayor a 0." << endl;
+										system("pause>0");
+										return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
+									}
 
-						if (modoSeleccion) {
-							int idx = seleccionarProductoEnTabla(productos);
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
 
-							if (idx != -1) {
-								Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
-								// Pedir cantidad al usuario
-								int cantidad;
-								cout << "\nIngrese la cantidad que desea comprar: ";
-								cin >> cantidad;
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									////ahora restar stock de categoria original
+									//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
+									////comprobando si resta stock
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
 
-								//validar si hay suficiente stock antes de agregar
-								if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
-									cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
 									system("pause>0");
-									return Categoria();
 								}
-								// Asegurarse de que la cantidad sea positiva
-								if (cantidad <= 0) {
-									cout << "Cantidad debe ser mayor a 0." << endl;
-									system("pause>0");
-									return Categoria(); // Retorna un objeto vacio si la cantidad es invalida
-								}
-
-								// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
-								Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
-								seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
-								seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
-
-								productosSeleccionados->agregaInicial(seleccionadoConCantidad);
-								cout << "Producto agregado correctamente" << endl;
-								////ahora restar stock de categoria original
-								//seleccionadoConCantidad->actualizarStock(-cantidad); // Asegurate de que este metodo exista
-								////comprobando si resta stock
-								cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
-
+							}
+							else {
+								mostrarTablaProductos(productos);
 								system("pause>0");
 							}
 						}
-						else {
-							mostrarTablaProductos(productos);
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
 							system("pause>0");
 						}
 					}
-					catch (const out_of_range&) {
-						cout << "\t\t\tNo hay productos en esta categoria." << endl;
-						system("pause>0");
-					}
 				}
 			}
-		}
 			break;
 		}
 		case 2: { // Desayunos
@@ -1958,32 +1958,468 @@ Categoria gestionarCategorias(bool modoSeleccion = false) {
 					}
 					}
 				else if (subopcion == 3) { // Cafe e Infusiones
-					// TODO: Implementar navegacion terciaria para Cafe e Infusiones
 					system("cls");
-					cout << "\n\t\t\t-- Subcategoria: " << subcategoriasDesayunos[2] << " --" << endl;
-					cout << "\t\t\t(En desarrollo)" << endl;
-					system("pause>0");
+
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasCafe) / sizeof(terciariasCafe[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
+
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasDesayunos[2]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloCafe = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaCafe = (anchoConsola - tituloCafe.length()) / 2;
+						SetCursorPosition(posicionCentradaCafe, 2);
+						cout << tituloCafe << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasCafe[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasCafe[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
+						}
+						else {
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion o cancela
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
+						}
+					}
+
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasCafe[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Cafe e Infusiones " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(2, "Cafee e Infusiones", nombreTerciaria);
+
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
+
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
+
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
+
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
+
+									system("pause>0");
+								}
+							}
+							else {
+								mostrarTablaProductos(productos);
+								system("pause>0");
+							}
+						}
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
+							system("pause>0");
+						}
+					}
 				}
 				else if (subopcion == 4) { // Cereales
-					// TODO: Implementar navegacion terciaria para Cereales
 					system("cls");
-					cout << "\n\t\t\t-- Subcategoria: " << subcategoriasDesayunos[3] << " --" << endl;
-					cout << "\t\t\t(En desarrollo)" << endl;
-					system("pause>0");
+
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasCereales) / sizeof(terciariasCereales[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
+
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasDesayunos[3]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloCereales = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaCereales = (anchoConsola - tituloCereales.length()) / 2;
+						SetCursorPosition(posicionCentradaCereales, 2);
+						cout << tituloCereales << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasCereales[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasCereales[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
+						}
+						else {
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion o cancela
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
+						}
+					}
+
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasCereales[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Cereales " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(2, "Cereales", nombreTerciaria);
+
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
+
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
+
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
+
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
+
+									system("pause>0");
+								}
+							}
+							else {
+								mostrarTablaProductos(productos);
+								system("pause>0");
+							}
+						}
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
+							system("pause>0");
+						}
+					}
 				}
 				else if (subopcion == 5) { // Modificadores y Complementos
-					// TODO: Implementar navegacion terciaria para Modificadores y Complementos
 					system("cls");
-					cout << "\n\t\t\t-- Subcategoria: " << subcategoriasDesayunos[4] << " --" << endl;
-					cout << "\t\t\t(En desarrollo)" << endl;
-					system("pause>0");
-				}
+
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasModificadores) / sizeof(terciariasModificadores[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
+
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasDesayunos[4]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloModificadores = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaModificadores = (anchoConsola - tituloModificadores.length()) / 2;
+						SetCursorPosition(posicionCentradaModificadores, 2);
+						cout << tituloModificadores << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasModificadores[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasModificadores[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
+						}
+						else {
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion o cancela
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
+						}
+					}
+
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasModificadores[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Modificadores y Complementos " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(2, "Modificadores y Complementos", nombreTerciaria);
+
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
+
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
+
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
+
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
+
+									system("pause>0");
+								}
+							}
+							else {
+								mostrarTablaProductos(productos);
+								system("pause>0");
+							}
+						}
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
+							system("pause>0");
+						}
+					}
+					}
 				else if (subopcion == 6) { // Mermeladas, Mieles y Dulces
-					// TODO: Implementar navegacion terciaria para Mermeladas, Mieles y Dulces
 					system("cls");
-					cout << "\n\t\t\t-- Subcategoria: " << subcategoriasDesayunos[5] << " --" << endl;
-					cout << "\t\t\t(En desarrollo)" << endl;
-					system("pause>0");
+
+					// Variables para la navegacion de subcategorias terciarias
+					int seleccionTerciaria = 0;
+					int nTer = sizeof(terciariasMermeladas) / sizeof(terciariasMermeladas[0]);
+					int maxSeleccionTerciaria = nTer + 1; // +1 para incluir la opcion "Salir"
+					AccionTecla accionTerciaria = NINGUNA;
+					int tercopcion = -1;
+
+					while (true) {
+						// Limpiar pantalla
+						system("cls");
+
+						// Mostrar titulo centrado para subcategoria
+						SetForegroundColor(Green);
+						// Convertir a mayusculas
+						string subcategoria = string(subcategoriasDesayunos[5]);
+						transform(subcategoria.begin(), subcategoria.end(), subcategoria.begin(), ::toupper);
+						string tituloMermeladas = "====== " + subcategoria + " ======";
+						int anchoConsola = GetConsoleWidth();
+						int posicionCentradaMermeladas = (anchoConsola - tituloMermeladas.length()) / 2;
+						SetCursorPosition(posicionCentradaMermeladas, 2);
+						cout << tituloMermeladas << endl;
+
+						// Mostrar las opciones terciarias con navegacion
+						SetForegroundColor(BrightWhite);
+						for (int i = 0; i < nTer; ++i) {
+							SetCursorPosition(24, 6 + i);
+							if (seleccionTerciaria == i) {
+								setColor(0, 15); // Fondo blanco, texto negro para la seleccion
+								cout << "> - " << terciariasMermeladas[i] << " <";
+								setColor(15, 0); // Volver a colores normales
+							}
+							else {
+								cout << "  - " << terciariasMermeladas[i] << "  ";
+							}
+						}
+
+						// Mostrar opcion de salir
+						SetCursorPosition(24, 6 + nTer + 2);
+						if (seleccionTerciaria == nTer) {
+							setColor(0, 15);
+							cout << "> - Volver al Menu Anterior <";
+							setColor(15, 0);
+						}
+						else {
+							cout << "  - Volver al Menu Anterior  ";
+						}
+
+						// Esperar entrada del usuario
+						accionTerciaria = navegarConFlechas(seleccionTerciaria, maxSeleccionTerciaria);
+
+						// Si el usuario selecciona una opcion o cancela
+						if (accionTerciaria == SELECCIONAR) {
+							if (seleccionTerciaria == nTer) { // Si selecciono "Volver al Menu Anterior"
+								SetCursorPosition(24, 9 + nTer + 2);
+								cout << "VOLVIENDO AL MENU ANTERIOR...";
+								Sleep(500);
+								system("cls");
+								break; // Salir del bucle de subcategorias
+							}
+							else {
+								tercopcion = seleccionTerciaria + 1; // Las opciones van de 1 a n
+								break; // Salir del bucle para procesar la opcion
+							}
+						}
+					}
+
+					if (tercopcion > 0 && tercopcion <= nTer) {
+						system("cls");
+						string nombreTerciaria = terciariasMermeladas[tercopcion - 1];
+						cout << "\n\t\t\t-- Productos de Mermeladas, Mieles y Dulces " << nombreTerciaria << " --" << endl;
+						try {
+							Lista<Categoria>& productos = catalogo.getPorCategoria(2, "Mermeladas Mieles y Dulces", nombreTerciaria);
+
+							if (modoSeleccion) {
+								int idx = seleccionarProductoEnTabla(productos);
+
+								if (idx != -1) {
+									Categoria& seleccionado = productos.getValor(idx); // ✅ referencia modificable
+									// Pedir cantidad al usuario
+									int cantidad;
+									cout << "\nIngrese la cantidad que desea comprar: ";
+									cin >> cantidad;
+
+									//validar si hay suficiente stock antes de agregar
+									if (cantidad <= 0 || cantidad > seleccionado.getStock()) {
+										cout << "Cantidad no valida. Stock disponible: " << seleccionado.getStock() << endl;
+										system("pause>0");
+										return Categoria();
+									}
+
+									// Crear una copia para modificarla y guardar cantidad (si la clase lo permite)
+									Categoria* seleccionadoConCantidad = new Categoria(seleccionado);
+									seleccionadoConCantidad->setCantidad(cantidad);      // ✅ para mostrar en el carrito
+									seleccionado.actualizarStock(-cantidad);             // ✅ RESTAR stock del original
+
+									productosSeleccionados->agregaInicial(seleccionadoConCantidad);
+									cout << "Producto agregado correctamente" << endl;
+									cout << "Stock actualizado. Stock restante: " << seleccionado.getStock() << endl;
+
+									system("pause>0");
+								}
+							}
+							else {
+								mostrarTablaProductos(productos);
+								system("pause>0");
+							}
+						}
+						catch (const out_of_range&) {
+							cout << "\t\t\tNo hay productos en esta categoria." << endl;
+							system("pause>0");
+						}
+					}
 				}
 			}
 			break;

@@ -161,8 +161,8 @@ void mostrarTablaProductos(const Lista<Categoria>& productos) {
 				<< setw(15) << prod.getID().substr(0, 14)
 				<< setw(45) << nombreMostrar
 				<< setw(12) << prod.getUnidadMedida().substr(0, 11)
-				<< setw(12) << precioStr.str()<<
-				 setw(10) << prod.getOferta().substr(0, 9)
+				<< setw(12) << precioStr.str()
+				<< setw(12) << (!prod.getOferta().empty() ? prod.getOferta() : "-")  // Mostrar el precio con descuento
 				<< setw(9) << prod.getStock();
 
 			// Rellenar el resto de la línea con el color de fondo actual
@@ -253,8 +253,8 @@ int seleccionarProductoEnTabla(const Lista<Categoria>& productos) {
 				<< setw(15) << prod.getID().substr(0, 14)
 				<< setw(45) << nombreMostrar
 				<< setw(12) << prod.getUnidadMedida().substr(0, 11)
-				<< setw(12) << precioStr.str()<<
-				setw(10) << prod.getOferta().substr(0, 9)
+				<< setw(12) << precioStr.str()
+				<< setw(12) << (!prod.getOferta().empty() ? prod.getOferta() : "-")  // Mostrar el precio con descuento
 				<< setw(9) << prod.getStock();
 
 			// Rellenar el resto de la línea con el color de fondo actual
@@ -280,12 +280,14 @@ int seleccionarProductoEnTabla(const Lista<Categoria>& productos) {
 			if (key == 27) {
 				SetCursorVisible(true);
 				cout << "\n" << centrarTexto("Cancelado por el usuario con ESC", anchoConsola) << endl;
-				system("pause");
+				SetCursorVisible(false);
+				system("pause>0");
 				return -1;
 			}
 			if (key == 13) {
 				SetCursorVisible(true);
 				return seleccion; // Enter
+				SetCursorVisible(false);
 			}
 			if (key == 224) {
 				key = _getch();

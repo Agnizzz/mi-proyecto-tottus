@@ -584,13 +584,13 @@ void ManejoUsuariosDeAdmin() {
     // Creamos un bucle para el menú de opciones.
     while (continuar) {
         system("cls");
-        std::cout << "===== MENU PRINCIPAL DE PRUEBA =====" << std::endl;
-        std::cout << "1. Listar todos los usuarios (ordenados)" << std::endl;
-        std::cout << "2. Buscar usuarios por nombre" << std::endl;
-        std::cout << "3. Salir" << std::endl;
-        std::cout << "====================================" << std::endl;
-        std::cout << "\nSeleccione una opcion: ";
-        std::cin >> opcion;
+        cout << "===== MENU PRINCIPAL DE PRUEBA =====" << endl;
+        cout << "1. Listar todos los usuarios (ordenados)" << endl;
+        cout << "2. Buscar usuarios por nombre" << endl;
+        cout << "3. Salir" << endl;
+        cout << "====================================" << endl;
+        cout << "\nSeleccione una opcion: ";
+        cin >> opcion;
 
         switch (opcion) {
         case '1':
@@ -603,35 +603,37 @@ void ManejoUsuariosDeAdmin() {
             break;
         case '3':
             continuar = false;
-            std::cout << "Saliendo del programa..." << std::endl;
+            cout << "Saliendo del programa..." << endl;
             break;
         default:
-            std::cout << "Opcion no valida. Intente de nuevo." << std::endl;
+            cout << "Opcion no valida. Intente de nuevo." << endl;
             system("pause>0");
             break;
         }
     }
 }
+
 void inicializarOfertasDeProductos() {
-    if (ofertasPosibles.empty()) return;
+	if (ofertasPosibles.esVacia()) return;
 
-    for (auto& parPrincipal : catalogo.getProductos()) {
-        for (auto& parSecundaria : parPrincipal.second) {
-            for (auto& parTerciaria : parSecundaria.second) {
-                Lista<Categoria>& listaProds = parTerciaria.second;
-                for (int i = 0; i < listaProds.getTam(); ++i) {
-                    // Reinicia la oferta antes de asignar una nueva
-                    Categoria& prod = listaProds.getValor(i);
-                    prod.setOferta("");
-                    prod.setPrecioDescuento(0.0);
+	for (auto& parPrincipal : catalogo.getProductos()) {
+		for (auto& parSecundaria : parPrincipal.second) {
+			for (auto& parTerciaria : parSecundaria.second) {
+				Lista<Categoria>& listaProds = parTerciaria.second;
+				for (int i = 0; i < listaProds.getTam(); ++i) {
+					// Reinicia la oferta antes de asignar una nueva
+					Categoria& prod = listaProds.getValor(i);
+					prod.setOferta("");
+					prod.setPrecioDescuento(0.0);
 
-                    // Ahora asigna una nueva aleatoria
-                    asignarOfertaAleatoria(prod);
-                }
-            }
-        }
-    }
+					// Ahora asigna una nueva aleatoria
+					asignarOfertaAleatoria(prod);
+				}
+			}
+		}
+	}
 }
+
 //NUEVOOOOOOOOOOOOOO
 void verPromocionesVigentes() {
     system("cls");
@@ -677,6 +679,7 @@ void verPromocionesVigentes() {
             copiaParaCarrito->setCantidad(cantidad);
             productosSeleccionados->agregaFinal(copiaParaCarrito);
             cout << "\n>> " << cantidad << "x " << copiaParaCarrito->getNombre() << " agregado al carrito!" << endl;
+            SetCursorVisible(false);
         }
         else {
             cout << "\nCantidad no válida o sin stock suficiente." << endl;
@@ -686,146 +689,127 @@ void verPromocionesVigentes() {
 }
 //aca va para arbror el tx es nuvo esta webada
 
-
-// Lee el archivo promociones.txt y carga los datos en la lista 'ofertasPosibles'
 void cargarPromociones() {
-    ifstream archivo("promociones.txt");
-    if (!archivo.is_open()) {
-        cout << "ADVERTENCIA: No se encontró promociones.txt. No se cargarán ofertas." << endl;
-        return;
-    }
+	// Limpiamos la lista anterior
+	ofertasPosibles.limpiar();
 
-    string linea;
-    ofertasPosibles.clear(); // Limpiamos la lista por si acaso
-    while (getline(archivo, linea)) {
-        if (!linea.empty()) {
-            ofertasPosibles.push_back(linea);
-        }
-    }
-    archivo.close();
+	// Creamos objetos OfertaDescuento correctamente
+	ofertasPosibles.agregaFinal(OfertaDescuento("10% Dcto.", 0.10));
+	ofertasPosibles.agregaFinal(OfertaDescuento("20% Dcto.", 0.20));
+	ofertasPosibles.agregaFinal(OfertaDescuento("30% Dcto.", 0.30));
+	ofertasPosibles.agregaFinal(OfertaDescuento("40% Dcto.", 0.40));
+
+	//cout << ">> Sistema de promociones inicializado con " << ofertasPosibles.longitud() << " tipos de descuento." << endl;
 }
 
-// Sobrescribe el archivo promociones.txt con la lista actual de 'ofertasPosibles'
-void guardarPromociones() {
-    ofstream archivo("promociones.txt");
-    if (!archivo.is_open()) {
-        cout << "ERROR: No se pudo abrir promociones.txt para guardar." << endl;
-        return;
-    }
-
-    for (const string& promo : ofertasPosibles) {
-        archivo << promo << endl;
-    }
-    archivo.close();
-}
+// Función para mostrar promociones en el menú de gestión
 void gestionarPromociones() {
-    string opciones[] = { "Ver Promociones Actuales", "Crear Nueva Promocion", "Eliminar Promocion", "Volver" };
-    int nOpciones = 4;
-    int seleccion = 0;
+	string opciones[] = { "Ver Promociones Disponibles", "Aplicar Promociones Aleatorias", "Ver Productos con Descuento", "Volver" };
+	int nOpciones = 4;
+	int seleccion = 0;
 
-    while (true) {
-        system("cls");
-        cout << "\n\t\t\t------ GESTION DE PROMOCIONES ------\n" << endl;
-        for (int i = 0; i < nOpciones; ++i) {
-            if (i == seleccion) setColor(0, 15); else setColor(15, 0);
-            cout << "\t\t\t" << (i + 1) << ". " << opciones[i] << endl;
-        }
-        setColor(15, 0);
+	while (true) {
+		system("cls");
+		cout << "\n\t\t\t------ GESTION DE PROMOCIONES ------\n" << endl;
+		for (int i = 0; i < nOpciones; ++i) {
+			if (i == seleccion) setColor(0, 15); else setColor(15, 0);
+			cout << "\t\t\t" << (i + 1) << ". " << opciones[i] << endl;
+		}
+		setColor(15, 0);
 
-        int key = _getch();
-        if (key == 27) break;
-        if (key == 13) {
-            switch (seleccion) {
-            case 0: { // Ver Promociones
-                system("cls");
-                cout << "\n\t\t--- LISTA DE PROMOCIONES ACTIVAS ---\n" << endl;
-                for (size_t i = 0; i < ofertasPosibles.size(); ++i) {
-                    cout << "\t\t" << (i + 1) << ". " << ofertasPosibles[i] << endl;
-                }
-                cout << endl;
-                system("pause>0");
-                break;
-            }
-            case 1: { // Crear
-                system("cls");
-                string nuevaPromo;
-                cout << "\n\t\t--- CREAR NUEVA PROMOCION ---\n" << endl;
+		int key = _getch();
+		if (key == 27) break;
+		if (key == 13) {
+			switch (seleccion) {
+			case 0: { // Ver Promociones
+				system("cls");
+				cout << "\n\t\t--- TIPOS DE DESCUENTO DISPONIBLES ---\n" << endl;
+				for (int i = 0; i < ofertasPosibles.longitud(); i++) {
+					OfertaDescuento oferta = ofertasPosibles.getValor(i);
+					cout << "\t\t" << (i + 1) << ". " << oferta.getTexto()
+						<< " (Descuento: " << (oferta.getPorcentaje() * 100) << "%)" << endl;
+				}
+				cout << "\n\t\tEstos descuentos se aplican automáticamente de forma aleatoria." << endl;
+				system("pause>0");
+				break;
+			}
+			case 1: { // Aplicar Promociones
+				system("cls");
+				cout << "\n\t\t--- APLICAR PROMOCIONES ALEATORIAS ---\n" << endl;
+				cout << "\t\t¿Está seguro que desea aplicar nuevas promociones aleatorias? (S/N): ";
 
-                cout << "\t\tIngrese el nombre de la nueva promocion:\n";
-                cout << "\t\tFormato válido:\n";
-                cout << "\t\t - S/ 9.90   (descuento fijo de 9.90 soles)\n";
-                cout << "\t\t - 15% Dcto. (descuento porcentual del 15%)\n";
-                cout << "\t\t - 2x1       (descuento del 50% simulado)\n";
-                cout << "\t\t-------------------------------------------\n";
-                cout << "\t\t>> ";
+				char confirmacion;
+				cin >> confirmacion;
 
-                cin.ignore(); // limpiar el salto de línea pendiente
-                getline(cin, nuevaPromo);
+				if (tolower(confirmacion) == 's') {
+					inicializarOfertasDeProductos();
+					cout << "\n\t\t>> Promociones aplicadas exitosamente." << endl;
+				}
+				else {
+					cout << "\n\t\t>> Operación cancelada." << endl;
+				}
+				system("pause>0");
+				break;
+			}
+			case 2: { // Ver Productos con Descuento
+				system("cls");
+				cout << "\n\t\t--- PRODUCTOS CON DESCUENTO ---\n" << endl;
 
-                if (!nuevaPromo.empty()) {
-                    // Verificamos si es solo un número → lo convertimos a formato "S/ x.xx"
-                    bool esNumero = all_of(nuevaPromo.begin(), nuevaPromo.end(), [](char c) {
-                        return isdigit(c) || c == '.'; // permite decimales
-                        });
+				// Mostrar productos con descuento
+				int contador = 0;
+				cout << "\t\t" << left << setw(5) << "N°" << setw(40) << "PRODUCTO"
+					<< setw(15) << "PRECIO ORIG." << setw(15) << "PRECIO DESC." << "OFERTA" << endl;
+				cout << "\t\t" << string(90, '-') << endl;
 
-                    if (esNumero) {
-                        nuevaPromo = "S/ " + nuevaPromo;
-                    }
+				for (auto& parPrincipal : catalogo.getProductos()) {
+					for (auto& parSecundaria : parPrincipal.second) {
+						for (auto& parTerciaria : parSecundaria.second) {
+							Lista<Categoria>& listaProds = parTerciaria.second;
+							for (int i = 0; i < listaProds.getTam(); ++i) {
+								Categoria& prod = listaProds.getValor(i);
+								if (!prod.getOferta().empty()) {
+									contador++;
+									cout << "\t\t" << left << setw(5) << contador
+										<< setw(40) << prod.getNombre().substr(0, 38)
+										<< "S/. " << setw(12) << fixed << setprecision(2) << prod.getPrecioUnitario()
+										<< "S/. " << setw(12) << prod.getPrecioDescuento()
+										<< prod.getOferta() << endl;
 
-                    ofertasPosibles.push_back(nuevaPromo);
-                    guardarPromociones();
-                    cout << "\n\t\t>> EXITO: Promocion '" << nuevaPromo << "' creada y guardada." << endl;
-                }
-                else {
-                    cout << "\n\t\tERROR: El nombre no puede estar vacio." << endl;
-                }
-                system("pause>0");
-                break;
-            }
-            case 2: { // Eliminar
-                system("cls");
-                cout << "\n\t\t--- ELIMINAR PROMOCION ---\n" << endl;
-                if (ofertasPosibles.empty()) {
-                    cout << "\t\tNo hay promociones para eliminar." << endl;
-                    system("pause>0");
-                    break;
-                }
-                for (size_t i = 0; i < ofertasPosibles.size(); ++i) {
-                    cout << "\t\t" << (i + 1) << ". " << ofertasPosibles[i] << endl;
-                }
+									if (contador >= 15) {
+										cout << "\n\t\t... y más productos con descuento." << endl;
+										break;
+									}
+								}
+							}
+							if (contador >= 15) break;
+						}
+						if (contador >= 15) break;
+					}
+					if (contador >= 15) break;
+				}
 
-                // Declaramos la variable 'numeroAEliminar' aquí
-                int numeroAEliminar;
-                cout << "\n\t\tIngrese el numero de la promocion a eliminar: ";
-                cin >> numeroAEliminar;
+				if (contador == 0) {
+					cout << "\n\t\tNo hay productos con descuento actualmente." << endl;
+					cout << "\t\tUse la opción 'Aplicar Promociones Aleatorias' para generar descuentos." << endl;
+				}
+				else {
+					cout << "\n\t\tTotal de productos con descuento: " << contador << endl;
+				}
 
-                if (!cin.fail() && numeroAEliminar > 0 && numeroAEliminar <= ofertasPosibles.size()) {
-                    string promoEliminada = ofertasPosibles[numeroAEliminar - 1];
-                    ofertasPosibles.erase(ofertasPosibles.begin() + (numeroAEliminar - 1));
-                    guardarPromociones(); // Guardamos los cambios en el archivo
-                    cout << "\n\t\t>> EXITO: Promocion '" << promoEliminada << "' eliminada y guardada." << endl;
-                }
-                else {
-                    cout << "\n\t\tERROR: Numero no valido." << endl;
-                    cin.clear();
-                    cin.ignore(10000, '\n');
-                }
-                system("pause>0");
-                break;
-            }
-            case 3: { // Volver
-                return;
-            }
-            }
-        }
-        if (key == 224) {
-            key = _getch();
-            if (key == 72 && seleccion > 0) seleccion--;
-            if (key == 80 && seleccion < nOpciones - 1) seleccion++;
-        }
-    }
+				system("pause>0");
+				break;
+			}
+			case 3: // Volver
+				return;
+			}
+		}
+		if (key == 224) {
+			key = _getch();
+			if (key == 72 && seleccion > 0) seleccion--;
+			if (key == 80 && seleccion < nOpciones - 1) seleccion++;
+		}
+	}
 }
-
 
 void generarReporteMasVendidos() {
     system("cls");

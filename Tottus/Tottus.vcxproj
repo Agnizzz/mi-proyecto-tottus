@@ -160,8 +160,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Administradores.txt" />
+    <Text Include="Boletas.txt" />
+    <Text Include="contador_boleta.txt" />
     <Text Include="Producto.txt" />
     <Text Include="Reclamos.txt" />
+    <Text Include="tickets.txt" />
     <Text Include="Usuarios.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

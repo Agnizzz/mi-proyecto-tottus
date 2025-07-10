@@ -115,5 +115,14 @@
     <Text Include="Administradores.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
+    <Text Include="tickets.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="Boletas.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="contador_boleta.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
   </ItemGroup>
 </Project>
