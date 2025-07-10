@@ -201,9 +201,6 @@ void mostrarTablaProductos(const Lista<Categoria>& productos) {
 		// Pausa más corta para menos parpadeo pero marquee fluido
 		Sleep(80); // Reducido de 150ms a 80ms
 	}
-
-	// Restaurar cursor al salir
-	SetCursorVisible(true);
 }
 
 //SE AGREGO CAMBIOS - Selección centrada CON NAVEGACIÓN
@@ -328,7 +325,4 @@ int seleccionarProductoEnTabla(const Lista<Categoria>& productos) {
 		// Pausa más corta para menos parpadeo
 		Sleep(80); // Reducido de 150ms a 80ms
 	}
-
-	// Restaurar cursor al salir
-	SetCursorVisible(true);
 }

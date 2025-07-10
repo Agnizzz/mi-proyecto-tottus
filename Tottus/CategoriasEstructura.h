@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-// Categorías principales
+// Categorias principales
 const int numCategoriasPrincipales = 19;
 const string categoriasPrincipales[numCategoriasPrincipales] = {
     "Abarrotes", "Desayunos", "Lacteos y Quesos", "Huevos y Fiambres", "Frutas y Verduras",
@@ -11,7 +11,7 @@ const string categoriasPrincipales[numCategoriasPrincipales] = {
     "Limpieza", "Cuidado Personal", "Belleza", "Bebes y Ninios", "Mundo Mascotas"
 };
 
-// -------------------- SUBCATEGORÍAS --------------------
+// -------------------- SUBCATEGORiAS --------------------
 
 const int numSubcategoriasAbarrotes = 12;
 const string subcategoriasAbarrotes[numSubcategoriasAbarrotes] = {
@@ -22,8 +22,8 @@ const string subcategoriasAbarrotes[numSubcategoriasAbarrotes] = {
 
 const int numSubcategoriasDesayunos = 6;
 const string subcategoriasDesayunos[numSubcategoriasDesayunos] = {
-    "Panaderia","Azucar y Sustitutos","Cafee e Infusiones",
-    "Cereales","Modificadores y Complementos","Mermeladas, Mieles y Dulces"
+    "Panaderia","Azucar y Sustitutos","Cafe e Infusiones",
+    "Cereales","Modificadores y Complementos","Mermeladas Mieles y Dulces"
 };
 
 const int numSubcategoriasLacteos = 5;
@@ -39,7 +39,7 @@ const string subcategoriasHuevos[numSubcategoriasHuevos] = {
 
 const int numSubcategoriasFrutas = 3;
 const string subcategoriasFrutas[numSubcategoriasFrutas] = {
-    "Frutas","Verduras",u8"Orgánicos"
+    "Frutas","Verduras","Organicos"
 };
 
 const int numSubcategoriasCarnes = 5;
@@ -56,7 +56,7 @@ const int numSubcategoriasCongelados = 5;
 const string subcategoriasCongelados[numSubcategoriasCongelados] = {
     "Hamburguesas","Nuggets y Empanizados",
             "Frutas y Verduras Congeladas","Helados",
-            "Pizzas,Pastas y Bocaditos"
+            "Pizzas Pastas y Bocaditos"
 };
 
 const int numSubcategoriasPanaderia = 4;
@@ -88,15 +88,15 @@ const string subcategoriasBebidas[numSubcategoriasBebidas] = {
 const int numSubcategoriasGaseosas = 5;
 const string subcategoriasGaseosas[numSubcategoriasGaseosas] = {
     "Aguas","Energizantes y Rehidratantes","Gaseosas",
-            "Ginger Ale",u8"Jugos y Tés Liquidos"
+            "Ginger Ale","Jugos y Tes Liquidos"
 };
 
 const int numSubcategoriasLimpieza = 12;
 const string subcategoriasLimpieza[numSubcategoriasLimpieza] = {
             "Accesorios de Limpieza","Ambientadores","Bolsas y Envolturas",
             "Descartables","Detergente y Cuidado de la Ropa","Encendido de Parrilla",
-            "Lavavajillas",u8"Lejía","Limpiadores","Para Calzado",
-            u8"Papeles Higiénicos","Otros Papeles"
+            "Lavavajillas","Lejia","Limpiadores","Para Calzado",
+            "Papeles Higienicos","Otros Papeles"
 };
 
 const int numSubcategoriasCuidado = 7;
@@ -108,31 +108,31 @@ const string subcategoriasCuidado[numSubcategoriasCuidado] = {
 const int numSubcategoriasBelleza = 4;
 const string subcategoriasBelleza[numSubcategoriasBelleza] = {
     "Cremas Faciales","Cuidado del Rostro",
-          u8"Protección Solar",u8"Perfumería"
+          "Proteccion Solar","Perfumeria"
 };
 
 const int numSubcategoriasBebes = 3;
 const string subcategoriasBebes[numSubcategoriasBebes] = {
-    u8"Pañales",u8"Aseo del Bebé",u8"Alimentos para Bebés"
+    "Pa¤ales","Aseo del Bebe","Alimentos para Bebes"
 };
 
 const int numSubcategoriasMascotas = 4;
 const string subcategoriasMascotas[numSubcategoriasMascotas] = {
     "Perros","Gatos","Higiene","Accesorios",
 };
-// -------------------- TERCIARIAS POR SUBCATEGORÍA --------------------
+// -------------------- TERCIARIAS POR SUBCATEGORiA --------------------
 
 // Abarrotes
 const string terciariasArroz[] = { "Especial","Extra","Integral","Superior" };
 const string terciariasConservas[] = { "Comidas Preparadas","Frutas","Pescados","Vegetales" };
-const string terciariasAceite[] = { "Especial","Girasol","Oliva",u8"Orgánico","Vegetal y Soya" };
+const string terciariasAceite[] = { "Especial","Girasol","Oliva","Organico","Vegetal y Soya" };
 const string terciariasPasta[] = { "Pastas Cortas","Pastas Especiales","Pastas Largas","Pastas Rellenas" };
 const string terciariasMenestras[] = { "Arvejas","Frijoles","Garbanzos","Lentejas","Otras Legumbres","Pallares","Pop Corn","Quinua" };
 const string terciariasSal[] = { "Con Especias","De Cocina","De Maras","De Mesa","Parrilla" };
 const string terciariasSalsasPasta[] = { "Salsa Pesto","Salsa Tomate","Otras Salsas" };
-const string terciariasSalsasCremas[] = { u8"Ají y Rocoto",u8"Aliños y Vinagretas","BBQ",u8"Huancaína","Ketchup","Mayonesa","Mostaza","Otras Salsas" };
+const string terciariasSalsasCremas[] = { "Aji y Rocoto","Ali¤os y Vinagretas","BBQ","Huancaina","Ketchup","Mayonesa","Mostaza","Otras Salsas" };
 const string terciariasCondimentos[] = { "Aderezos","Ajo Molido","Salsas Orientales","Sazonadores","Sillao","Tuco","Vinagre" };
-const string terciariasEspecias[] = { "Ajo","Canela",u8"Oregano","Pimienta","Otras Especias" };
+const string terciariasEspecias[] = { "Ajo","Canela","Oregano","Pimienta","Otras Especias" };
 const string terciariasPure[] = { "Bases","Mezclas para Apanar","Pures","Sopas" };
 const string terciariasHarina[] = { "Especiales","Preparada","Sin Preparar" };
 
@@ -145,11 +145,11 @@ const string* terciariasAbarrotes[numSubcategoriasAbarrotes] = {
 // Desayunos
 const string terciariasPan[] = { "Kekes Turrones y King Kongs","Pan Arabe y Pita","Pan de Molde Blanco","Pan de Molde Integral",
 	"Pan Hamburguesa y HotDog","Paneton","Panqueques","Tostadas Crissines y Tortillas" };
-const string terciariasAzucar[] = { u8"Azúcar Blanca",u8"Azúcar Rubia","Edulcorantes","Panela y Otros Endulzantes","Stevias" };
-const string terciariasCafe[] = { u8"Café Instantáneo",u8"Café Molido y Grano",u8"Cápsulas y Complemetos","Cebada","Hierbas",u8"Té, Anís y Manzanilla",u8"Tés Especiales y Saludables" };
-const string terciariasCereales[] = { "Avena","Barras de Cereal",u8"Creales de Maíz natural",u8"Cereales Dietéticos","Cereales Infantiles","Granolas y Muslis","Quinua, Kiwicha y Otros" };
+const string terciariasAzucar[] = { "Azucar Blanca","Azucar Rubia","Edulcorantes","Panela y Otros Endulzantes","Stevias" };
+const string terciariasCafe[] = { "Cafe Instantaneo","Cafe Molido y Grano","Capsulas y Complemetos","Cebada","Hierbas","Te, Anis y Manzanilla","Tes Especiales y Saludables" };
+const string terciariasCereales[] = { "Avena","Barras de Cereal","Creales de Maiz natural","Cereales Dieteticos","Cereales Infantiles","Granolas y Muslis","Quinua Kiwicha y Otros" };
 const string terciariasModificadores[] = { "Chocolate de Taza","Cocoas","Complentos y Suplementos","Modificadores de Leche","Superfoods" };
-const string terciariasMermeladas[] = { "Algarrobina",u8"Mantequilla de Maní","Mermelada de Fresa","Mermelada de Sabores",u8"Mermelada Light y sin Azúcar","Miel de Abeja","Siropes y Jaleas" };
+const string terciariasMermeladas[] = { "Algarrobina","Mantequilla de Mani","Mermelada de Fresa","Mermelada de Sabores","Mermelada Light y sin Azucar","Miel de Abeja","Siropes y Jaleas" };
 
 const int numTerciariasDesayunos[numSubcategoriasDesayunos] = { 8,5,7,7,5,7 };
 const string* terciariasDesayunos[numSubcategoriasDesayunos] = {
@@ -158,10 +158,10 @@ const string* terciariasDesayunos[numSubcategoriasDesayunos] = {
 
 // Lacteos y Quesos
 const string terciariasLeches[] = { "Crema de Leche","Leche Condensada","Leche en Bolsa","Leche en Polvo","Leche Entera","Leche Evaporada","Leche Fresca",
-	"Leche Light","Leche para Niños","Leche Saborizada","Leche sin Lactosa","Leche UHT","Leches Vegetales", u8"Mezclas Lácteas" };
+	"Leche Light","Leche para Ni¤os","Leche Saborizada","Leche sin Lactosa","Leche UHT","Leches Vegetales", "Mezclas Lacteas" };
 const string terciariasYogurt[] = { "Yogurt Batido y Frutado","Yogurt Familiar","Yogurt Griego","Yogurt Light Familiar","Yogurt Mix","Yogurt Personal" };
 const string terciariasQuesos[] = { "Cremas Untables","Queso Edam, Gouda y Danbo","Queso Andino y Paria","Queso Fresco y Mozzarella","Queso Parmesano" };
-const string terciariasQuesosMundo[] = { u8"España","Francia","Italia","Suiza",u8"Países Bajos","Otros" };
+const string terciariasQuesosMundo[] = { "Espa¤a","Francia","Italia","Suiza","Paises Bajos","Otros" };
 const string terciariasMantequillas[] = { "Mantequillas","Margarinas" };
 
 const int numTerciariasLacteos[numSubcategoriasLacteos] = { 14,6,5,6,2 };
@@ -172,8 +172,8 @@ const string* terciariasLacteos[numSubcategoriasLacteos] = {
 // Huevos y Fiambres
 const string terciariasHuevo[] = {"Huevos de Codorniz","Huevos de Gallina"};
 const string terciariasJamones[] = {
-    u8"Jamón de Pavo y Pavita",u8"Jamón del País y Ahumado",
-                u8"Jamón Pizzero e Inglés",u8"Pack Jamón y Queso"
+    "Jamon de Pavo y Pavita","Jamon del Pais y Ahumado",
+                "Jamon Pizzero e Ingles","Pack Jamon y Queso"
 };
 const string terciariasJamonadas[] = {
     "Jamonada de Cerdo","Jamonada de Pollo","Jamonada de Pavo y Pavita"
@@ -185,10 +185,10 @@ const string terciariasChorizos[] = {
     "Especiales","Parrilleros"
 };
 const string terciariasFiambres[] = {
-    u8"España","Italia"
+    "Espa¤a","Italia"
 };
 const string terciariasOtrasFiambres[] = {
-    "Morcillas",u8"Paté y Mortadela","Tocino Cabanossi y Salame"
+    "Morcillas","Pate y Mortadela","Tocino Cabanossi y Salame"
 };
 const string terciariasSalsas[] = {
     "Aceitunas y Encurtidos","Salsas","Cocktail"
@@ -204,21 +204,21 @@ const string* terciariasHuevos[numSubcategoriasHuevos] = {
 
 const string terciariasFruta[] = {
     "Durazno, Melocotones y Ciruelas","Ensaladas Mixes y Frutas Picadas",
-    "Exóticas y Tropicales",u8"Fresas, Arándanos, Aguaymantos y Otros Berries",
-    "Granadillas, Granadas, Tunas y Pitahayas",u8"Limones, Narajas,Mandarinas y Otros Cítricos",
-    "Manzanas, Peras y Membrillos","Paltas y Frutas Nativas",u8"Plátanos, Papayas y Piñas",
-    "Sandías, Melones y Mangos","Uvas"
+    "Exoticas y Tropicales","Fresas, Arandanos, Aguaymantos y Otros Berries",
+    "Granadillas, Granadas, Tunas y Pitahayas","Limones, Narajas,Mandarinas y Otros Citricos",
+    "Manzanas, Peras y Membrillos","Paltas y Frutas Nativas","Platanos, Papayas y Pi¤as",
+    "Sandias, Melones y Mangos","Uvas"
 };
 const string terciariasVerdura[] = {
-                u8"Apios, Espárragos y Otros Tallos","Arvejas, Vainitas, Habas y Otras Legumbres",
-                u8"Brócoli, Col, Coliflor y Alcachofa",u8"Cebollas, Ajos y Ajíes",
-                u8"Choclos y Maíces","Ensaladas y Verduras Picadas","Hongos, Setas y Germinados",
+                "Apios, Esparragos y Otros Tallos","Arvejas, Vainitas, Habas y Otras Legumbres",
+                "Brocoli, Col, Coliflor y Alcachofa","Cebollas, Ajos y Ajies",
+                "Choclos y Maices","Ensaladas y Verduras Picadas","Hongos, Setas y Germinados",
                 "Insumos Orientales","Lechugas, Espinacas y Hierbas",
-                u8"Papas, Camotes y Otros Tubérculos","Tomates, Pimientos y Pepinos",
-                u8"Zanahoria, Beterraga y Otras Raíces","Zapallos, Berenjenas y Caihuas"
+                "Papas, Camotes y Otros Tuberculos","Tomates, Pimientos y Pepinos",
+                "Zanahoria, Beterraga y Otras Raices","Zapallos, Berenjenas y Caihuas"
 };
 const string terciariasOrganicos[] = {
-    u8"Frutas Orgánicas",u8"Verduras Orgánicas"
+    "Frutas Organicas","Verduras Organicas"
 };
 
 const int numTerciariasFrutas[numSubcategoriasFrutas] = { 11,13,2 };
@@ -314,14 +314,14 @@ const string* terciariasPanaderia[numSubcategoriasPanaderia] = {
 
 // Dulces y Galletas
 const string terciariasGalletas[] = {
-    u8"Bañadas","Integrales, Arroz y Saludables","Rellenas",
+    "Ba¤adas","Integrales, Arroz y Saludables","Rellenas",
                 "Saborizadas","Soda y Saladas","Wafers e Importadas"
 };
 const string terciariasCaramelos[] = {
 	"Caramelos","Chupetes"
 };
 const string terciariasChocolates[] = {
-    u8"Bañados y Lentejas","Barras y Tabletas","Bombones y Pastillas"
+    "Ba¤ados y Lentejas","Barras y Tabletas","Bombones y Pastillas"
 };
 const string terciariasMarshmallows[] = {
     "Marshmallows","Chicles","Gomitas"
@@ -334,12 +334,12 @@ const string* terciariasDulces[numSubcategoriasDulces] = {
 
 // Snack y Frutos Secos
 const string terciariasFrutosSecos[] = {
-              "Almendras",u8"Maíz, Pistachos y Habas",u8"Maní","Mixes",
-              u8"Pasas, Guindones, Damascos, Albaricoques y Dátiles","Pecanas y Cashews",
+              "Almendras","Maiz, Pistachos y Habas","Mani","Mixes",
+              "Pasas, Guindones, Damascos, Albaricoques y Datiles","Pecanas y Cashews",
 };
 const string terciariasSnacks[] = {
 	"Camotes y Chifles","Cancha Chullpi","Chizitos y Chicharrones",
-              "Mix","Papitas y Yucas","Popcorn","Saludables",u8"Tortillas de Maíz"
+              "Mix","Papitas y Yucas","Popcorn","Saludables","Tortillas de Maiz"
 };
 
 const int numTerciariasSnack[numSubcategoriasSnack] = { 6,8 };
@@ -349,7 +349,7 @@ const string* terciariasSnack[numSubcategoriasSnack] = {
 
 // Cervezas
 const string terciariasCervezasNacionales[] = {
-    u8"Cusqueña","Cristal","Pilsen","Tres Cruces"
+    "Cusque¤a","Cristal","Pilsen","Tres Cruces"
 };
 const string terciariasCervezasImportadas[] = {
     "Amstel","Budweiser","Corona","Estrella Damm",
@@ -374,7 +374,7 @@ const string terciariasWhisky[] = {
     "Ballantines","Chivas Regal","Johnnie Walker","Old Parr"
 };
 const string terciariasRon[] = {
-    "Appleton Estate","Bacardi","Barcelo","Cartavio",u8"Flor de Caña"
+    "Appleton Estate","Bacardi","Barcelo","Cartavio","Flor de Ca¤a"
 };
 const string terciariasPisco[] = {
     "Cuatro Gallos","Porton","Santiago Queirolo","Taberna","Vargas"
@@ -409,7 +409,7 @@ const string terciariasEnergizantes[] = {
     "Energizantes","Rehidratantes"
 };
 const string terciariasGaseosa[] = {
-    "Coca Cola","Fanta","Fresh",u8"Guaraná",
+    "Coca Cola","Fanta","Fresh","Guarana",
                 "Inca Kola","Pepsi","Seven Up","Sprite"
 };
 const string terciariasGinger[] = {
@@ -417,7 +417,7 @@ const string terciariasGinger[] = {
 };
 const string terciariasJugos[] = {
     "Aloe Vera","Jugos en Polvo","Jugos Naturales",
-                "Jugos y Otras Bebidas",u8"Tés Líquidos"
+                "Jugos y Otras Bebidas","Tes Liquidos"
 };
 
 const int numTerciariasGaseosas[numSubcategoriasGaseosas] = { 3,2,8,4,5 };
@@ -429,44 +429,44 @@ const string* terciariasGaseosas[numSubcategoriasGaseosas] = {
 // Limpieza
 const string terciariasAccesorios[] = {
     "Desatorador","Escobas","Escobillas","Esponjas","Guantes",
-                "Mopas",u8"Paños","Paños","Recogedores","Trapeadores",
+                "Mopas","Pa¤os","Pa¤os","Recogedores","Trapeadores",
 };
 const string terciariasAmbientadores[] = {
-    "Aerosol","Deshumedecedores",u8"Eléctricos"
+    "Aerosol","Deshumedecedores","Electricos"
 };
 const string terciariasBolsas[] = {
     "Bolsas para Alimentos","Bolsas para Basura",
-                "Papel Aluminio",u8"Plásticos y Bandejas"
+                "Papel Aluminio","Plasticos y Bandejas"
 };
 const string terciariasDescartables[] = {
     "Cubiertos","Mondadientes","Palitos","Platos","Vasos"
 };
 const string terciariasDetergente[] = {
-    "Cloro","Detergente en Polvo",u8"Detergente Líquido",
+    "Cloro","Detergente en Polvo","Detergente Liquido",
                 "Jabones","Quitamanchas","Suavizantes"
 };
 const string terciariasEncendido[] = {
-    u8"Carbón y Leña",u8"Fósforos"
+    "Carbon y Le¤a","Fosforos"
 };
 const string terciariasLavavajillas[] = {
-    "Especializados","En pasta ",u8"Líquidos"
+    "Especializados","En pasta ","Liquidos"
 };
 const string terciariasLejia[] = {
     "Aromas","Tradicional"
 };
 const string terciariasLimpiadores[] = {
-    "Alfombras",u8"Baño","Ceras","Cocina","Desinfectantes",
+    "Alfombras","Ba¤o","Ceras","Cocina","Desinfectantes",
                 "Limpia Vidrios y Multiusos","Limpiatodo","Lustramuebles",
                 "Metales","Toallitas Desinfecantes"
 };
 const string terciariasCalzado[] = {
-    "Accesorios de Calzado",u8"Betún",
+    "Accesorios de Calzado","Betun",
 };
 const string terciariasPapeles[] = {
     "Doble Hoja","Simple","Triple Hoja"
 };
 const string terciariasOtrosPapeles[] = {
-    "Papel Toalla",u8"Pañuelos Desechables","Servilletas"
+    "Papel Toalla","Pa¤uelos Desechables","Servilletas"
 };
 
 const int numTerciariasLimpieza[numSubcategoriasLimpieza] = { 10,3,4,5,6,2,3,2,10,2,3,3 };
@@ -479,33 +479,33 @@ const string* terciariasLimpieza[numSubcategoriasLimpieza] = {
 
 // Cuidado Personal
 const string terciariasCuidadoCapilar[] = {
-    "Acondicionador",u8"Coloración","Cremas para Peinar",
+    "Acondicionador","Coloracion","Cremas para Peinar",
                 "Fijadores de Cabello","Shampoo","Tratamiento Capilar"
 };
 const string terciariasJabones[] = {
-    "Gel de Ducha",u8"Jabón Antibacterial",u8"Jabón de Glicerina",
-              u8"Jabón en Barra",u8"Líquido Antibacterial"
+    "Gel de Ducha","Jabon Antibacterial","Jabon de Glicerina",
+              "Jabon en Barra","Liquido Antibacterial"
 };
 const string terciariasHigiene[] = {
-    u8"Cepillos Eléctricos","Cepillos Regulares",
+    "Cepillos Electricos","Cepillos Regulares",
                 "Cremas Dentales","Enjuague Bucal","Hilo Dental"
 };
 const string terciariasCuidadoMujer[] = {
-    u8"Depilación Femenina","Desodorantes Aerosol", "Desodorantes en Barra","Desodorantes Roll-On",
-                u8"Higiene Íntima","Protectores Diarios",u8"Toallitas Higiénicas y Tampones"
+    "Depilacion Femenina","Desodorantes Aerosol", "Desodorantes en Barra","Desodorantes Roll-On",
+                "Higiene intima","Protectores Diarios","Toallitas Higienicas y Tampones"
 };
 const string terciariasCuidadoHombre[] = {
-    u8"Desodorantes Aerosol","Desodorantes en Barra",
-                u8"Desodorantes Roll-On","Espumas de Afeitar",
-                u8"Máquinas de Afeitary Repuestos"
+    "Desodorantes Aerosol","Desodorantes en Barra",
+                "Desodorantes Roll-On","Espumas de Afeitar",
+                "Maquinas de Afeitary Repuestos"
 };
 const string terciariasIncontinencia[] = {
-    "Incontinencia Leve","u8Pañales para Adulto",
+    "Incontinencia Leve","Pa¤ales para Adulto",
                 "Protectores de Cama","Ropa Interior Desechable"
 };
 const string terciariasSalud[] = {
-    u8"Alcohol y Antisépticos","Algodones e Hisopos",
-                "Bienestar Sexual", u8"Botiquín","Curitas y Banditas",
+    "Alcohol y Antisepticos","Algodones e Hisopos",
+                "Bienestar Sexual", "Botiquin","Curitas y Banditas",
                 "Repelentes", "Talcos y Desodorantes para Pies","Vitaminas"
 };
 
@@ -518,11 +518,11 @@ const string* terciariasCuidado[numSubcategoriasCuidado] = {
 
 // Belleza
 const string terciariasCremas[] = {
-    u8"Ácido Hialurónico","Aclaradores","Antiedad",
-              "Antimanchas","Hidratantes",u8"Sérum Facial"
+    "acido Hialuronico","Aclaradores","Antiedad",
+              "Antimanchas","Hidratantes","Serum Facial"
 };
 const string terciariasCuidadoRostro[] = {
-    u8"Aguas Micelares y Tónicos","Desmaquillantes","Exfoliantes",
+    "Aguas Micelares y Tonicos","Desmaquillantes","Exfoliantes",
               "Limpieza Facial","Mascarillas","Toallitas Desmaquillantes"
 };
 const string terciariasProteccion[] = {
@@ -538,37 +538,37 @@ const string* terciariasBelleza[numSubcategoriasBelleza] = {
 	terciariasPerfumeria
 };
 
-// Bebes y Niños
-const string terciariasPañales[] = {
+// Bebes y Ni¤os
+const string terciariasPaniales[] = {
     "Babysec","Bambo Nature","Huggies",
                 "Mimi","Pampers","Tottus"
 };
 const string terciariasAseo[] = {
     "Aceites e Hisopos","Cepillos Dentales","Colonias",
               "Cremas Dentales","Cremas y Lociones","Cuidado del Cabello",
-              "Jabones","Talcos",u8"Toallitas Húmedas"
+              "Jabones","Talcos","Toallitas Humedas"
 };
 const string terciariasAlimentos[] = {
-    "Biberones","Cereales y Galletas","Colados",u8"Fórmulas y Lácteas"
+    "Biberones","Cereales y Galletas","Colados","Formulas y Lacteas"
 };
 
 const int numTerciariasBebes[numSubcategoriasBebes] = { 6,9,4 };
 const string* terciariasBebes[numSubcategoriasBebes] = {
-	terciariasPañales,terciariasAseo,terciariasAlimentos
+	terciariasPaniales,terciariasAseo,terciariasAlimentos
 };
 
 // Mundo Mascotas
 const string terciariasPerros[] = {
-    "Alimento Seco",u8"Alimento Húmedo","Snacks"
+    "Alimento Seco","Alimento Humedo","Snacks"
 };
 const string terciariasGatos[] = {
-	"Alimento Seco",u8"Alimento Húmedo","Snacks"
+	"Alimento Seco","Alimento Humedo","Snacks"
 };
 const string terciariasHigieneMascota[] = {
-    "Cuidado para Mascotas","Shampoo",u8"Toallas Húmedas"
+    "Cuidado para Mascotas","Shampoo","Toallas Humedas"
 };
 const string terciariasAccesoriosMascota[] = {
-    u8"Arnés","Collares","Huesos","Juguetes",
+    "Arnes","Collares","Huesos","Juguetes",
               "Pelotas","Platos","Sogas"
 };
 
@@ -578,7 +578,7 @@ const string* terciariasMascotas[numSubcategoriasMascotas] = {
 	terciariasAccesoriosMascota
 };
 
-// -------------------- ARREGLOS GENERALES PARA ACCESO DINÁMICO --------------------
+// -------------------- ARREGLOS GENERALES PARA ACCESO DINaMICO --------------------
 const string* subcategoriasPorCategoria[numCategoriasPrincipales] = {
     subcategoriasAbarrotes,
     subcategoriasDesayunos,

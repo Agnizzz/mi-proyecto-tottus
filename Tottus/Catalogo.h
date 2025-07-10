@@ -112,12 +112,247 @@ public:
                     idxTer = buscarIndice(terciariasCondimentos, sizeof(terciariasCondimentos) / sizeof(string), terciaria);
                 else if (secundaria == "Especias")
                     idxTer = buscarIndice(terciariasEspecias, sizeof(terciariasEspecias) / sizeof(string), terciaria);
-                else if (secundaria == "Puré, Sopas y Bases")
+                else if (secundaria == "Pure Sopas y Bases")
                     idxTer = buscarIndice(terciariasPure, sizeof(terciariasPure) / sizeof(string), terciaria);
                 else if (secundaria == "Harina")
                     idxTer = buscarIndice(terciariasHarina, sizeof(terciariasHarina) / sizeof(string), terciaria);
-                // ...y así para las demás subcategorías
             }
+            else if (idPrincipal == 2) { // Desayunos
+                idxSec = buscarIndice(subcategoriasDesayunos, sizeof(subcategoriasDesayunos) / sizeof(string), secundaria);
+                if (secundaria == "Panaderia")
+                    idxTer = buscarIndice(terciariasPan, sizeof(terciariasPan) / sizeof(string), terciaria);
+                else if (secundaria == "Azucar y Sustitutos")
+                    idxTer = buscarIndice(terciariasAzucar, sizeof(terciariasAzucar) / sizeof(string), terciaria);
+                else if (secundaria == "Cafe e Infusiones")
+                    idxTer = buscarIndice(terciariasCafe, sizeof(terciariasCafe) / sizeof(string), terciaria);
+                else if (secundaria == "Cereales")
+                    idxTer = buscarIndice(terciariasCereales, sizeof(terciariasCereales) / sizeof(string), terciaria);
+                else if (secundaria == "Modificadores y Complementos")
+                    idxTer = buscarIndice(terciariasModificadores, sizeof(terciariasModificadores) / sizeof(string), terciaria);
+                else if (secundaria == "Mermeladas Mieles y Dulces")
+                    idxTer = buscarIndice(terciariasMermeladas, sizeof(terciariasMermeladas) / sizeof(string), terciaria);
+            }
+            else if (idPrincipal == 3) { // Lacteos y Quesos
+                idxSec = buscarIndice(subcategoriasLacteos, sizeof(subcategoriasLacteos) / sizeof(string), secundaria);
+                if (secundaria == "Leches")
+                    idxTer = buscarIndice(terciariasLeches, sizeof(terciariasLeches) / sizeof(string), terciaria);
+                else if (secundaria == "Yogurt")
+                    idxTer = buscarIndice(terciariasYogurt, sizeof(terciariasYogurt) / sizeof(string), terciaria);
+                else if (secundaria == "Quesos")
+                    idxTer = buscarIndice(terciariasQuesos, sizeof(terciariasQuesos) / sizeof(string), terciaria);
+                else if (secundaria == "Quesos del Mundo")
+                    idxTer = buscarIndice(terciariasQuesosMundo, sizeof(terciariasQuesosMundo) / sizeof(string), terciaria);
+                else if (secundaria == "Mantequillas y Margarinas")
+                    idxTer = buscarIndice(terciariasMantequillas, sizeof(terciariasMantequillas) / sizeof(string), terciaria);
+            }
+            else if (idPrincipal == 4) { // Huevos y Fiambres
+                idxSec = buscarIndice(subcategoriasHuevos, sizeof(subcategoriasHuevos) / sizeof(string), secundaria);
+                if (secundaria == "Huevos")
+                    idxTer = buscarIndice(terciariasHuevo, sizeof(terciariasHuevo) / sizeof(string), terciaria);
+                else if (secundaria == "Jamones")
+                    idxTer = buscarIndice(terciariasJamones, sizeof(terciariasJamones) / sizeof(string), terciaria);
+                else if (secundaria == "Jamonadas")
+                    idxTer = buscarIndice(terciariasJamonadas, sizeof(terciariasJamonadas) / sizeof(string), terciaria);
+                else if (secundaria == "Salchichas y Hot Dogs")
+                    idxTer = buscarIndice(terciariasSalchichas, sizeof(terciariasSalchichas) / sizeof(string), terciaria);
+                else if (secundaria == "Chorizos")
+                    idxTer = buscarIndice(terciariasChorizos, sizeof(terciariasChorizos) / sizeof(string), terciaria);
+                else if (secundaria == "Fiambres Gourmet")
+                    idxTer = buscarIndice(terciariasFiambres, sizeof(terciariasFiambres) / sizeof(string), terciaria);
+                else if (secundaria == "Otros Fiambres")
+                    idxTer = buscarIndice(terciariasOtrasFiambres, sizeof(terciariasOtrasFiambres) / sizeof(string), terciaria);
+                else if (secundaria == "Salsas y Cocktail")
+                    idxTer = buscarIndice(terciariasSalsas, sizeof(terciariasSalsas) / sizeof(string), terciaria);
+            }
+            else if (idPrincipal == 5) { // Frutas y Verduras
+                idxSec = buscarIndice(subcategoriasFrutas, sizeof(subcategoriasFrutas) / sizeof(string), secundaria);
+                if (secundaria == "Frutas")
+                    idxTer = buscarIndice(terciariasFruta, sizeof(terciariasFruta) / sizeof(string), terciaria);
+                else if (secundaria == "Verduras")
+                    idxTer = buscarIndice(terciariasVerdura, sizeof(terciariasVerdura) / sizeof(string), terciaria);
+                else if (secundaria == "Organicos")
+                    idxTer = buscarIndice(terciariasOrganicos, sizeof(terciariasOrganicos) / sizeof(string), terciaria);
+            }
+            else if (idPrincipal == 6) { // Carnes
+                idxSec = buscarIndice(subcategoriasCarnes, sizeof(subcategoriasCarnes) / sizeof(string), secundaria);
+                if (secundaria == "Pollo")
+                    idxTer = buscarIndice(terciariasPollo, sizeof(terciariasPollo) / sizeof(string), terciaria);
+                else if (secundaria == "Res")
+                    idxTer = buscarIndice(terciariasRes, sizeof(terciariasRes) / sizeof(string), terciaria);
+                else if (secundaria == "Cerdo")
+                    idxTer = buscarIndice(terciariasCerdo, sizeof(terciariasCerdo) / sizeof(string), terciaria);
+                else if (secundaria == "Pavo")
+                    idxTer = buscarIndice(terciariasPavo, sizeof(terciariasPavo) / sizeof(string), terciaria);
+                else if (secundaria == "Carnes Regionales")
+                    idxTer = buscarIndice(terciariasCarnesRegionales, sizeof(terciariasCarnesRegionales) / sizeof(string), terciaria);
+            }
+            else if (idPrincipal == 7) { // Pescados y Mariscos
+                idxSec = buscarIndice(subcategoriasPescados, sizeof(subcategoriasPescados) / sizeof(string), secundaria);
+                if (secundaria == "Pescados Congelados")
+                    idxTer = buscarIndice(terciariasPescadosCongelados, sizeof(terciariasPescadosCongelados) / sizeof(string), terciaria);
+                else if (secundaria == "Mariscos Congelados")
+                    idxTer = buscarIndice(terciariasMariscosCongelados, sizeof(terciariasMariscosCongelados) / sizeof(string), terciaria);
+                else if (secundaria == "Frescos")
+                    idxTer = buscarIndice(terciariasFrescos, sizeof(terciariasFrescos) / sizeof(string), terciaria);
+            }
+            else if (idPrincipal == 8) { // Congelados
+                idxSec = buscarIndice(subcategoriasCongelados, sizeof(subcategoriasCongelados) / sizeof(string), secundaria);
+                if (secundaria == "Hamburguesas")
+                    idxTer = buscarIndice(terciariasHamburguesas, sizeof(terciariasHamburguesas) / sizeof(string), terciaria);
+                else if (secundaria == "Nuggets y Empanizados")
+                    idxTer = buscarIndice(terciariasNuggets, sizeof(terciariasNuggets) / sizeof(string), terciaria);
+                else if (secundaria == "Frutas y Verduras Congeladas")
+                    idxTer = buscarIndice(terciariasFrutasCongeladas, sizeof(terciariasFrutasCongeladas) / sizeof(string), terciaria);
+                else if (secundaria == "Helados")
+                    idxTer = buscarIndice(terciariasHelados, sizeof(terciariasHelados) / sizeof(string), terciaria);
+                else if (secundaria == "Pizzas Pastas y Bocaditos")
+                    idxTer = buscarIndice(terciariasPizzas, sizeof(terciariasPizzas) / sizeof(string), terciaria);
+            }
+            else if (idPrincipal == 9) { // Panaderia y Pasteleria
+                idxSec = buscarIndice(subcategoriasPanaderia, sizeof(subcategoriasPanaderia) / sizeof(string), secundaria);
+                if (secundaria == "Panes")
+                    idxTer = buscarIndice(terciariasPanes, sizeof(terciariasPanes) / sizeof(string), terciaria);
+                else if (secundaria == "Kekes y Chifones")
+                    idxTer = buscarIndice(terciariasKekes, sizeof(terciariasKekes) / sizeof(string), terciaria);
+                else if (secundaria == "Tostadas y Bocaditos")
+                    idxTer = buscarIndice(terciariasTostadas, sizeof(terciariasTostadas) / sizeof(string), terciaria);
+                else if (secundaria == "Postres y Tortas")
+                    idxTer = buscarIndice(terciariasPostres, sizeof(terciariasPostres) / sizeof(string), terciaria);
+            }
+			else if (idPrincipal == 10) { // Dulces y Galletas
+				idxSec = buscarIndice(subcategoriasDulces, sizeof(subcategoriasDulces) / sizeof(string), secundaria);
+				if (secundaria == "Galletas")
+					idxTer = buscarIndice(terciariasGalletas, sizeof(terciariasGalletas) / sizeof(string), terciaria);
+				else if (secundaria == "Caramelos y Chupetes")
+					idxTer = buscarIndice(terciariasCaramelos, sizeof(terciariasCaramelos) / sizeof(string), terciaria);
+				else if (secundaria == "Chocolates")
+					idxTer = buscarIndice(terciariasChocolates, sizeof(terciariasChocolates) / sizeof(string), terciaria);
+				else if (secundaria == "Marshmallows y Gomitas")
+					idxTer = buscarIndice(terciariasMarshmallows, sizeof(terciariasMarshmallows) / sizeof(string), terciaria);
+			}
+			else if (idPrincipal == 11) { // Snack y Frutos Secos
+				idxSec = buscarIndice(subcategoriasSnack, sizeof(subcategoriasSnack) / sizeof(string), secundaria);
+				if (secundaria == "Frutos Secos")
+					idxTer = buscarIndice(terciariasFrutosSecos, sizeof(terciariasFrutosSecos) / sizeof(string), terciaria);
+				else if (secundaria == "Snacks")
+					idxTer = buscarIndice(terciariasSnacks, sizeof(terciariasSnacks) / sizeof(string), terciaria);
+			}
+			else if (idPrincipal == 12) { // Cervezas
+				idxSec = buscarIndice(subcategoriasCervezas, sizeof(subcategoriasCervezas) / sizeof(string), secundaria);
+				if (secundaria == "Cervezas Nacionales")
+					idxTer = buscarIndice(terciariasCervezasNacionales, sizeof(terciariasCervezasNacionales) / sizeof(string), terciaria);
+				else if (secundaria == "Cervezas Importadas")
+					idxTer = buscarIndice(terciariasCervezasImportadas, sizeof(terciariasCervezasImportadas) / sizeof(string), terciaria);
+				else if (secundaria == "Cervezas Artesanales")
+					idxTer = buscarIndice(terciariasCervezasArtesanales, sizeof(terciariasCervezasArtesanales) / sizeof(string), terciaria);
+			}
+			else if (idPrincipal == 13) { // Bebidas Alcoholicas
+				idxSec = buscarIndice(subcategoriasBebidas, sizeof(subcategoriasBebidas) / sizeof(string), secundaria);
+				if (secundaria == "Vinos y Espumantes")
+					idxTer = buscarIndice(terciariasVinos, sizeof(terciariasVinos) / sizeof(string), terciaria);
+				else if (secundaria == "Whisky")
+					idxTer = buscarIndice(terciariasWhisky, sizeof(terciariasWhisky) / sizeof(string), terciaria);
+				else if (secundaria == "Ron")
+					idxTer = buscarIndice(terciariasRon, sizeof(terciariasRon) / sizeof(string), terciaria);
+				else if (secundaria == "Pisco")
+					idxTer = buscarIndice(terciariasPisco, sizeof(terciariasPisco) / sizeof(string), terciaria);
+				else if (secundaria == "Vodka")
+					idxTer = buscarIndice(terciariasVodka, sizeof(terciariasVodka) / sizeof(string), terciaria);
+				else if (secundaria == "Tequila")
+					idxTer = buscarIndice(terciariasTequila, sizeof(terciariasTequila) / sizeof(string), terciaria);
+				else if (secundaria == "Gin")
+					idxTer = buscarIndice(terciariasGin, sizeof(terciariasGin) / sizeof(string), terciaria);
+				else if (secundaria == "Ready To Drink")
+					idxTer = buscarIndice(terciariasReady, sizeof(terciariasReady) / sizeof(string), terciaria);
+			}
+			else if (idPrincipal == 14) { // Gaseosas, Aguas y Jugos
+				idxSec = buscarIndice(subcategoriasGaseosas, sizeof(subcategoriasGaseosas) / sizeof(string), secundaria);
+				if (secundaria == "Aguas")
+					idxTer = buscarIndice(terciariasAguas, sizeof(terciariasAguas) / sizeof(string), terciaria);
+				else if (secundaria == "Energizantes y Rehidratantes")
+					idxTer = buscarIndice(terciariasEnergizantes, sizeof(terciariasEnergizantes) / sizeof(string), terciaria);
+				else if (secundaria == "Gaseosas")
+					idxTer = buscarIndice(terciariasGaseosa, sizeof(terciariasGaseosa) / sizeof(string), terciaria);
+				else if (secundaria == "Ginger Ale")
+					idxTer = buscarIndice(terciariasGinger, sizeof(terciariasGinger) / sizeof(string), terciaria);
+				else if (secundaria == "Jugos y Tes Liquidos")
+					idxTer = buscarIndice(terciariasJugos, sizeof(terciariasJugos) / sizeof(string), terciaria);
+			}
+			else if (idPrincipal == 15) { // Limpieza
+				idxSec = buscarIndice(subcategoriasLimpieza, sizeof(subcategoriasLimpieza) / sizeof(string), secundaria);
+				if (secundaria == "Accesorios de Limpieza")
+					idxTer = buscarIndice(terciariasAccesorios, sizeof(terciariasAccesorios) / sizeof(string), terciaria);
+				else if (secundaria == "Ambientadores")
+					idxTer = buscarIndice(terciariasAmbientadores, sizeof(terciariasAmbientadores) / sizeof(string), terciaria);
+				else if (secundaria == "Bolsas y Envolturas")
+					idxTer = buscarIndice(terciariasBolsas, sizeof(terciariasBolsas) / sizeof(string), terciaria);
+				else if (secundaria == "Descartables")
+					idxTer = buscarIndice(terciariasDescartables, sizeof(terciariasDescartables) / sizeof(string), terciaria);
+				else if (secundaria == "Detergente y Cuidado de la Ropa")
+					idxTer = buscarIndice(terciariasDetergente, sizeof(terciariasDetergente) / sizeof(string), terciaria);
+				else if (secundaria == "Encendido de Parrilla")
+					idxTer = buscarIndice(terciariasEncendido, sizeof(terciariasEncendido) / sizeof(string), terciaria);
+				else if (secundaria == "Lavavajillas")
+					idxTer = buscarIndice(terciariasLavavajillas, sizeof(terciariasLavavajillas) / sizeof(string), terciaria);
+				else if (secundaria == "Lejia")
+					idxTer = buscarIndice(terciariasLejia, sizeof(terciariasLejia) / sizeof(string), terciaria);
+				else if (secundaria == "Limpiadores")
+					idxTer = buscarIndice(terciariasLimpiadores, sizeof(terciariasLimpiadores) / sizeof(string), terciaria);
+				else if (secundaria == "Para Calzado")
+					idxTer = buscarIndice(terciariasCalzado, sizeof(terciariasCalzado) / sizeof(string), terciaria);
+				else if (secundaria == "Papeles Higienicos")
+					idxTer = buscarIndice(terciariasPapeles, sizeof(terciariasPapeles) / sizeof(string), terciaria);
+				else if (secundaria == "Otros Papeles")
+					idxTer = buscarIndice(terciariasOtrosPapeles, sizeof(terciariasOtrosPapeles) / sizeof(string), terciaria);
+			}
+			else if (idPrincipal == 16) { // Cuidado Personal
+				idxSec = buscarIndice(subcategoriasCuidado, sizeof(subcategoriasCuidado) / sizeof(string), secundaria);
+				if (secundaria == "Cuidado Capilar")
+					idxTer = buscarIndice(terciariasCuidadoCapilar, sizeof(terciariasCuidadoCapilar) / sizeof(string), terciaria);
+				else if (secundaria == "Jabones")
+					idxTer = buscarIndice(terciariasJabones, sizeof(terciariasJabones) / sizeof(string), terciaria);
+				else if (secundaria == "Higiene Bucal")
+					idxTer = buscarIndice(terciariasHigiene, sizeof(terciariasHigiene) / sizeof(string), terciaria);
+				else if (secundaria == "Cuidado Mujer")
+					idxTer = buscarIndice(terciariasCuidadoMujer, sizeof(terciariasCuidadoMujer) / sizeof(string), terciaria);
+				else if (secundaria == "Cuidado Hombre")
+					idxTer = buscarIndice(terciariasCuidadoHombre, sizeof(terciariasCuidadoHombre) / sizeof(string), terciaria);
+				else if (secundaria == "Incontinencia")
+					idxTer = buscarIndice(terciariasIncontinencia, sizeof(terciariasIncontinencia) / sizeof(string), terciaria);
+				else if (secundaria == "Salud y Bienestar")
+					idxTer = buscarIndice(terciariasSalud, sizeof(terciariasSalud) / sizeof(string), terciaria);
+			}
+			else if (idPrincipal == 17) { // Belleza
+				idxSec = buscarIndice(subcategoriasBelleza, sizeof(subcategoriasBelleza) / sizeof(string), secundaria);
+				if (secundaria == "Cremas Faciales")
+					idxTer = buscarIndice(terciariasCremas, sizeof(terciariasCremas) / sizeof(string), terciaria);
+				else if (secundaria == "Cuidado del Rostro")
+					idxTer = buscarIndice(terciariasCuidadoRostro, sizeof(terciariasCuidadoRostro) / sizeof(string), terciaria);
+				else if (secundaria == "Proteccion Solar")
+					idxTer = buscarIndice(terciariasProteccion, sizeof(terciariasProteccion) / sizeof(string), terciaria);
+				else if (secundaria == "Perfumeria")
+					idxTer = buscarIndice(terciariasPerfumeria, sizeof(terciariasPerfumeria) / sizeof(string), terciaria);
+			}
+			else if (idPrincipal == 18) { // Bebes y Niños
+				idxSec = buscarIndice(subcategoriasBebes, sizeof(subcategoriasBebes) / sizeof(string), secundaria);
+				if (secundaria == "Pa¤ales")
+					idxTer = buscarIndice(terciariasPaniales, sizeof(terciariasPaniales) / sizeof(string), terciaria);
+				else if (secundaria == "Aseo del Bebe")
+					idxTer = buscarIndice(terciariasAseo, sizeof(terciariasAseo) / sizeof(string), terciaria);
+				else if (secundaria == "Alimentos para Bebes")
+					idxTer = buscarIndice(terciariasAlimentos, sizeof(terciariasAlimentos) / sizeof(string), terciaria);
+			}
+			else if (idPrincipal == 19) { // Mundo Mascotas
+				idxSec = buscarIndice(subcategoriasMascotas, sizeof(subcategoriasMascotas) / sizeof(string), secundaria);
+				if (secundaria == "Perros")
+					idxTer = buscarIndice(terciariasPerros, sizeof(terciariasPerros) / sizeof(string), terciaria);
+				else if (secundaria == "Gatos")
+					idxTer = buscarIndice(terciariasGatos, sizeof(terciariasGatos) / sizeof(string), terciaria);
+				else if (secundaria == "Higiene")
+					idxTer = buscarIndice(terciariasHigieneMascota, sizeof(terciariasHigieneMascota) / sizeof(string), terciaria);
+				else if (secundaria == "Accesorios")
+					idxTer = buscarIndice(terciariasAccesoriosMascota, sizeof(terciariasAccesoriosMascota) / sizeof(string), terciaria);
+			}
 
             // Índice de producto dentro de la terciaria
             int& idxP = prodIndex[idPrincipal][secundaria][terciaria];
