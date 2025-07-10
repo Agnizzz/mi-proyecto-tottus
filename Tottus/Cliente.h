@@ -985,7 +985,7 @@ void generarProductosDePrueba(Lista<Categoria*>& productos) {
 }
 
 void procesarCompra() {
-	system("cls");
+	//system("cls");
 	// 1. VERIFICAR SI EL CARRITO ESTÁ VACÍO
 	if (productosSeleccionados->esVacia()) {
 		std::cout << "El carrito está vacío. No se puede procesar la compra.\n";
@@ -1012,7 +1012,7 @@ void procesarCompra() {
 	// 3. PEDIR CONFIRMACIÓN FINAL
 	char confirmar;
 	do {
-		system("cls"); // Limpia la pantalla para mostrar el resumen
+		//system("cls"); // Limpia la pantalla para mostrar el resumen
 		std::cout << "¿Confirma la compra? (S/N): ";
 		std::cin >> confirmar;
 		confirmar = tolower(confirmar);
