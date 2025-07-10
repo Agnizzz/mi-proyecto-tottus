@@ -695,19 +695,19 @@ void generarBoleta() {
 	int numeroBoleta = generarNumeroBoletaUnico();
 	Boleta* nuevaBoleta = new Boleta(nombreCliente, dni, numeroBoleta);
 
-	// Verificar productos en el carrito
-	cout << "\n Productos en carrito:\n";
-	for (int i = 0; i < productosSeleccionados->longitud(); ++i) {
-		Categoria* p = productosSeleccionados->getValor(i);
-		if (p == nullptr) {
-			cout << "-  Producto nulo en posicion " << i << endl;
-			continue;
-		}
-		cout << "- " << p->getNombre() << " x" << p->getCantidad() << endl;
-	}
+	//// Verificar productos en el carrito
+	//cout << "\n Productos en carrito:\n";
+	//for (int i = 0; i < productosSeleccionados->longitud(); ++i) {
+	//	Categoria* p = productosSeleccionados->getValor(i);
+	//	if (p == nullptr) {
+	//		cout << "-  Producto nulo en posicion " << i << endl;
+	//		continue;
+	//	}
+	//	cout << "- " << p->getNombre() << " x" << p->getCantidad() << endl;
+	//}
 
-	// Agregar productos (copias) a la boleta
-	cout << "\nAgregando productos a la boleta...\n";
+	//// Agregar productos (copias) a la boleta
+	//cout << "\nAgregando productos a la boleta...\n";
 	for (int i = 0; i < productosSeleccionados->longitud(); ++i) {
 		Categoria* producto = productosSeleccionados->getValor(i);
 		if (producto->getNombre().empty() || producto->getPrecioUnitario() == 0) {

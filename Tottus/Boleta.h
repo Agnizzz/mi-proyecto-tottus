@@ -80,43 +80,81 @@ public:
     }
 
     void mostrarBoleta() {
+        // 1. OBTENER DATOS DEL CLIENTE
         string nombreClienteActual = sistemaUsuarios->getUsuarioActual().nombre + " " +
             sistemaUsuarios->getUsuarioActual().apellido_paterno;
         string dniClienteActual = sistemaUsuarios->getUsuarioActual().DNI;
 
-        cout << "==============================" << endl;
-        cout << "         BOLETA DE VENTA     " << endl;
-        cout << "==============================" << endl;
-        cout << "N° Boleta: " << numeroBoleta << endl;
-        cout << "Cliente: " << nombreClienteActual << "  DNI: " << dniClienteActual << endl;
-        cout << "Fecha:   " << fecha << endl;
-        cout << "------------------------------" << endl;
-
-        cout << left << setw(35) << "Producto"
-            << right << setw(10) << "Cantidad"
-            << setw(10) << "Precio"
-            << setw(10) << "Total" << endl;
-
+        // 2. CALCULAR TOTALES
         double totalPagar = 0.0;
+        for (int i = 0; i < productos.longitud(); ++i) {
+            Categoria* p = productos.obtenerPos(i);
+            if (p == nullptr) continue;
+            totalPagar += p->getPrecioUnitario() * p->getCantidad();
+        }
 
+        double opGravada = totalPagar / 1.18;
+        double igv = totalPagar - opGravada;
+
+        // 3. FORMATEAR NÚMERO DE BOLETA
+        stringstream ss;
+        ss << "B001-" << setfill('0') << setw(8) << this->numeroBoleta;
+        string numeroBoletaFormateado = ss.str();
+
+        // 4. MOSTRAR CABECERA
+        cout << "----------------------------------------------------------" << endl;
+        cout << "            BOLETA DE VENTA ELECTRONICA" << endl;
+        cout << "                 " << numeroBoletaFormateado << endl;
+        cout << "----------------------------------------------------------" << endl;
+        cout << left << setw(14) << "Fecha y Hora:" << this->fecha << endl;
+        cout << left << setw(14) << "Cliente:" << nombreClienteActual << endl;
+        cout << left << setw(14) << "DNI:" << dniClienteActual << endl;
+        cout << "---------------------------------------------------------" << endl;
+
+        // 5. CABECERA DE PRODUCTOS
+        cout << left << setw(27) << "DESCRIPCION"
+            << right << setw(6) << "CANT."
+            << setw(11) << "P. UNIT."
+            << setw(12) << "SUBTOTAL" << endl;
+        cout << "---------------------------------------------------------" << endl;
+
+        // 6. DETALLE DE PRODUCTOS
         for (int i = 0; i < productos.longitud(); ++i) {
             Categoria* p = productos.obtenerPos(i);
             if (p == nullptr) continue;
 
-            int cantidad = p->getCantidad();
-            double precioOriginal = p->getPrecioUnitario();
-            double totalProducto = precioOriginal * cantidad;
-            totalPagar += totalProducto;
+            double subtotal = p->getCantidad() * p->getPrecioUnitario();
+            string nombre = p->getNombre();
+            size_t largoMax = 26;
+            size_t inicio = 0;
+            bool primeraLinea = true;
 
-            cout << left << setw(35) << p->getNombre()
-                << right << setw(10) << cantidad
-                << setw(10) << fixed << setprecision(2) << precioOriginal
-                << setw(10) << fixed << setprecision(2) << totalProducto << endl;
+            while (inicio < nombre.length()) {
+                string fragmento = nombre.substr(inicio, largoMax);
+                if (primeraLinea) {
+                    cout << left << setw(27) << fragmento
+                        << right << setw(6) << p->getCantidad()
+                        << "   S/ " << setw(6) << fixed << setprecision(2) << p->getPrecioUnitario()
+                        << "   S/ " << setw(6) << fixed << setprecision(2) << subtotal << endl;
+                    primeraLinea = false;
+                }
+                else {
+                    cout << left << setw(27) << fragmento << endl;
+                }
+                inicio += largoMax;
+            }
         }
 
-        cout << "------------------------------" << endl;
-        cout << "Total a pagar: S/. " << fixed << setprecision(2) << totalPagar << endl;
-        cout << "==============================" << endl;
+        // 7. TOTALES
+        cout << "---------------------------------------------------------" << endl;
+        cout << right << setw(40) << "OP. GRAVADA:   S/ " << setw(7) << fixed << setprecision(2) << opGravada << endl;
+        cout << right << setw(40) << "IGV:           S/ " << setw(7) << fixed << setprecision(2) << igv << endl;
+        cout << right << setw(40) << "TOTAL:         S/ " << setw(7) << fixed << setprecision(2) << totalPagar << endl;
+        cout << "=========================================================" << endl;
+        cout << left << "TOTAL A PAGAR:" << right << setw(35) << "S/. " << fixed << setprecision(2) << totalPagar << endl;
+        cout << "=========================================================" << endl;
+
+
     }
 
     void guardarBoletaEnArchivo() {
@@ -130,53 +168,91 @@ public:
             return;
         }
 
-        archivo << "==============================" << endl;
-        archivo << "         BOLETA DE VENTA     " << endl;
-        archivo << "==============================" << endl;
-        archivo << "N° Boleta: " << numeroBoleta << endl;
-        archivo << "Cliente: " << nombreClienteActual << "  DNI: " << dniClienteActual << endl;
-        archivo << "Fecha:   " << fecha << endl;
-        archivo << "------------------------------" << endl;
-
-        archivo << left << setw(35) << "Producto"
-            << right << setw(10) << "Cantidad"
-            << setw(10) << "Precio"
-            << setw(10) << "Total" << endl;
-
+        // 1. Calcular totales
         double totalPagar = 0.0;
-
         for (int i = 0; i < productos.longitud(); ++i) {
             Categoria* p = productos.obtenerPos(i);
-            if (p == nullptr) {
-                archivo << " Producto nulo en posición " << i << " - ignorado." << endl;
-                continue;
+            if (p != nullptr) {
+                totalPagar += p->getCantidad() * p->getPrecioUnitario();
             }
+        }
+
+        double opGravada = totalPagar / 1.18;
+        double igv = totalPagar - opGravada;
+
+        // 2. Formatear número boleta
+        stringstream ss;
+        ss << "B001-" << setfill('0') << setw(8) << this->numeroBoleta;
+        string numeroBoletaFormateado = ss.str();
+
+        // 3. Cabecera
+        archivo << "----------------------------------------------------------" << endl;
+        archivo << "            BOLETA DE VENTA ELECTRONICA" << endl;
+        archivo << "                 " << numeroBoletaFormateado << endl;
+        archivo << "----------------------------------------------------------" << endl;
+        archivo << left << setw(14) << "Fecha y Hora:" << this->fecha << endl;
+        archivo << left << setw(14) << "Cliente:" << nombreClienteActual << endl;
+        archivo << left << setw(14) << "DNI:" << dniClienteActual << endl;
+        archivo << "----------------------------------------------------------" << endl;
+
+        // 4. Cabecera productos
+        archivo << left << setw(27) << "DESCRIPCION"
+            << right << setw(6) << "CANT."
+            << setw(11) << "P. UNIT."
+            << setw(12) << "SUBTOTAL" << endl;
+        archivo << "----------------------------------------------------------" << endl;
+
+        // 5. Detalle productos
+        for (int i = 0; i < productos.longitud(); ++i) {
+            Categoria* p = productos.obtenerPos(i);
+            if (p == nullptr) continue;
 
             try {
                 int cantidad = p->getCantidad();
                 double precioOriginal = p->getPrecioUnitario();
                 double totalProducto = precioOriginal * cantidad;
-                totalPagar += totalProducto;
 
                 if (precioOriginal < 0 || precioOriginal > 10000 || cantidad < 0 || cantidad > 1000) {
                     archivo << " Producto con datos inválidos en posición " << i << endl;
                     continue;
                 }
 
-                archivo << left << setw(35) << p->getNombre()
-                    << right << setw(10) << cantidad
-                    << setw(10) << fixed << setprecision(2) << precioOriginal
-                    << setw(10) << fixed << setprecision(2) << totalProducto << endl;
+                string nombre = p->getNombre();
+                size_t largoMax = 26;
+                size_t inicio = 0;
+                bool primeraLinea = true;
+
+                while (inicio < nombre.length()) {
+                    string fragmento = nombre.substr(inicio, largoMax);
+                    if (primeraLinea) {
+                        archivo << left << setw(27) << fragmento
+                            << right << setw(6) << cantidad
+                            << "   S/ " << setw(6) << fixed << setprecision(2) << precioOriginal
+                            << "   S/ " << setw(6) << fixed << setprecision(2) << totalProducto << endl;
+                        primeraLinea = false;
+                    }
+                    else {
+                        archivo << left << setw(27) << fragmento << endl;
+                    }
+                    inicio += largoMax;
+                }
             }
             catch (...) {
                 archivo << " Error al acceder a los datos del producto " << i << endl;
             }
         }
 
-        archivo << "------------------------------" << endl;
-        archivo << "Total a pagar: S/. " << fixed << setprecision(2) << totalPagar << endl;
-        archivo << "==============================" << endl << endl;
+        // 6. Totales
+        archivo << "----------------------------------------------------------" << endl;
+        archivo << right << setw(40) << "OP. GRAVADA:   S/ " << setw(7) << fixed << setprecision(2) << opGravada << endl;
+        archivo << right << setw(40) << "IGV:           S/ " << setw(7) << fixed << setprecision(2) << igv << endl;
+        archivo << right << setw(40) << "TOTAL:         S/ " << setw(7) << fixed << setprecision(2) << totalPagar << endl;
+        archivo << "==========================================================" << endl;
+        archivo << left << "TOTAL A PAGAR:" << right << setw(35) << "S/. " << fixed << setprecision(2) << totalPagar << endl;
+        archivo << "==========================================================" << endl;
+        archivo << endl;
 
+        // 7. Registro para reporte
         archivo << "[REPORTE] "
             << numeroBoleta << ";"
             << nombreClienteActual << ";"

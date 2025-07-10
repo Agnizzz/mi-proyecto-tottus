@@ -60,3 +60,65 @@ Total a pagar: S/. 15.80
 ==============================
 
 [REPORTE] 1004;Victor Manuel Alberca;15.80
+==============================
+         BOLETA DE VENTA     
+==============================
+N° Boleta: 1005
+Cliente: Victor Manuel Alberca  DNI: 72969215
+Fecha:   10/7/2025
+------------------------------
+Producto                             Cantidad    Precio     Total
+Biosal Sal                                  2     16.10     32.20
+------------------------------
+Total a pagar: S/. 32.20
+==============================
+
+[REPORTE] 1005;Victor Manuel Alberca;32.20
+==============================
+         BOLETA DE VENTA     
+==============================
+N° Boleta: 1006
+Cliente: Victor Manuel Alberca  DNI: 72969215
+Fecha:   10/7/2025
+------------------------------
+Producto                             Cantidad    Precio     Total
+Don Vittorio Tornillo Paquete       3    4.00   12.00
+------------------------------
+Total a pagar: S/. 12.00
+==============================
+
+[REPORTE] 1006;Victor Manuel Alberca;12.00
+==============================
+         BOLETA DE VENTA     
+==============================
+N° Boleta: 1007
+Cliente: Victor Manuel Alberca  DNI: 72969215
+Fecha:   10/7/2025
+------------------------------
+Producto                             Cantidad    Precio     Total
+Paisana Arroz Integral          2    7.90   15.80
+------------------------------
+Total a pagar: S/. 15.80
+==============================
+
+[REPORTE] 1007;Victor Manuel Alberca;15.80
+----------------------------------------------------------
+            BOLETA DE VENTA ELECTRONICA
+                 B001-00001008
+----------------------------------------------------------
+Fecha y Hora: 10/7/2025
+Cliente:      Victor Manuel Alberca
+DNI:          72969215
+----------------------------------------------------------
+DESCRIPCION                 CANT.   P. UNIT.    SUBTOTAL
+----------------------------------------------------------
+Paisana Arroz Integral          2   S/   7.90   S/  15.80
+----------------------------------------------------------
+                      OP. GRAVADA:   S/   13.39
+                      IGV:           S/    2.41
+                      TOTAL:         S/   15.80
+==========================================================
+TOTAL A PAGAR:                               S/. 15.80
+==========================================================
+
+[REPORTE] 1008;Victor Manuel Alberca;15.80
